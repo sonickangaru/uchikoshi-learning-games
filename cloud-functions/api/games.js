@@ -82,7 +82,16 @@ export default async function onRequest({request,env}){
     const store=getStore({name:"uchikoshi-learning-games",consistency:"strong"});
 
     if(request.method==="GET"){
-      return out({games:await readApproved(store)});
+      const games=await readApproved(store);
+      const analytics=await readAnalytics(store);
+      return out({
+        games,
+        publicAnalytics:{
+          totalVisits:Number(analytics.totalVisits||0),
+          totalPlays:Number(analytics.totalPlays||0),
+          gamePlays:analytics.gamePlays||{}
+        }
+      });
     }
 
     if(request.method!=="POST")return out({error:"Method not allowed"},405);
@@ -147,6 +156,7 @@ export default async function onRequest({request,env}){
 
     if(body.action==="verify")return out({ok:true});
     if(body.action==="pending")return out({pending:await readPending(store)});
+    if(body.action==="analytics")return out({analytics:await readAnalytics(store)});
     if(body.action==="analytics")return out({analytics:await readAnalytics(store)});
 
     if(body.action==="approve"){
