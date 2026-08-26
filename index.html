@@ -1,0 +1,1248 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#060a12">
+<title>打越Tの中学学習ゲー</title>
+<style>
+:root{
+  --bg:#060a12;--panel:#0d1422;--panel2:#101a2b;--text:#f4f7fb;--muted:#8390a4;
+  --line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.17);
+  --cyan:#6ee7ff;--violet:#b39aff;--green:#75efbd;--orange:#ffbf7b;--pink:#ff85ae;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+  background:
+    radial-gradient(circle at 10% -6%,rgba(44,112,190,.20),transparent 28%),
+    radial-gradient(circle at 94% 7%,rgba(105,64,178,.15),transparent 25%),
+    linear-gradient(180deg,#060a12,#070c14 52%,#05080d);
+}
+button,input,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+.hidden{display:none!important}
+.shell{width:min(1290px,calc(100% - 36px));margin:auto;padding:18px 0 52px}
+
+.topbar{height:70px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:11px;color:inherit;text-decoration:none}
+.brand-mark{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
+  border:1px solid var(--line2);background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+  font-size:17px;font-weight:950
+}
+.brand-copy{display:flex;flex-direction:column;line-height:1.05}
+.brand-copy strong{font-size:12px;letter-spacing:.14em}
+.brand-copy small{margin-top:5px;font-size:8px;letter-spacing:.25em;color:#647087}
+.top-actions{display:flex;align-items:center;gap:9px}
+.add-btn,.admin-btn{
+  border-radius:999px;cursor:pointer;font-weight:950;letter-spacing:.12em
+}
+.add-btn{
+  position:relative;overflow:hidden;display:flex;align-items:center;gap:9px;
+  padding:7px 14px 7px 8px;border:1px solid rgba(110,231,255,.27);
+  background:linear-gradient(135deg,rgba(110,231,255,.13),rgba(179,154,255,.11));
+  color:#e2faff;font-size:9px
+}
+.add-btn .plus{
+  width:30px;height:30px;display:grid;place-items:center;border-radius:50%;
+  background:#ecfbff;color:#07101a;font-size:20px;font-weight:500
+}
+.add-btn:after{
+  content:"";position:absolute;inset:-2px;
+  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.16) 50%,transparent 75%);
+  transform:translateX(-125%);transition:.5s;pointer-events:none
+}
+.add-btn:hover:after{transform:translateX(125%)}
+.admin-btn{
+  padding:11px 14px;border:1px solid var(--line);background:rgba(255,255,255,.025);
+  color:#5f6c82;font-size:9px
+}
+.admin-btn:hover{color:#cbd6e5;border-color:var(--line2)}
+
+.hero{
+  min-height:440px;position:relative;overflow:hidden;border:1px solid var(--line);
+  border-radius:34px;background:linear-gradient(120deg,rgba(13,20,34,.98),rgba(10,17,30,.94));
+  box-shadow:0 30px 90px rgba(0,0,0,.33);display:flex;align-items:center;padding:60px 64px
+}
+.hero-grid{
+  position:absolute;inset:0;opacity:.16;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:42px 42px;mask-image:linear-gradient(to right,#000 0%,transparent 75%)
+}
+.hero-glow{
+  position:absolute;width:380px;height:380px;border-radius:50%;right:-70px;top:-110px;
+  background:radial-gradient(circle at 40% 40%,rgba(104,220,255,.18),rgba(89,107,255,.04) 60%,transparent 72%);
+  border:1px solid rgba(120,214,255,.08)
+}
+.hero-copy{position:relative;z-index:2}
+.kicker{display:flex;align-items:center;gap:10px;color:#7d899d;font-size:10px;font-weight:950;letter-spacing:.22em;margin-bottom:24px}
+.kicker:before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent)}
+.hero h1{margin:0;line-height:.88;letter-spacing:-.065em}
+.hero h1 .jp{display:block;font-size:clamp(38px,5.5vw,66px);font-weight:720;color:#d5deeb}
+.hero h1 .main{
+  display:block;font-size:clamp(68px,10vw,124px);font-weight:950;
+  background:linear-gradient(100deg,#fff 0%,#c0f0ff 38%,#c3b7ff 82%);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.hero p{margin:29px 0 0;color:#94a2b6;line-height:1.95;font-size:15px}
+.hero-stats{display:flex;gap:28px;margin-top:34px}
+.hero-stats div{display:flex;flex-direction:column}
+.hero-stats b{font-size:23px;letter-spacing:-.04em}
+.hero-stats span{font-size:8px;letter-spacing:.18em;color:#627087;margin-top:2px;font-weight:900}
+.atom{
+  position:absolute;right:92px;top:50%;width:260px;height:260px;transform:translateY(-50%);
+  display:grid;place-items:center;opacity:.84
+}
+.ring{position:absolute;width:238px;height:78px;border:1px solid rgba(126,218,255,.18);border-radius:50%}
+.ring:nth-child(2){transform:rotate(60deg)}
+.ring:nth-child(3){transform:rotate(-60deg)}
+.atom-core{
+  width:68px;height:68px;border-radius:50%;display:grid;place-items:center;font-size:36px;
+  color:#dff9ff;border:1px solid rgba(139,228,255,.22);
+  background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.13),rgba(80,180,255,.06));
+  box-shadow:0 0 70px rgba(84,200,255,.14)
+}
+
+.admin-panel{
+  margin-top:16px;padding:14px 16px;border:1px solid rgba(102,236,181,.19);border-radius:17px;
+  background:rgba(51,128,97,.08);display:flex;align-items:center;justify-content:space-between;gap:15px
+}
+.admin-left{display:flex;align-items:center;gap:11px}
+.admin-dot{width:9px;height:9px;border-radius:50%;background:#62eab4;box-shadow:0 0 13px rgba(98,234,180,.6)}
+.admin-left strong{display:block;font-size:10px;letter-spacing:.15em;color:#b9f6dc}
+.admin-left span{display:block;margin-top:3px;font-size:11px;color:#6f9685}
+.admin-actions{display:flex;gap:7px}
+
+.library-head{
+  margin:48px 0 18px;display:flex;align-items:flex-end;justify-content:space-between;gap:22px
+}
+.section-label{font-size:9px;letter-spacing:.18em;color:#5d697d;font-weight:900;margin-bottom:6px}
+.library-head h2{margin:0;font-size:30px;letter-spacing:-.04em}
+.library-note{margin-top:7px;color:#59667a;font-size:10px}
+.search{
+  width:min(260px,100%);height:37px;display:flex;align-items:center;gap:8px;
+  border:1px solid var(--line);border-radius:999px;padding:0 13px;background:rgba(255,255,255,.02)
+}
+.search span{color:#59667a}
+.search input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:#dbe4ef;font-size:10px;font-weight:800;letter-spacing:.07em}
+.search input::placeholder{color:#4c586c}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.card{
+  --accent:#6ee7ff;position:relative;min-height:292px;overflow:hidden;border:1px solid var(--line);
+  border-radius:25px;background:linear-gradient(145deg,rgba(15,23,38,.97),rgba(9,15,27,.99));
+  box-shadow:0 18px 42px rgba(0,0,0,.16);transition:.22s
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.18);box-shadow:0 28px 58px rgba(0,0,0,.26)}
+.card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--accent),transparent)}
+.card:after{
+  content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:-110px;top:-100px;
+  background:radial-gradient(circle,var(--accent),transparent 67%);opacity:.08
+}
+.card-grid{
+  position:absolute;inset:0;opacity:.10;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:28px 28px;mask-image:linear-gradient(120deg,transparent 24%,#000 100%)
+}
+.card-inner{position:relative;z-index:2;height:100%;padding:24px 25px 23px;display:flex;flex-direction:column}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.game-no{font-size:10px;letter-spacing:.17em;color:#4b576b;font-weight:900}
+.badges{display:flex;gap:6px}
+.badge{border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:8px;letter-spacing:.08em;color:#77849a;font-weight:900}
+.badge.new{background:var(--accent);border-color:var(--accent);color:#061019}
+.game-visual{display:flex;align-items:center;gap:17px;margin-top:24px}
+.icon{
+  width:76px;height:76px;flex:0 0 auto;border-radius:22px;display:grid;place-items:center;font-size:40px;
+  border:1px solid rgba(255,255,255,.10);
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.10),transparent 42%),
+             linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.018))
+}
+.title-wrap small{display:block;color:var(--accent);font-size:8px;font-weight:950;letter-spacing:.18em;margin-bottom:6px;opacity:.86}
+.card h3{margin:0;font-size:26px;letter-spacing:-.04em;line-height:1.16}
+.card p{flex:1;margin:19px 0 22px;color:#7e8ca1;line-height:1.75;font-size:12px;max-width:93%}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.play{display:inline-flex;align-items:center;gap:13px;color:#ebf6fb;text-decoration:none;font-size:10px;font-weight:950;letter-spacing:.12em}
+.play span{
+  width:35px;height:35px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.035);transition:.18s
+}
+.card:hover .play span{transform:translateX(4px);background:var(--accent);border-color:var(--accent);color:#061019}
+.manage{display:flex;gap:5px}
+.manage button{
+  width:31px;height:31px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.025);
+  color:#8090a6;cursor:pointer;font-weight:900
+}
+.manage button:hover{background:rgba(255,255,255,.07);color:#e0e8f2}
+.manage .del:hover{background:rgba(220,70,80,.16);color:#ff9da5;border-color:rgba(255,100,112,.22)}
+.empty{padding:45px;border:1px dashed var(--line);border-radius:22px;text-align:center;color:#586579;font-size:12px}
+.empty b{display:block;margin-bottom:7px;font-size:9px;letter-spacing:.2em;color:#3f495a}
+.footer{
+  margin-top:35px;padding:22px 2px 4px;border-top:1px solid rgba(255,255,255,.055);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:15px;color:#4a5668
+}
+.footer strong{display:block;font-size:9px;letter-spacing:.17em}
+.footer small{display:block;margin-top:5px;font-size:8px;letter-spacing:.11em}
+.footer-msg{font-size:9px}
+
+.modal{
+  position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;
+  background:rgba(2,5,10,.79);backdrop-filter:blur(12px)
+}
+.modal-card{
+  width:min(560px,100%);max-height:90vh;overflow:auto;position:relative;
+  border:1px solid var(--line2);border-radius:26px;padding:28px;
+  background:linear-gradient(160deg,#111a2b,#09111d);box-shadow:0 38px 110px rgba(0,0,0,.56)
+}
+.modal-card.small{width:min(415px,100%)}
+.modal-x{
+  position:absolute;right:15px;top:14px;width:34px;height:34px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:#718096;font-size:20px;cursor:pointer
+}
+.modal-code{font-size:8px;letter-spacing:.21em;font-weight:950;color:#5e6b80;margin-bottom:17px}
+.modal-symbol{
+  width:54px;height:54px;border-radius:16px;display:grid;place-items:center;margin-bottom:16px;
+  border:1px solid var(--line);background:rgba(255,255,255,.035);font-size:27px
+}
+.modal h2{margin:0 40px 10px 0;font-size:29px;letter-spacing:-.045em}
+.modal-lead{margin:0 0 20px;color:#7e8ca0;line-height:1.65;font-size:12px}
+.field{display:block;margin-bottom:15px}
+.field span{display:block;margin-bottom:7px;color:#6d7a8f;font-size:8px;font-weight:950;letter-spacing:.14em}
+.field input,.field textarea{
+  width:100%;border:1px solid var(--line);border-radius:11px;background:#080f1a;color:#e9eff6;
+  padding:12px 12px;outline:none;font-size:12px
+}
+.field textarea{resize:vertical;min-height:88px}
+.field input:focus,.field textarea:focus{border-color:rgba(110,231,255,.35);box-shadow:0 0 0 3px rgba(110,231,255,.045)}
+.form-row{display:grid;grid-template-columns:130px 1fr;gap:12px}
+.emoji-row{display:flex;align-items:end;gap:5px;margin-bottom:15px}
+.emoji-row button{
+  width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:#080f1a;cursor:pointer;font-size:17px
+}
+.emoji-row button:hover{border-color:rgba(110,231,255,.32);background:rgba(110,231,255,.05)}
+.url-hint{margin:-6px 0 16px;color:#58677a;font-size:9px;line-height:1.6}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.action{
+  border:1px solid var(--line2);border-radius:11px;padding:10px 13px;background:rgba(255,255,255,.035);
+  color:#a9b6c8;font-size:9px;font-weight:950;letter-spacing:.09em;cursor:pointer
+}
+.action.primary{background:#edf7fb;border-color:#edf7fb;color:#07101a}
+.action.danger{background:#e55362;border-color:#e55362;color:#fff}
+.action.review{
+  background:rgba(255,191,123,.09);
+  border-color:rgba(255,191,123,.22);
+  color:#ffd7ad
+}
+.action.review span{
+  display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-left:5px;
+  border-radius:999px;background:#ffbf7b;color:#111923;font-size:9px
+}
+.action:hover{filter:brightness(1.06)}
+.error{
+  margin-top:11px;padding:10px 11px;border:1px solid rgba(255,92,108,.22);border-radius:11px;
+  background:rgba(180,54,65,.10);color:#ff9aa4;font-size:11px;line-height:1.5
+}
+.toast{
+  position:fixed;left:50%;bottom:24px;z-index:150;transform:translateX(-50%);
+  padding:11px 16px;border-radius:999px;background:#edf7fb;color:#07101a;
+  font-size:10px;font-weight:950;letter-spacing:.05em;box-shadow:0 16px 50px rgba(0,0,0,.35)
+}
+.review-card{width:min(720px,100%)}
+.pending-list{display:grid;gap:10px}
+.pending-item{
+  border:1px solid var(--line);border-radius:17px;padding:15px;
+  background:rgba(255,255,255,.022);display:grid;grid-template-columns:54px 1fr auto;gap:13px;align-items:center
+}
+.pending-icon{
+  width:54px;height:54px;border-radius:15px;display:grid;place-items:center;font-size:28px;
+  border:1px solid var(--line);background:rgba(255,255,255,.035)
+}
+.pending-main{min-width:0}
+.pending-main strong{display:block;font-size:15px;margin-bottom:4px}
+.pending-main p{margin:0 0 6px!important;font-size:10px!important;color:#77869b!important;line-height:1.5!important}
+.pending-domain{
+  display:inline-flex;max-width:100%;padding:5px 8px;border-radius:999px;border:1px solid var(--line);
+  color:#6ee7ff;font-size:8px;font-weight:900;letter-spacing:.05em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.pending-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.pending-actions button{white-space:nowrap}
+.review-empty{
+  border:1px dashed var(--line);border-radius:16px;padding:28px;text-align:center;color:#657287;font-size:11px
+}
+@media(max-width:680px){
+  .pending-item{grid-template-columns:48px 1fr}
+  .pending-actions{grid-column:1/-1;justify-content:flex-start}
+  .pending-icon{width:48px;height:48px}
+}
+.status-pill{
+  display:inline-flex;align-items:center;gap:7px;margin-top:11px;padding:7px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);color:#647287;font-size:9px
+}
+.status-pill i{width:7px;height:7px;border-radius:50%;background:#617087}
+.status-pill.online i{background:#61e9b3;box-shadow:0 0 10px rgba(97,233,179,.5)}
+.status-pill.offline{
+  border-color:rgba(255,105,120,.18);color:#a86c76;background:rgba(180,54,65,.045)
+}
+.status-pill.offline i{background:#ff6978;box-shadow:0 0 10px rgba(255,105,120,.38)}
+
+@media(max-width:860px){
+  .hero{min-height:400px;padding:45px 38px}
+  .atom{right:15px;opacity:.34;transform:translateY(-50%) scale(.85)}
+}
+@media(max-width:700px){
+  .shell{width:min(100% - 18px,1290px);padding-top:4px}
+  .topbar{height:61px}
+  .brand-copy strong{font-size:9px}
+  .add-btn>span:last-child{display:none}
+  .add-btn{padding-right:8px}
+  .admin-btn{padding:10px}
+  .hero{min-height:390px;border-radius:24px;padding:36px 25px}
+  .hero h1 .jp{font-size:38px}.hero h1 .main{font-size:70px}
+  .hero p{font-size:13px}.atom{right:-80px;top:37%;opacity:.22;transform:translateY(-50%) scale(.75)}
+  .library-head{margin-top:35px;align-items:flex-start;flex-direction:column}
+  .search{width:100%}.grid{grid-template-columns:1fr}.card{min-height:280px}
+  .admin-panel{align-items:flex-start;flex-direction:column}
+  .form-row{grid-template-columns:1fr}.emoji-row{align-items:center;margin-top:-6px}
+  .footer{align-items:flex-start;flex-direction:column}
+}
+
+.subject-nav{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  gap:7px;
+}
+.subject-tab{
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.018);
+  color:#667489;
+  padding:10px 5px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.subject-tab span{font-size:18px;line-height:1}
+.subject-tab b{font-size:9px;letter-spacing:.03em;white-space:nowrap}
+.subject-tab:hover{
+  color:#d8e3ef;
+  border-color:rgba(255,255,255,.16);
+  background:rgba(255,255,255,.035);
+  transform:translateY(-2px)
+}
+.subject-tab.active{
+  color:#07101a;
+  background:linear-gradient(135deg,#eafaff,#d9d2ff);
+  border-color:transparent;
+  box-shadow:0 10px 30px rgba(110,231,255,.09)
+}
+.subject-badge{
+  border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+  color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 7%,transparent);
+}
+.field select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#080f1a;
+  color:#e9eff6;
+  padding:12px 12px;
+  outline:none;
+  font-size:12px
+}
+.field select:focus{
+  border-color:rgba(110,231,255,.35);
+  box-shadow:0 0 0 3px rgba(110,231,255,.045)
+}
+.pending-subject{
+  display:inline-flex;
+  margin-right:6px;
+  padding:5px 8px;
+  border-radius:999px;
+  border:1px solid rgba(179,154,255,.18);
+  color:#c7baff;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.05em
+}
+@media(max-width:1000px){
+  .subject-nav{grid-template-columns:repeat(5,1fr)}
+}
+@media(max-width:580px){
+  .subject-nav{
+    grid-template-columns:repeat(3,1fr);
+    gap:6px
+  }
+  .subject-tab{padding:9px 4px}
+  .subject-tab span{font-size:17px}
+}
+
+
+.action.analytics{
+  color:#bfefff;
+  border-color:rgba(110,231,255,.20);
+  background:rgba(110,231,255,.065)
+}
+.action.analytics:hover{
+  color:#ecfbff;
+  border-color:rgba(110,231,255,.38);
+  background:rgba(110,231,255,.11)
+}
+.analytics-card{width:min(820px,100%)}
+.analytics-title-row{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:15px
+}
+.metric-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0 28px
+}
+.metric{
+  min-height:122px;border:1px solid var(--line);border-radius:18px;padding:16px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(110,231,255,.07),transparent 48%),
+    rgba(255,255,255,.022)
+}
+.metric span{
+  display:block;font-size:8px;letter-spacing:.15em;font-weight:950;color:#68768b
+}
+.metric b{
+  display:block;margin:12px 0 4px;font-size:34px;letter-spacing:-.055em;color:#edf8ff
+}
+.metric small{font-size:9px;color:#647287}
+.analytics-section{
+  border-top:1px solid rgba(255,255,255,.06);padding-top:22px;margin-top:22px
+}
+.analytics-section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:13px}
+.analytics-section-head span{
+  display:block;font-size:8px;letter-spacing:.18em;font-weight:950;color:#58667b;margin-bottom:5px
+}
+.analytics-section-head h3{margin:0;font-size:18px;letter-spacing:-.03em}
+.ranking-list{display:grid;gap:8px}
+.ranking-item{
+  display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:11px;
+  border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:rgba(255,255,255,.018)
+}
+.rank-no{
+  width:30px;height:30px;display:grid;place-items:center;border-radius:9px;
+  background:rgba(255,255,255,.04);color:#7d8ba0;font-size:10px;font-weight:950
+}
+.rank-main{min-width:0}
+.rank-title{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rank-title strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank-title small{font-size:8px;color:#657287;white-space:nowrap}
+.rank-bar{
+  height:4px;margin-top:8px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden
+}
+.rank-bar i{
+  display:block;height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,#6ee7ff,#b39aff)
+}
+.rank-count{font-size:16px;font-weight:950;color:#dff7ff;white-space:nowrap}
+.rank-count small{display:block;font-size:7px;color:#5e6b7e;letter-spacing:.12em;text-align:right}
+.seven-days{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:7px;align-items:end;min-height:150px
+}
+.day-col{
+  height:140px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px
+}
+.day-num{font-size:10px;font-weight:900;color:#8391a5}
+.day-bar-wrap{
+  width:100%;height:100px;border-radius:10px;display:flex;align-items:flex-end;
+  background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.045);overflow:hidden
+}
+.day-bar{
+  width:100%;min-height:2px;border-radius:8px 8px 0 0;
+  background:linear-gradient(180deg,#8cecff,#796dff)
+}
+.day-label{font-size:8px;color:#5e6b7e;white-space:nowrap}
+.privacy-note{
+  margin-top:24px;border:1px solid rgba(110,231,255,.10);border-radius:14px;
+  padding:12px 13px;background:rgba(110,231,255,.025);display:flex;gap:12px;align-items:flex-start
+}
+.privacy-note strong{font-size:8px;letter-spacing:.14em;color:#79b8c8;white-space:nowrap}
+.privacy-note span{font-size:9px;color:#627185;line-height:1.55}
+@media(max-width:720px){
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
+  .analytics-title-row{flex-direction:column}
+  .ranking-item{grid-template-columns:30px 1fr}
+  .rank-count{grid-column:2;text-align:left}
+  .rank-count small{text-align:left;display:inline;margin-left:4px}
+  .seven-days{gap:4px}
+  .day-label{font-size:7px}
+  .privacy-note{flex-direction:column;gap:5px}
+}
+
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="./">
+      <span class="brand-mark">U</span>
+      <span class="brand-copy"><strong>UCHIKOSHI LEARNING</strong><small>JUNIOR HIGH GAME ARCHIVE</small></span>
+    </a>
+    <div class="top-actions">
+      <button id="addOpen" class="add-btn" type="button"><span class="plus">＋</span><span>ADD GAME</span></button>
+      <button id="adminOpen" class="admin-btn" type="button">ADMIN ⚙</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div><div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <div class="kicker">UCHIKOSHI LEARNING ARCADE</div>
+      <h1><span class="jp">打越Tの</span><span class="main">中学学習ゲー</span></h1>
+      <p>中学9教科の学びが、ここに集まる。<br>遊ぶ。つくる。教科をこえて増えていく。</p>
+      <div class="hero-stats">
+        <div><b id="countTop">4</b><span>GAMES</span></div>
+        <div><b>∞</b><span>UPDATE</span></div>
+        <div><b>01</b><span>BASE</span></div>
+      </div>
+      <div id="backendStatus" class="status-pill"><i></i><span>接続確認中…</span></div>
+    </div>
+    <div class="atom" aria-hidden="true"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="atom-core">⚛</div></div>
+  </section>
+
+  <section id="adminPanel" class="admin-panel hidden">
+    <div class="admin-left"><div class="admin-dot"></div><div><strong>ADMIN MODE</strong><span>編集・削除・並べ替えができます。</span></div></div>
+    <div class="admin-actions">
+      <button id="analyticsOpen" class="action analytics" type="button">ANALYTICS</button>
+      <button id="pendingOpen" class="action review" type="button">PENDING <span id="pendingCount">0</span></button>
+      <button id="adminAdd" class="action primary" type="button">＋ ADD</button>
+      <button id="adminExit" class="action" type="button">EXIT</button>
+    </div>
+  </section>
+
+  
+  <nav class="subject-nav" aria-label="教科">
+    <button class="subject-tab active" data-subject="latest" type="button"><span>✦</span><b>LATEST</b></button>
+    <button class="subject-tab" data-subject="japanese" type="button"><span>📖</span><b>国語</b></button>
+    <button class="subject-tab" data-subject="social" type="button"><span>🗺️</span><b>社会</b></button>
+    <button class="subject-tab" data-subject="math" type="button"><span>📐</span><b>数学</b></button>
+    <button class="subject-tab" data-subject="science" type="button"><span>⚛️</span><b>理科</b></button>
+    <button class="subject-tab" data-subject="music" type="button"><span>🎵</span><b>音楽</b></button>
+    <button class="subject-tab" data-subject="art" type="button"><span>🎨</span><b>美術</b></button>
+    <button class="subject-tab" data-subject="pe" type="button"><span>🏃</span><b>保健体育</b></button>
+    <button class="subject-tab" data-subject="tech_home" type="button"><span>🛠️</span><b>技術・家庭</b></button>
+    <button class="subject-tab" data-subject="english" type="button"><span>🔤</span><b>英語</b></button>
+  </nav>
+
+  <section class="library-head">
+    <div>
+      <div id="libraryLabel" class="section-label">LATEST / NEW GAMES</div>
+      <h2 id="libraryTitle">NEW ARRIVALS</h2>
+      <div class="library-note">最新ゲームから、9教科それぞれの学習ゲームへ。</div>
+    </div>
+    <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="SEARCH GAME"></label>
+  </section>
+
+  <section id="grid" class="grid"></section>
+  <div id="empty" class="empty hidden"><b>NO GAME FOUND</b>条件に合うゲームがありません。</div>
+
+  <footer class="footer">
+    <div><strong>UCHIKOSHI T'S JUNIOR HIGH GAMES</strong><small>© SCIENCE JUNIOR HIGH GAME ARCHIVE</small></div>
+    <div id="footerMsg" class="footer-msg">＋ ADD GAME から9教科のゲームを投稿できます。承認後に公開されます。</div>
+  </footer>
+</main>
+
+<!-- ADD / EDIT -->
+<div id="gameModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="modal-x" data-close="gameModal">×</button>
+    <div id="gameCode" class="modal-code">COMMUNITY / ADD GAME</div>
+    <h2 id="gameTitleHeading">ゲームを追加</h2>
+    <p id="gameLead" class="modal-lead">教科を選んで投稿。いったん承認待ちになり、打越Tの承認後に公開されます。</p>
+    <form id="gameForm">
+      <input id="editId" type="hidden">
+      <label class="field"><span>GAME TITLE *</span><input id="titleInput" maxlength="80" required placeholder="例：英単語ダンジョン"></label>
+
+      <label class="field">
+        <span>SUBJECT *</span>
+        <select id="subjectInput" required>
+          <option value="japanese">国語</option>
+          <option value="social">社会</option>
+          <option value="math">数学</option>
+          <option value="science" selected>理科</option>
+          <option value="music">音楽</option>
+          <option value="art">美術</option>
+          <option value="pe">保健体育</option>
+          <option value="tech_home">技術・家庭</option>
+          <option value="english">英語</option>
+        </select>
+      </label>
+
+      <div class="form-row">
+        <label class="field"><span>ICON</span><input id="iconInput" maxlength="12" placeholder="⚡"></label>
+        <div class="emoji-row">
+          <button type="button" data-emoji="⚡">⚡</button><button type="button" data-emoji="🧪">🧪</button>
+          <button type="button" data-emoji="🌱">🌱</button><button type="button" data-emoji="🌍">🌍</button>
+          <button type="button" data-emoji="🧬">🧬</button><button type="button" data-emoji="🎮">🎮</button>
+        </div>
+      </div>
+      <label class="field"><span>DESCRIPTION</span><textarea id="descInput" maxlength="180" placeholder="どんなゲームか、ひとことで。"></textarea></label>
+      <label class="field"><span>GAME URL *</span><input id="urlInput" maxlength="700" required placeholder="https://..."></label>
+      <div class="url-hint">Netlify / EdgeOne / Vercel / GitHub Pages / itch.io など。公開URLなら登録できます。投稿後、管理者の承認を受けてから公開されます。</div>
+      <div id="gameError" class="error hidden"></div>
+      <div class="actions"><button type="button" class="action" data-close="gameModal">CANCEL</button><button type="submit" class="action primary">ADD TO BASE</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminModal" class="modal hidden">
+  <div class="modal-card small">
+    <button class="modal-x" data-close="adminModal">×</button>
+    <div class="modal-code">ACCESS / ADMIN</div><div class="modal-symbol">⌬</div>
+    <h2>管理モード</h2><p class="modal-lead">管理PINを入力してください。</p>
+    <label class="field"><span>ADMIN PIN</span><input id="pinInput" type="password" autocomplete="current-password" placeholder="••••••"></label>
+    <div id="pinError" class="error hidden"></div>
+    <button id="pinSubmit" type="button" class="action primary" style="width:100%">ENTER</button>
+  </div>
+</div>
+
+<!-- DELETE -->
+<div id="deleteModal" class="modal hidden">
+  <div class="modal-card small">
+    <div class="modal-code">ADMIN / DELETE</div><div class="modal-symbol">×</div>
+    <h2>削除する？</h2><p id="deleteText" class="modal-lead"></p>
+    <div class="actions"><button id="deleteCancel" class="action">CANCEL</button><button id="deleteConfirm" class="action danger">DELETE</button></div>
+  </div>
+</div>
+
+
+
+<!-- ANALYTICS -->
+<div id="analyticsModal" class="modal hidden">
+  <div class="modal-card analytics-card">
+    <button class="modal-x" data-close="analyticsModal">×</button>
+    <div class="modal-code">ADMIN / ANALYTICS</div>
+    <div class="analytics-title-row">
+      <div>
+        <h2>アクセス解析</h2>
+        <p class="modal-lead">個人情報は取らず、訪問とPLAYだけを集計しています。</p>
+      </div>
+      <button id="analyticsRefresh" class="action" type="button">↻ REFRESH</button>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <span>TODAY VISITS</span>
+        <b id="metricToday">—</b>
+        <small>今日の訪問</small>
+      </div>
+      <div class="metric">
+        <span>TOTAL VISITS</span>
+        <b id="metricTotal">—</b>
+        <small>累計訪問</small>
+      </div>
+      <div class="metric">
+        <span>TOTAL PLAYS</span>
+        <b id="metricPlays">—</b>
+        <small>累計PLAY</small>
+      </div>
+      <div class="metric">
+        <span>PUBLISHED</span>
+        <b id="metricGames">—</b>
+        <small>公開ゲーム数</small>
+      </div>
+    </div>
+
+    <div class="analytics-section">
+      <div class="analytics-section-head">
+        <div>
+          <span>RANKING / PLAY</span>
+          <h3>人気ゲーム</h3>
+        </div>
+      </div>
+      <div id="rankingList" class="ranking-list"></div>
+      <div id="rankingEmpty" class="review-empty hidden">まだPLAYデータがありません。</div>
+    </div>
+
+    <div class="analytics-section">
+      <div class="analytics-section-head">
+        <div>
+          <span>LAST 7 DAYS</span>
+          <h3>訪問の推移</h3>
+        </div>
+      </div>
+      <div id="sevenDays" class="seven-days"></div>
+    </div>
+
+    <div class="privacy-note">
+      <strong>ABOUT COUNTING</strong>
+      <span>VISITSは、同じブラウザの1セッションを1回として概算します。IPアドレス・氏名などの個人情報は保存しません。</span>
+    </div>
+  </div>
+</div>
+
+<!-- PENDING REVIEW -->
+<div id="pendingModal" class="modal hidden">
+  <div class="modal-card review-card">
+    <button class="modal-x" data-close="pendingModal">×</button>
+    <div class="modal-code">ADMIN / MODERATION</div>
+    <h2>承認待ち</h2>
+    <p class="modal-lead">投稿されたゲームを確認して、公開するか却下します。</p>
+    <div id="pendingList" class="pending-list"></div>
+    <div id="pendingEmpty" class="review-empty hidden">承認待ちの投稿はありません。</div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+const SEED_GAMES = [
+  {id:"ion-battle",title:"イオンカードゲーム",icon:"🧪",description:"イオンを組み合わせ、完成物をつくって戦うカードゲーム。",url:"",isNew:false},
+  {id:"busshitsu-lab",title:"物質追究ラボ",icon:"🔬",description:"実験・推理・研究をくり返して、謎の物質を追究する。",url:"",isNew:false},
+  {id:"science-breakers",title:"サイエンスブレーカー",icon:"💥",description:"問題を解いて報酬を獲得し、科学の世界を攻略する。",url:"",isNew:false},
+  {id:"force-lab",title:"力の矢印ゲーム",icon:"🏹",description:"作用点・向き・大きさを見抜いて、力を矢印で表そう。",url:"",isNew:false}
+];
+const ACCENTS=["#6ee7ff","#b39aff","#75efbd","#ffbf7b","#ff85ae","#82aaff"];
+const SUBJECTS={
+  japanese:{name:"国語",code:"JAPANESE",accent:"#ff8fa3"},
+  social:{name:"社会",code:"SOCIAL STUDIES",accent:"#ffbd73"},
+  math:{name:"数学",code:"MATHEMATICS",accent:"#77a8ff"},
+  science:{name:"理科",code:"SCIENCE",accent:"#6ee7ff"},
+  music:{name:"音楽",code:"MUSIC",accent:"#c49aff"},
+  art:{name:"美術",code:"ART",accent:"#ff8bd8"},
+  pe:{name:"保健体育",code:"HEALTH & PE",accent:"#75efbd"},
+  tech_home:{name:"技術・家庭",code:"TECH & HOME",accent:"#ffd36e"},
+  english:{name:"英語",code:"ENGLISH",accent:"#9aa7ff"}
+};
+let games=[], pendingGames=[], activeSubject="latest", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null;
+const LOCAL_PREVIEW = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+const $=id=>document.getElementById(id);
+
+function esc(v=""){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function validUrl(v){
+  try{const u=new URL(v);return u.protocol==="http:"||u.protocol==="https:"}catch{return false}
+}
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.remove("hidden");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.add("hidden"),2200)}
+function openM(id){$(id).classList.remove("hidden")}
+function closeM(id){$(id).classList.add("hidden")}
+function localLoad(){try{return JSON.parse(localStorage.getItem("uchikoshi_universal_games"))||SEED_GAMES}catch{return SEED_GAMES}}
+function localSave(){localStorage.setItem("uchikoshi_universal_games",JSON.stringify(games))}
+function setBackendStatus(ok){
+  const el=$("backendStatus");backend=ok;
+  el.classList.toggle("online",ok);
+  el.classList.toggle("offline",!ok && !LOCAL_PREVIEW);
+  if(ok){
+    el.querySelector("span").textContent="COMMUNITY SAVE ONLINE";
+    $("footerMsg").textContent="追加したゲームは、みんなの画面にも反映されます。";
+  }else if(LOCAL_PREVIEW){
+    el.querySelector("span").textContent="LOCAL PREVIEW";
+    $("footerMsg").textContent="ローカル確認中。共有保存は本番サイトで動作します。";
+  }else{
+    el.querySelector("span").textContent="SHARED SAVE OFFLINE";
+    $("footerMsg").textContent="共有サーバーに接続できていません。追加・ADMINは一時停止中です。";
+  }
+}
+async function loadGames(){
+  try{
+    const r=await fetch("/api/games",{cache:"no-store"});
+    if(!r.ok) throw new Error(`API ${r.status}`);
+    const d=await r.json();
+    games=Array.isArray(d.games)?d.games:SEED_GAMES;
+    setBackendStatus(true);
+  }catch(err){
+    console.warn("Shared API unavailable:",err);
+    games=LOCAL_PREVIEW?localLoad():SEED_GAMES;
+    setBackendStatus(false);
+
+    if(!LOCAL_PREVIEW){
+      try{
+        const h=await fetch("/api/health",{cache:"no-store"});
+        if(h.ok){
+          $("backendStatus").querySelector("span").textContent="STORAGE OFFLINE";
+          $("footerMsg").textContent="Functionsは動作していますが、共有ストレージに接続できません。";
+        }else{
+          $("backendStatus").querySelector("span").textContent="FUNCTIONS OFFLINE";
+          $("footerMsg").textContent="EdgeOne Functionsが起動していません。Gitビルド設定を確認してください。";
+        }
+      }catch{
+        $("backendStatus").querySelector("span").textContent="FUNCTIONS OFFLINE";
+        $("footerMsg").textContent="EdgeOne Functionsが起動していません。Gitビルド設定を確認してください。";
+      }
+    }
+  }
+  render();
+  trackVisit();
+}
+function render(){
+  const q=$("searchInput").value.trim().toLowerCase();
+
+  let base=[...games];
+  if(activeSubject==="latest"){
+    base.sort((a,b)=>(Number(b.approvedAt||b.submittedAt||0)-Number(a.approvedAt||a.submittedAt||0)));
+  }else{
+    base=base.filter(g=>(g.subject||"science")===activeSubject);
+  }
+
+  const list=base.filter(g=>`${g.title||""} ${g.description||""} ${SUBJECTS[g.subject||"science"]?.name||""}`.toLowerCase().includes(q));
+
+  $("countTop").textContent=games.length;
+  const subjectMeta=activeSubject==="latest"
+    ? {label:"LATEST / NEW GAMES",title:"NEW ARRIVALS"}
+    : {label:`SUBJECT / ${SUBJECTS[activeSubject]?.code||"GAME"}`,title:SUBJECTS[activeSubject]?.name||"GAME SELECT"};
+  $("libraryLabel").textContent=subjectMeta.label;
+  $("libraryTitle").textContent=subjectMeta.title;
+
+  $("grid").innerHTML=list.map((g)=>{
+    const i=games.findIndex(x=>x.id===g.id);
+    const subject=g.subject||"science";
+    const meta=SUBJECTS[subject]||SUBJECTS.science;
+    const accent=meta.accent;
+    const has=!!g.url;
+    const manage=admin?`<div class="manage">
+      <button data-act="up" data-id="${esc(g.id)}" ${i===0?"disabled":""}>↑</button>
+      <button data-act="down" data-id="${esc(g.id)}" ${i===games.length-1?"disabled":""}>↓</button>
+      <button data-act="edit" data-id="${esc(g.id)}">✎</button>
+      <button class="del" data-act="delete" data-id="${esc(g.id)}">×</button>
+    </div>`:"";
+
+    return `<article class="card" style="--accent:${accent}">
+      <div class="card-grid"></div><div class="card-inner">
+        <div class="card-top"><span class="game-no">GAME / ${String(i+1).padStart(2,"0")}</span>
+          <div class="badges">
+            ${g.isNew?'<span class="badge new">NEW</span>':""}
+            <span class="badge subject-badge">${esc(meta.name)}</span>
+          </div>
+        </div>
+        <div class="game-visual"><div class="icon">${esc(g.icon||"🎮")}</div>
+          <div class="title-wrap"><small>${esc(meta.code)}</small><h3>${esc(g.title)}</h3></div>
+        </div>
+        <p>${esc(g.description||"説明はまだありません。")}</p>
+        <div class="card-bottom">
+          ${has?`<a class="play" data-game-id="${esc(g.id)}" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">PLAY GAME <span>→</span></a>`:`<span class="play" style="opacity:.35">URL NOT SET <span>—</span></span>`}
+          ${manage}
+        </div>
+      </div></article>`;
+  }).join("");
+  $("empty").classList.toggle("hidden",list.length!==0);
+}
+function fillForm(game=null,mode="public"){
+  $("gameForm").dataset.mode=game?"admin-edit":mode;
+  $("editId").value=game?.id||"";
+  $("titleInput").value=game?.title||"";
+  $("iconInput").value=game?.icon||"🎮";
+  $("descInput").value=game?.description||"";
+  $("urlInput").value=game?.url||"";
+  $("subjectInput").value=game?.subject||"science";
+  $("gameError").classList.add("hidden");
+  $("gameCode").textContent=game?"ADMIN / EDIT GAME":"COMMUNITY / ADD GAME";
+  $("gameTitleHeading").textContent=game?"ゲームを編集":"ゲームを追加";
+  $("gameLead").textContent=game?"登録内容を変更できます。":"教科を選んで投稿。いったん承認待ちになり、打越Tの承認後に公開されます。";
+  $("gameForm").querySelector('button[type="submit"]').textContent=game?"SAVE CHANGES":"ADD TO BASE";
+}
+async function publicAdd(item){
+  if(!backend){
+    if(LOCAL_PREVIEW){
+      const localPending = JSON.parse(localStorage.getItem("uchikoshi_pending_games") || "[]");
+      localPending.push({...item,id:`pending-${Date.now()}`,submittedAt:Date.now()});
+      localStorage.setItem("uchikoshi_pending_games",JSON.stringify(localPending));
+      return {pending:true};
+    }
+    throw new Error("共有サーバーに接続できていないため、いまは投稿できません。");
+  }
+
+  const r=await fetch("/api/games",{
+    method:"POST",
+    headers:{"content-type":"application/json"},
+    body:JSON.stringify({action:"submit",game:item})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||"投稿できませんでした。");
+  return d;
+}
+async function adminSave(){
+  if(!backend){
+    if(LOCAL_PREVIEW){localSave();render();return;}
+    throw new Error("共有サーバーがOFFLINEのため保存できません。");
+  }
+  const r=await fetch("/api/games",{
+    method:"POST",
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    body:JSON.stringify({action:"replace",games})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||"保存できませんでした。");
+  games=d.games;render();
+}
+async function verifyPin(pin){
+  if(!backend){
+    if(LOCAL_PREVIEW){
+      if(pin!=="9312") throw new Error("PINが違います。");
+      adminPin=pin;return;
+    }
+    throw new Error("共有サーバーがOFFLINEです。ADMINには入れません。");
+  }
+  const r=await fetch("/api/games",{
+    method:"POST",
+    headers:{"content-type":"application/json","x-admin-pin":pin},
+    body:JSON.stringify({action:"verify"})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||"PINが違います。");
+  adminPin=pin;
+}
+
+async function loadPending(){
+  if(!admin)return;
+  if(!backend){
+    if(LOCAL_PREVIEW){
+      try{pendingGames=JSON.parse(localStorage.getItem("uchikoshi_pending_games")||"[]")}catch{pendingGames=[]}
+      renderPending();return;
+    }
+    pendingGames=[];renderPending();return;
+  }
+
+  const r=await fetch("/api/games",{
+    method:"POST",
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    body:JSON.stringify({action:"pending"})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||"承認待ち一覧を取得できませんでした。");
+  pendingGames=Array.isArray(d.pending)?d.pending:[];
+  renderPending();
+}
+
+function domainOf(url){
+  try{return new URL(url).hostname}catch{return url}
+}
+
+function renderPending(){
+  $("pendingCount").textContent=pendingGames.length;
+  $("pendingEmpty").classList.toggle("hidden",pendingGames.length!==0);
+  $("pendingList").innerHTML=pendingGames.map(g=>`
+    <div class="pending-item">
+      <div class="pending-icon">${esc(g.icon||"🎮")}</div>
+      <div class="pending-main">
+        <strong>${esc(g.title)}</strong>
+        <p>${esc(g.description||"説明なし")}</p>
+        <span class="pending-subject">${esc(SUBJECTS[g.subject||"science"]?.name||"理科")}</span><span class="pending-domain">${esc(domainOf(g.url))}</span>
+      </div>
+      <div class="pending-actions">
+        <a class="action" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">OPEN</a>
+        <button class="action primary" data-review="approve" data-id="${esc(g.id)}">APPROVE</button>
+        <button class="action danger" data-review="reject" data-id="${esc(g.id)}">REJECT</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function moderate(id,decision){
+  if(!admin)throw new Error("ADMINのみ操作できます。");
+
+  if(!backend){
+    if(!LOCAL_PREVIEW)throw new Error("共有サーバーがOFFLINEです。");
+    const idx=pendingGames.findIndex(g=>g.id===id);
+    if(idx<0)return;
+    const item=pendingGames[idx];
+
+    if(decision==="approve"){
+      games.push({...item,isNew:true});
+      localSave();
+    }
+    pendingGames.splice(idx,1);
+    localStorage.setItem("uchikoshi_pending_games",JSON.stringify(pendingGames));
+    render();renderPending();return;
+  }
+
+  const r=await fetch("/api/games",{
+    method:"POST",
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    body:JSON.stringify({action:decision,id})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||"処理できませんでした。");
+
+  games=Array.isArray(d.games)?d.games:games;
+  pendingGames=Array.isArray(d.pending)?d.pending:pendingGames;
+  render();renderPending();
+}
+
+
+function localAnalyticsLoad(){
+  try{
+    return JSON.parse(localStorage.getItem("uchikoshi_learning_analytics")||"null") || {
+      totalVisits:0,totalPlays:0,byDate:{},gamePlays:{}
+    };
+  }catch{
+    return {totalVisits:0,totalPlays:0,byDate:{},gamePlays:{}};
+  }
+}
+function localAnalyticsSave(data){
+  localStorage.setItem("uchikoshi_learning_analytics",JSON.stringify(data));
+}
+function localDateKey(){
+  const d=new Date();
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,"0");
+  const day=String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+async function trackVisit(){
+  const sessionKey="uchikoshi_learning_visit_counted";
+  if(sessionStorage.getItem(sessionKey))return;
+  sessionStorage.setItem(sessionKey,"1");
+
+  if(!backend){
+    if(LOCAL_PREVIEW){
+      const a=localAnalyticsLoad(),key=localDateKey();
+      a.totalVisits=(a.totalVisits||0)+1;
+      a.byDate=a.byDate||{};
+      a.byDate[key]=a.byDate[key]||{visits:0,plays:0};
+      a.byDate[key].visits=(a.byDate[key].visits||0)+1;
+      localAnalyticsSave(a);
+    }
+    return;
+  }
+  try{
+    await fetch("/api/games",{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify({action:"analytics_visit"}),
+      keepalive:true
+    });
+  }catch{}
+}
+async function trackPlay(gameId){
+  if(!gameId)return;
+
+  if(!backend){
+    if(LOCAL_PREVIEW){
+      const a=localAnalyticsLoad(),key=localDateKey();
+      a.totalPlays=(a.totalPlays||0)+1;
+      a.gamePlays=a.gamePlays||{};
+      a.gamePlays[gameId]=(a.gamePlays[gameId]||0)+1;
+      a.byDate=a.byDate||{};
+      a.byDate[key]=a.byDate[key]||{visits:0,plays:0};
+      a.byDate[key].plays=(a.byDate[key].plays||0)+1;
+      localAnalyticsSave(a);
+    }
+    return;
+  }
+  try{
+    fetch("/api/games",{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify({action:"analytics_play",gameId}),
+      keepalive:true
+    }).catch(()=>{});
+  }catch{}
+}
+function last7Keys(){
+  const result=[];
+  const now=new Date();
+  for(let i=6;i>=0;i--){
+    const d=new Date(now);
+    d.setDate(now.getDate()-i);
+    const y=d.getFullYear();
+    const m=String(d.getMonth()+1).padStart(2,"0");
+    const day=String(d.getDate()).padStart(2,"0");
+    result.push({
+      key:`${y}-${m}-${day}`,
+      label:`${d.getMonth()+1}/${d.getDate()}`
+    });
+  }
+  return result;
+}
+async function loadAnalytics(){
+  if(!admin)throw new Error("ADMINのみ閲覧できます。");
+
+  if(!backend){
+    if(!LOCAL_PREVIEW)throw new Error("共有サーバーがOFFLINEです。");
+    analyticsData=localAnalyticsLoad();
+    renderAnalytics();
+    return;
+  }
+
+  const r=await fetch("/api/games",{
+    method:"POST",
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    body:JSON.stringify({action:"analytics"})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||"解析データを取得できませんでした。");
+  analyticsData=d.analytics||{};
+  renderAnalytics();
+}
+function renderAnalytics(){
+  const a=analyticsData||{};
+  const today=localDateKey();
+  const todayVisits=Number(a.byDate?.[today]?.visits||0);
+
+  $("metricToday").textContent=todayVisits.toLocaleString();
+  $("metricTotal").textContent=Number(a.totalVisits||0).toLocaleString();
+  $("metricPlays").textContent=Number(a.totalPlays||0).toLocaleString();
+  $("metricGames").textContent=games.length.toLocaleString();
+
+  const rows=games
+    .map(g=>({game:g,count:Number(a.gamePlays?.[g.id]||0)}))
+    .filter(x=>x.count>0)
+    .sort((x,y)=>y.count-x.count);
+
+  const max=rows[0]?.count||1;
+  $("rankingEmpty").classList.toggle("hidden",rows.length!==0);
+  $("rankingList").innerHTML=rows.slice(0,10).map((row,i)=>{
+    const meta=SUBJECTS[row.game.subject||"science"]||SUBJECTS.science;
+    const pct=Math.max(3,(row.count/max)*100);
+    return `<div class="ranking-item">
+      <div class="rank-no">${String(i+1).padStart(2,"0")}</div>
+      <div class="rank-main">
+        <div class="rank-title">
+          <strong>${esc(row.game.icon||"🎮")} ${esc(row.game.title)}</strong>
+          <small>${esc(meta.name)}</small>
+        </div>
+        <div class="rank-bar"><i style="width:${pct}%"></i></div>
+      </div>
+      <div class="rank-count">${row.count.toLocaleString()}<small>PLAY</small></div>
+    </div>`;
+  }).join("");
+
+  const seven=last7Keys();
+  const maxVisits=Math.max(1,...seven.map(d=>Number(a.byDate?.[d.key]?.visits||0)));
+  $("sevenDays").innerHTML=seven.map(d=>{
+    const v=Number(a.byDate?.[d.key]?.visits||0);
+    const h=v===0?2:Math.max(5,(v/maxVisits)*100);
+    return `<div class="day-col">
+      <div class="day-num">${v}</div>
+      <div class="day-bar-wrap"><div class="day-bar" style="height:${h}%"></div></div>
+      <div class="day-label">${d.label}</div>
+    </div>`;
+  }).join("");
+}
+
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>closeM(b.dataset.close));
+document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)closeM(m.id)}));
+document.querySelectorAll("[data-emoji]").forEach(b=>b.onclick=()=>{$("iconInput").value=b.dataset.emoji});
+document.querySelectorAll(".subject-tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    activeSubject=btn.dataset.subject;
+    render();
+  });
+});
+$("searchInput").oninput=render;
+$("addOpen").onclick=()=>{
+  if(!backend && !LOCAL_PREVIEW){toast("SHARED SAVE OFFLINE");return;}
+  fillForm(null,"public");openM("gameModal");
+};
+$("adminAdd").onclick=()=>{fillForm(null,"admin-add");openM("gameModal")};
+$("adminOpen").onclick=()=>{
+  if(!backend && !LOCAL_PREVIEW){toast("ADMIN LOCKED — SERVER OFFLINE");return;}
+  $("pinInput").value="";$("pinError").classList.add("hidden");openM("adminModal");
+};
+$("adminExit").onclick=()=>{admin=false;adminPin="";$("adminPanel").classList.add("hidden");render()};
+$("pinSubmit").onclick=async()=>{
+  const e=$("pinError");e.classList.add("hidden");
+  try{
+    const pin=$("pinInput").value.trim();
+    if(!pin)throw new Error("PINを入力してください。");
+    await verifyPin(pin);
+    admin=true;
+    closeM("adminModal");
+    $("adminPanel").classList.remove("hidden");
+    render();
+    await loadPending();
+    toast("ADMIN MODE");
+  }catch(err){
+    e.textContent=err.message;
+    e.classList.remove("hidden");
+  }
+};
+$("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("pinSubmit").click()});
+
+$("gameForm").onsubmit=async(e)=>{
+  e.preventDefault();const err=$("gameError");err.classList.add("hidden");
+  const title=$("titleInput").value.trim(),icon=$("iconInput").value.trim()||"🎮",subject=$("subjectInput").value,description=$("descInput").value.trim(),url=$("urlInput").value.trim();
+  if(!title){err.textContent="タイトルを入力してください。";err.classList.remove("hidden");return}
+  if(!url||!validUrl(url)){err.textContent="http:// または https:// から始まる公開URLを入力してください。";err.classList.remove("hidden");return}
+  try{
+    const mode=$("gameForm").dataset.mode,id=$("editId").value;
+    if(mode==="public"){
+      await publicAdd({title,icon,subject,description,url});
+      closeM("gameModal");
+      toast("SUBMITTED — WAITING FOR APPROVAL");
+    }else{
+      const idx=games.findIndex(g=>g.id===id);
+      const item={id:id||`admin-${Date.now()}`,title,icon,subject,description,url,isNew:idx>=0?games[idx].isNew:true,approvedAt:idx>=0?games[idx].approvedAt:Date.now()};
+      if(idx>=0)games[idx]=item;else games.push(item);
+      await adminSave();closeM("gameModal");toast("SAVED");
+    }
+  }catch(ex){err.textContent=ex.message;err.classList.remove("hidden")}
+};
+
+
+$("grid").addEventListener("click",e=>{
+  const play=e.target.closest(".play[data-game-id]");
+  if(play)trackPlay(play.dataset.gameId);
+});
+
+$("grid").addEventListener("click",async(e)=>{
+  const b=e.target.closest("[data-act]");if(!b||!admin)return;
+  const idx=games.findIndex(g=>g.id===b.dataset.id);if(idx<0)return;
+  const act=b.dataset.act;
+  if(act==="edit"){fillForm(games[idx],"admin-edit");openM("gameModal");return}
+  if(act==="delete"){pendingDelete=games[idx].id;$("deleteText").textContent=`「${games[idx].title}」を本拠地から削除します。リンク先のゲーム本体は削除されません。`;openM("deleteModal");return}
+  if(act==="up"&&idx>0)[games[idx-1],games[idx]]=[games[idx],games[idx-1]];
+  if(act==="down"&&idx<games.length-1)[games[idx+1],games[idx]]=[games[idx],games[idx+1]];
+  try{await adminSave();toast("ORDER SAVED")}catch(ex){toast("SAVE ERROR");await loadGames()}
+});
+$("deleteCancel").onclick=()=>{pendingDelete=null;closeM("deleteModal")};
+$("deleteConfirm").onclick=async()=>{
+  if(!pendingDelete)return;const backup=[...games];games=games.filter(g=>g.id!==pendingDelete);
+  try{await adminSave();pendingDelete=null;closeM("deleteModal");toast("DELETED")}catch(ex){games=backup;render();toast("DELETE ERROR")}
+};
+
+
+$("analyticsOpen").onclick=async()=>{
+  try{
+    await loadAnalytics();
+    openM("analyticsModal");
+  }catch(ex){toast(ex.message||"ANALYTICS ERROR")}
+};
+$("analyticsRefresh").onclick=async()=>{
+  try{
+    await loadAnalytics();
+    toast("ANALYTICS UPDATED");
+  }catch(ex){toast(ex.message||"ANALYTICS ERROR")}
+};
+
+$("pendingOpen").onclick=async()=>{
+  try{
+    await loadPending();
+    openM("pendingModal");
+  }catch(ex){toast(ex.message||"PENDING ERROR")}
+};
+
+$("pendingList").addEventListener("click",async(e)=>{
+  const b=e.target.closest("[data-review]");
+  if(!b)return;
+  const decision=b.dataset.review;
+  const id=b.dataset.id;
+  try{
+    b.disabled=true;
+    await moderate(id,decision);
+    toast(decision==="approve"?"APPROVED":"REJECTED");
+  }catch(ex){
+    toast(ex.message||"REVIEW ERROR");
+  }finally{
+    b.disabled=false;
+  }
+});
+
+window.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal:not(.hidden)").forEach(m=>m.classList.add("hidden"))});
+loadGames();
+</script>
+</body>
+</html>

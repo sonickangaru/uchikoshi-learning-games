@@ -1,0 +1,17 @@
+{
+  "installCommand": "npm install",
+  "buildCommand": "echo Ready",
+  "outputDirectory": ".",
+  "nodeVersion": "20.18.0",
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ]
+}

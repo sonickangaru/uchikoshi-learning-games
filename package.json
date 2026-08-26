@@ -1,0 +1,9 @@
+{
+  "name": "uchikoshi-junior-high-learning-games",
+  "private": true,
+  "version": "2.1.0",
+  "type": "module",
+  "dependencies": {
+    "@edgeone/pages-blob": "0.0.16"
+  }
+}
