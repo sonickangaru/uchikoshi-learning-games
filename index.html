@@ -480,6 +480,142 @@ button,a{-webkit-tap-highlight-color:transparent}
   .privacy-note{flex-direction:column;gap:5px}
 }
 
+
+.subject-nav{
+  grid-template-columns:repeat(auto-fit,minmax(82px,1fr)) !important;
+}
+.trending-tab.active{
+  background:linear-gradient(135deg,#fff0d7,#ffd3e4);
+}
+.public-stats b{
+  min-width:50px;
+}
+.hot-panel{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:210px 1fr;
+  gap:18px;
+  align-items:stretch;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:15px;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(255,191,123,.06),transparent 38%),
+    rgba(255,255,255,.016);
+}
+.hot-copy{
+  padding:7px 9px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.hot-copy h3{
+  margin:0;
+  font-size:23px;
+  letter-spacing:-.04em;
+}
+.hot-copy p{
+  margin:7px 0 0;
+  color:#667489;
+  font-size:10px;
+}
+.hot-list{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.hot-item{
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:11px;
+  background:rgba(255,255,255,.018);
+  display:grid;
+  grid-template-columns:34px 1fr auto;
+  gap:8px;
+  align-items:center;
+}
+.hot-rank{
+  width:30px;height:30px;
+  border-radius:9px;
+  display:grid;place-items:center;
+  font-size:10px;font-weight:950;
+  background:rgba(255,255,255,.045);
+  color:#8e9cb0;
+}
+.hot-item:nth-child(1) .hot-rank{
+  color:#1b1408;
+  background:linear-gradient(135deg,#ffe394,#ffb86e);
+}
+.hot-item:nth-child(2) .hot-rank{
+  color:#111821;
+  background:linear-gradient(135deg,#edf5fb,#aebed0);
+}
+.hot-item:nth-child(3) .hot-rank{
+  color:#1b120d;
+  background:linear-gradient(135deg,#e7b68c,#b8764f);
+}
+.hot-main{min-width:0}
+.hot-main strong{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:10px;
+}
+.hot-main span{
+  display:block;
+  margin-top:3px;
+  color:#5f6d82;
+  font-size:8px;
+}
+.hot-plays{
+  color:#bfefff;
+  font-size:11px;
+  font-weight:950;
+  white-space:nowrap;
+}
+.public-card-stats{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:12px;
+}
+.public-stat{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.018);
+  color:#6f7d91;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.public-stat strong{
+  color:#cceeff;
+  font-size:9px;
+}
+.trend-medal{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  color:#ffd496;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.07em;
+}
+@media(max-width:900px){
+  .hot-panel{grid-template-columns:1fr}
+  .hot-list{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:650px){
+  .hot-list{grid-template-columns:1fr}
+  .hot-item{grid-template-columns:34px 1fr auto}
+}
+
 </style>
 </head>
 <body>
@@ -501,10 +637,10 @@ button,a{-webkit-tap-highlight-color:transparent}
       <div class="kicker">UCHIKOSHI LEARNING ARCADE</div>
       <h1><span class="jp">打越Tの</span><span class="main">中学学習ゲー</span></h1>
       <p>中学9教科の学びが、ここに集まる。<br>遊ぶ。つくる。教科をこえて増えていく。</p>
-      <div class="hero-stats">
+      <div class="hero-stats public-stats">
         <div><b id="countTop">4</b><span>GAMES</span></div>
-        <div><b>∞</b><span>UPDATE</span></div>
-        <div><b>01</b><span>BASE</span></div>
+        <div><b id="publicVisits">—</b><span>VISITS</span></div>
+        <div><b id="publicPlays">—</b><span>PLAYS</span></div>
       </div>
       <div id="backendStatus" class="status-pill"><i></i><span>接続確認中…</span></div>
     </div>
@@ -524,6 +660,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   
   <nav class="subject-nav" aria-label="教科">
     <button class="subject-tab active" data-subject="latest" type="button"><span>✦</span><b>LATEST</b></button>
+    <button class="subject-tab trending-tab" data-subject="trending" type="button"><span>↗</span><b>TRENDING</b></button>
     <button class="subject-tab" data-subject="japanese" type="button"><span>📖</span><b>国語</b></button>
     <button class="subject-tab" data-subject="social" type="button"><span>🗺️</span><b>社会</b></button>
     <button class="subject-tab" data-subject="math" type="button"><span>📐</span><b>数学</b></button>
@@ -534,6 +671,16 @@ button,a{-webkit-tap-highlight-color:transparent}
     <button class="subject-tab" data-subject="tech_home" type="button"><span>🛠️</span><b>技術・家庭</b></button>
     <button class="subject-tab" data-subject="english" type="button"><span>🔤</span><b>英語</b></button>
   </nav>
+
+  
+  <section id="hotPanel" class="hot-panel">
+    <div class="hot-copy">
+      <div class="section-label">PUBLIC RANKING / LIVE</div>
+      <h3>HOT NOW</h3>
+      <p>いま、よく遊ばれているゲーム。</p>
+    </div>
+    <div id="hotList" class="hot-list"></div>
+  </section>
 
   <section class="library-head">
     <div>
@@ -716,7 +863,7 @@ const SUBJECTS={
   tech_home:{name:"技術・家庭",code:"TECH & HOME",accent:"#ffd36e"},
   english:{name:"英語",code:"ENGLISH",accent:"#9aa7ff"}
 };
-let games=[], pendingGames=[], activeSubject="latest", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null;
+let games=[], pendingGames=[], activeSubject="latest", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}};
 const LOCAL_PREVIEW = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
 const $=id=>document.getElementById(id);
 
@@ -750,10 +897,13 @@ async function loadGames(){
     if(!r.ok) throw new Error(`API ${r.status}`);
     const d=await r.json();
     games=Array.isArray(d.games)?d.games:SEED_GAMES;
+    publicAnalytics=d.publicAnalytics||{totalVisits:0,totalPlays:0,gamePlays:{}};
     setBackendStatus(true);
   }catch(err){
     console.warn("Shared API unavailable:",err);
     games=LOCAL_PREVIEW?localLoad():SEED_GAMES;
+    const localA=typeof localAnalyticsLoad==="function"?localAnalyticsLoad():{totalVisits:0,totalPlays:0,gamePlays:{}};
+    publicAnalytics=localA||{totalVisits:0,totalPlays:0,gamePlays:{}};
     setBackendStatus(false);
 
     if(!LOCAL_PREVIEW){
@@ -773,14 +923,23 @@ async function loadGames(){
     }
   }
   render();
-  trackVisit();
+  if(typeof trackVisit==="function") trackVisit();
 }
 function render(){
   const q=$("searchInput").value.trim().toLowerCase();
+  const playsMap=publicAnalytics?.gamePlays||{};
 
   let base=[...games];
+
   if(activeSubject==="latest"){
     base.sort((a,b)=>(Number(b.approvedAt||b.submittedAt||0)-Number(a.approvedAt||a.submittedAt||0)));
+  }else if(activeSubject==="trending"){
+    base.sort((a,b)=>{
+      const bp=Number(playsMap[b.id]||0);
+      const ap=Number(playsMap[a.id]||0);
+      if(bp!==ap)return bp-ap;
+      return Number(b.approvedAt||b.submittedAt||0)-Number(a.approvedAt||a.submittedAt||0);
+    });
   }else{
     base=base.filter(g=>(g.subject||"science")===activeSubject);
   }
@@ -788,11 +947,23 @@ function render(){
   const list=base.filter(g=>`${g.title||""} ${g.description||""} ${SUBJECTS[g.subject||"science"]?.name||""}`.toLowerCase().includes(q));
 
   $("countTop").textContent=games.length;
-  const subjectMeta=activeSubject==="latest"
-    ? {label:"LATEST / NEW GAMES",title:"NEW ARRIVALS"}
-    : {label:`SUBJECT / ${SUBJECTS[activeSubject]?.code||"GAME"}`,title:SUBJECTS[activeSubject]?.name||"GAME SELECT"};
+  $("publicVisits").textContent=Number(publicAnalytics?.totalVisits||0).toLocaleString();
+  $("publicPlays").textContent=Number(publicAnalytics?.totalPlays||0).toLocaleString();
+
+  let subjectMeta;
+  if(activeSubject==="latest"){
+    subjectMeta={label:"LATEST / NEW GAMES",title:"NEW ARRIVALS"};
+  }else if(activeSubject==="trending"){
+    subjectMeta={label:"TRENDING / PLAY RANKING",title:"POPULAR GAMES"};
+  }else{
+    subjectMeta={label:`SUBJECT / ${SUBJECTS[activeSubject]?.code||"GAME"}`,title:SUBJECTS[activeSubject]?.name||"GAME SELECT"};
+  }
   $("libraryLabel").textContent=subjectMeta.label;
   $("libraryTitle").textContent=subjectMeta.title;
+
+  const rankOrder=[...games]
+    .sort((a,b)=>Number(playsMap[b.id]||0)-Number(playsMap[a.id]||0))
+    .map(g=>g.id);
 
   $("grid").innerHTML=list.map((g)=>{
     const i=games.findIndex(x=>x.id===g.id);
@@ -800,6 +971,12 @@ function render(){
     const meta=SUBJECTS[subject]||SUBJECTS.science;
     const accent=meta.accent;
     const has=!!g.url;
+    const plays=Number(playsMap[g.id]||0);
+    const trendRank=rankOrder.indexOf(g.id)+1;
+    const medal=plays>0 && trendRank<=3
+      ? `<span class="trend-medal">#${trendRank} TRENDING</span>`
+      : "";
+
     const manage=admin?`<div class="manage">
       <button data-act="up" data-id="${esc(g.id)}" ${i===0?"disabled":""}>↑</button>
       <button data-act="down" data-id="${esc(g.id)}" ${i===games.length-1?"disabled":""}>↓</button>
@@ -819,13 +996,19 @@ function render(){
           <div class="title-wrap"><small>${esc(meta.code)}</small><h3>${esc(g.title)}</h3></div>
         </div>
         <p>${esc(g.description||"説明はまだありません。")}</p>
+        <div class="public-card-stats">
+          <span class="public-stat">▶ <strong>${plays.toLocaleString()}</strong> PLAY</span>
+          ${medal}
+        </div>
         <div class="card-bottom">
           ${has?`<a class="play" data-game-id="${esc(g.id)}" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">PLAY GAME <span>→</span></a>`:`<span class="play" style="opacity:.35">URL NOT SET <span>—</span></span>`}
           ${manage}
         </div>
       </div></article>`;
   }).join("");
+
   $("empty").classList.toggle("hidden",list.length!==0);
+  renderHot();
 }
 function fillForm(game=null,mode="public"){
   $("gameForm").dataset.mode=game?"admin-edit":mode;
@@ -1017,6 +1200,12 @@ async function trackVisit(){
 async function trackPlay(gameId){
   if(!gameId)return;
 
+  publicAnalytics=publicAnalytics||{totalVisits:0,totalPlays:0,gamePlays:{}};
+  publicAnalytics.gamePlays=publicAnalytics.gamePlays||{};
+  publicAnalytics.totalPlays=Number(publicAnalytics.totalPlays||0)+1;
+  publicAnalytics.gamePlays[gameId]=Number(publicAnalytics.gamePlays[gameId]||0)+1;
+  render();
+
   if(!backend){
     if(LOCAL_PREVIEW){
       const a=localAnalyticsLoad(),key=localDateKey();
@@ -1030,6 +1219,7 @@ async function trackPlay(gameId){
     }
     return;
   }
+
   try{
     fetch("/api/games",{
       method:"POST",
@@ -1117,6 +1307,37 @@ function renderAnalytics(){
       <div class="day-num">${v}</div>
       <div class="day-bar-wrap"><div class="day-bar" style="height:${h}%"></div></div>
       <div class="day-label">${d.label}</div>
+    </div>`;
+  }).join("");
+}
+
+
+function renderHot(){
+  const playsMap=publicAnalytics?.gamePlays||{};
+  const top=[...games]
+    .map(g=>({g,count:Number(playsMap[g.id]||0)}))
+    .filter(x=>x.count>0)
+    .sort((a,b)=>b.count-a.count)
+    .slice(0,3);
+
+  const list=$("hotList");
+  const panel=$("hotPanel");
+
+  if(!top.length){
+    panel.style.display="none";
+    return;
+  }
+
+  panel.style.display="grid";
+  list.innerHTML=top.map((x,i)=>{
+    const meta=SUBJECTS[x.g.subject||"science"]||SUBJECTS.science;
+    return `<div class="hot-item">
+      <div class="hot-rank">#${i+1}</div>
+      <div class="hot-main">
+        <strong>${esc(x.g.icon||"🎮")} ${esc(x.g.title)}</strong>
+        <span>${esc(meta.name)}</span>
+      </div>
+      <div class="hot-plays">${x.count.toLocaleString()} ▶</div>
     </div>`;
   }).join("");
 }
