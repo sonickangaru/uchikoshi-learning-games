@@ -5,10 +5,10 @@ const SUBJECTS = new Set([
 ]);
 
 const SEED = [
-  {id:"ion-battle",title:"イオンカードゲーム",icon:"🧪",subject:"science",description:"イオンを組み合わせ、完成物をつくって戦うカードゲーム。",url:"",isNew:false,approvedAt:1},
-  {id:"busshitsu-lab",title:"物質追究ラボ",icon:"🔬",subject:"science",description:"実験・推理・研究をくり返して、謎の物質を追究する。",url:"",isNew:false,approvedAt:2},
-  {id:"science-breakers",title:"サイエンスブレーカー",icon:"💥",subject:"science",description:"問題を解いて報酬を獲得し、科学の世界を攻略する。",url:"",isNew:false,approvedAt:3},
-  {id:"force-lab",title:"力の矢印ゲーム",icon:"🏹",subject:"science",description:"作用点・向き・大きさを見抜いて、力を矢印で表そう。",url:"",isNew:false,approvedAt:4}
+  {id:"ion-battle",title:"イオンカードゲーム",icon:"🧪",subject:"science",creator:"打越T",description:"イオンを組み合わせ、完成物をつくって戦うカードゲーム。",url:"",isNew:false,approvedAt:1},
+  {id:"busshitsu-lab",title:"物質追究ラボ",icon:"🔬",subject:"science",creator:"打越T",description:"実験・推理・研究をくり返して、謎の物質を追究する。",url:"",isNew:false,approvedAt:2},
+  {id:"science-breakers",title:"サイエンスブレーカー",icon:"💥",subject:"science",creator:"打越T",description:"問題を解いて報酬を獲得し、科学の世界を攻略する。",url:"",isNew:false,approvedAt:3},
+  {id:"force-lab",title:"力の矢印ゲーム",icon:"🏹",subject:"science",creator:"打越T",description:"作用点・向き・大きさを見抜いて、力を矢印で表そう。",url:"",isNew:false,approvedAt:4}
 ];
 
 function out(data,status=200){
@@ -32,6 +32,7 @@ function sanitize(raw,{allowEmptyUrl=false}={}){
   const title=clean(raw?.title,80);
   const icon=clean(raw?.icon,12)||"🎮";
   const subject=SUBJECTS.has(raw?.subject)?raw.subject:"science";
+  const creator=clean(raw?.creator,50);
   const description=clean(raw?.description,180);
   const url=clean(raw?.url,700);
   if(!title)throw new Error("タイトルを入力してください。");
@@ -39,7 +40,7 @@ function sanitize(raw,{allowEmptyUrl=false}={}){
 
   return {
     id:clean(raw?.id,120)||`game-${Date.now()}-${Math.random().toString(36).slice(2,9)}`,
-    title,icon,subject,description,url,
+    title,creator:creator||"CREATOR未設定",icon,subject,description,url,
     isNew:Boolean(raw?.isNew),
     submittedAt:Number(raw?.submittedAt)||Date.now(),
     approvedAt:Number(raw?.approvedAt)||0
@@ -48,12 +49,12 @@ function sanitize(raw,{allowEmptyUrl=false}={}){
 async function readApproved(store){
   const data=await store.get("games.json",{type:"json",consistency:"strong"});
   if(!Array.isArray(data)) return SEED;
-  return data.map(g=>({...g,subject:SUBJECTS.has(g?.subject)?g.subject:"science"}));
+  return data.map(g=>({...g,creator:clean(g?.creator,50)||"CREATOR未設定",subject:SUBJECTS.has(g?.subject)?g.subject:"science"}));
 }
 async function readPending(store){
   const data=await store.get("pending.json",{type:"json",consistency:"strong"});
   if(!Array.isArray(data)) return [];
-  return data.map(g=>({...g,subject:SUBJECTS.has(g?.subject)?g.subject:"science"}));
+  return data.map(g=>({...g,creator:clean(g?.creator,50)||"CREATOR未設定",subject:SUBJECTS.has(g?.subject)?g.subject:"science"}));
 }
 async function readAnalytics(store){
   const data=await store.get("analytics.json",{type:"json",consistency:"strong"});
@@ -82,7 +83,16 @@ export default async function onRequest({request,env}){
     const store=getStore({name:"uchikoshi-learning-games",consistency:"strong"});
 
     if(request.method==="GET"){
-      return out({games:await readApproved(store)});
+      const games=await readApproved(store);
+      const analytics=await readAnalytics(store);
+      return out({
+        games,
+        publicAnalytics:{
+          totalVisits:Number(analytics.totalVisits||0),
+          totalPlays:Number(analytics.totalPlays||0),
+          gamePlays:analytics.gamePlays||{}
+        }
+      });
     }
 
     if(request.method!=="POST")return out({error:"Method not allowed"},405);
@@ -93,6 +103,7 @@ export default async function onRequest({request,env}){
       const pending=await readPending(store);
       if(pending.length>=200)return out({error:"承認待ちが多すぎます。しばらくしてから投稿してください。"},429);
 
+      if(!clean(body?.game?.creator,50))return out({error:"投稿者名を入力してください。"},400);
       const game=sanitize({...body.game,isNew:true,submittedAt:Date.now()});
 
       if(approved.some(g=>g.url&&g.url===game.url)){
