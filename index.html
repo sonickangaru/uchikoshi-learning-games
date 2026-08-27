@@ -616,6 +616,278 @@ button,a{-webkit-tap-highlight-color:transparent}
   .hot-item{grid-template-columns:34px 1fr auto}
 }
 
+
+.creators-tab.active{
+  background:linear-gradient(135deg,#dffdf4,#d8e9ff);
+}
+.creator-link{
+  appearance:none;
+  border:0;
+  padding:0;
+  background:none;
+  color:#7f90a7;
+  font:inherit;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.08em;
+  cursor:pointer;
+  text-transform:uppercase;
+}
+.creator-link:hover{
+  color:#d9f7ff;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.creator-by{
+  margin-top:7px;
+  min-height:18px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.creator-by .by-label{
+  color:#46556a;
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+.creator-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+.creator-card{
+  position:relative;
+  min-height:230px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:19px;
+  background:
+    radial-gradient(circle at 80% 8%,rgba(110,231,255,.08),transparent 34%),
+    rgba(255,255,255,.018);
+}
+.creator-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(120deg,transparent 25%,rgba(255,255,255,.025),transparent 70%);
+}
+.creator-top{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+.creator-avatar{
+  flex:0 0 auto;
+  width:54px;height:54px;
+  display:grid;place-items:center;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.035);
+  font-size:24px;
+  box-shadow:0 0 28px rgba(110,231,255,.05);
+}
+.creator-name{
+  min-width:0;
+}
+.creator-name small{
+  display:block;
+  color:#55657a;
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.16em;
+  margin-bottom:5px;
+}
+.creator-name h3{
+  margin:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:19px;
+  letter-spacing:-.035em;
+}
+.creator-stats{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:18px;
+}
+.creator-stat{
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+  padding:11px;
+  background:rgba(255,255,255,.015);
+}
+.creator-stat b{
+  display:block;
+  color:#d7f7ff;
+  font-size:17px;
+  line-height:1;
+}
+.creator-stat span{
+  display:block;
+  margin-top:5px;
+  color:#55657a;
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.11em;
+}
+.creator-popular{
+  position:relative;
+  z-index:1;
+  margin-top:12px;
+  min-height:40px;
+  color:#718098;
+  font-size:9px;
+  line-height:1.55;
+}
+.creator-popular strong{
+  color:#a9b8cc;
+}
+.creator-open{
+  position:relative;
+  z-index:1;
+  width:100%;
+  margin-top:10px;
+  border:1px solid rgba(110,231,255,.16);
+  border-radius:11px;
+  padding:10px 12px;
+  background:rgba(110,231,255,.045);
+  color:#c9f6ff;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:.09em;
+  cursor:pointer;
+}
+.creator-open:hover{
+  background:rgba(110,231,255,.09);
+  border-color:rgba(110,231,255,.3);
+}
+.creator-filter-bar{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:8px;
+}
+.creator-filter-name{
+  color:#bdefff;
+  font-size:10px;
+  font-weight:950;
+}
+.creator-back{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:999px;
+  padding:5px 8px;
+  background:rgba(255,255,255,.02);
+  color:#738198;
+  font-size:8px;
+  font-weight:900;
+  cursor:pointer;
+}
+.pending-creator{
+  display:inline-flex;
+  align-items:center;
+  margin-right:6px;
+  padding:4px 7px;
+  border-radius:999px;
+  background:rgba(110,231,255,.05);
+  border:1px solid rgba(110,231,255,.1);
+  color:#9edcec;
+  font-size:8px;
+  font-weight:900;
+}
+@media(max-width:900px){
+  .creator-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+}
+@media(max-width:620px){
+  .creator-grid{grid-template-columns:1fr !important}
+}
+
+
+.creator-card{
+  padding-top:56px;
+}
+.creator-rank-badge{
+  position:absolute;
+  top:14px;
+  left:14px;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(10,18,28,.82);
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+.creator-rank-badge .rank-icon{
+  font-size:14px;
+  line-height:1;
+}
+.creator-rank-badge .rank-text{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  line-height:1;
+}
+.creator-rank-badge .rank-text small{
+  color:#69788d;
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.14em;
+}
+.creator-rank-badge .rank-text b{
+  color:#eef8ff;
+  font-size:13px;
+  letter-spacing:-.03em;
+}
+.creator-rank-badge.rank-1{
+  background:linear-gradient(135deg,rgba(255,227,148,.2),rgba(255,184,110,.16));
+  border-color:rgba(255,227,148,.34);
+}
+.creator-rank-badge.rank-1 .rank-text b,.creator-rank-badge.rank-1 .rank-icon{color:#ffe394}
+.creator-rank-badge.rank-2{
+  background:linear-gradient(135deg,rgba(237,245,251,.14),rgba(174,190,208,.12));
+  border-color:rgba(237,245,251,.25);
+}
+.creator-rank-badge.rank-2 .rank-text b,.creator-rank-badge.rank-2 .rank-icon{color:#edf5fb}
+.creator-rank-badge.rank-3{
+  background:linear-gradient(135deg,rgba(231,182,140,.18),rgba(184,118,79,.14));
+  border-color:rgba(231,182,140,.26);
+}
+.creator-rank-badge.rank-3 .rank-text b,.creator-rank-badge.rank-3 .rank-icon{color:#e7b68c}
+.creator-rank-badge.rank-other .rank-text b,.creator-rank-badge.rank-other .rank-icon{color:#cceeff}
+.creator-rank-line{
+  position:relative;
+  z-index:1;
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  color:#7a8aa1;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+.creator-rank-line .rank-points{
+  color:#bdefff;
+  font-size:9px;
+}
+.creator-popular{
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.creator-open{
+  margin-top:14px;
+}
+
 </style>
 </head>
 <body>
@@ -661,6 +933,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   <nav class="subject-nav" aria-label="教科">
     <button class="subject-tab active" data-subject="latest" type="button"><span>✦</span><b>LATEST</b></button>
     <button class="subject-tab trending-tab" data-subject="trending" type="button"><span>↗</span><b>TRENDING</b></button>
+    <button class="subject-tab creators-tab" data-subject="creators" type="button"><span>◉</span><b>CREATORS</b></button>
     <button class="subject-tab" data-subject="japanese" type="button"><span>📖</span><b>国語</b></button>
     <button class="subject-tab" data-subject="social" type="button"><span>🗺️</span><b>社会</b></button>
     <button class="subject-tab" data-subject="math" type="button"><span>📐</span><b>数学</b></button>
@@ -706,10 +979,15 @@ button,a{-webkit-tap-highlight-color:transparent}
     <button class="modal-x" data-close="gameModal">×</button>
     <div id="gameCode" class="modal-code">COMMUNITY / ADD GAME</div>
     <h2 id="gameTitleHeading">ゲームを追加</h2>
-    <p id="gameLead" class="modal-lead">教科を選んで投稿。いったん承認待ちになり、打越Tの承認後に公開されます。</p>
+    <p id="gameLead" class="modal-lead">投稿者名と教科を入れて投稿。いったん承認待ちになり、打越Tの承認後に公開されます。</p>
     <form id="gameForm">
       <input id="editId" type="hidden">
       <label class="field"><span>GAME TITLE *</span><input id="titleInput" maxlength="80" required placeholder="例：英単語ダンジョン"></label>
+
+      <label class="field">
+        <span>CREATOR / 投稿者名 *</span>
+        <input id="creatorInput" maxlength="50" required placeholder="例：打越T">
+      </label>
 
       <label class="field">
         <span>SUBJECT *</span>
@@ -846,10 +1124,10 @@ button,a{-webkit-tap-highlight-color:transparent}
 
 <script>
 const SEED_GAMES = [
-  {id:"ion-battle",title:"イオンカードゲーム",icon:"🧪",description:"イオンを組み合わせ、完成物をつくって戦うカードゲーム。",url:"",isNew:false},
-  {id:"busshitsu-lab",title:"物質追究ラボ",icon:"🔬",description:"実験・推理・研究をくり返して、謎の物質を追究する。",url:"",isNew:false},
-  {id:"science-breakers",title:"サイエンスブレーカー",icon:"💥",description:"問題を解いて報酬を獲得し、科学の世界を攻略する。",url:"",isNew:false},
-  {id:"force-lab",title:"力の矢印ゲーム",icon:"🏹",description:"作用点・向き・大きさを見抜いて、力を矢印で表そう。",url:"",isNew:false}
+  {id:"ion-battle",title:"イオンカードゲーム",icon:"🧪",creator:"打越T",description:"イオンを組み合わせ、完成物をつくって戦うカードゲーム。",url:"",isNew:false},
+  {id:"busshitsu-lab",title:"物質追究ラボ",icon:"🔬",creator:"打越T",description:"実験・推理・研究をくり返して、謎の物質を追究する。",url:"",isNew:false},
+  {id:"science-breakers",title:"サイエンスブレーカー",icon:"💥",creator:"打越T",description:"問題を解いて報酬を獲得し、科学の世界を攻略する。",url:"",isNew:false},
+  {id:"force-lab",title:"力の矢印ゲーム",icon:"🏹",creator:"打越T",description:"作用点・向き・大きさを見抜いて、力を矢印で表そう。",url:"",isNew:false}
 ];
 const ACCENTS=["#6ee7ff","#b39aff","#75efbd","#ffbf7b","#ff85ae","#82aaff"];
 const SUBJECTS={
@@ -863,11 +1141,45 @@ const SUBJECTS={
   tech_home:{name:"技術・家庭",code:"TECH & HOME",accent:"#ffd36e"},
   english:{name:"英語",code:"ENGLISH",accent:"#9aa7ff"}
 };
-let games=[], pendingGames=[], activeSubject="latest", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}};
+let games=[], pendingGames=[], activeSubject="latest", selectedCreator="", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}};
 const LOCAL_PREVIEW = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
 const $=id=>document.getElementById(id);
 
 function esc(v=""){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function creatorName(game){
+  const v=String(game?.creator||"").trim();
+  return v||"CREATOR未設定";
+}
+function creatorKey(name){
+  return String(name||"").trim().toLocaleLowerCase("ja-JP");
+}
+function creatorSummary(){
+  const playsMap=publicAnalytics?.gamePlays||{};
+  const map=new Map();
+
+  for(const g of games){
+    const name=creatorName(g);
+    const key=creatorKey(name);
+    if(!map.has(key))map.set(key,{name,games:[],plays:0});
+    const c=map.get(key);
+    c.games.push(g);
+    c.plays+=Number(playsMap[g.id]||0);
+  }
+
+  return [...map.values()].sort((a,b)=>{
+    if(b.plays!==a.plays)return b.plays-a.plays;
+    if(b.games.length!==a.games.length)return b.games.length-a.games.length;
+    return a.name.localeCompare(b.name,"ja");
+  });
+}
+function openCreator(name){
+  selectedCreator=name;
+  activeSubject="creator";
+  document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
+  render();
+  document.querySelector(".library-head")?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
 function validUrl(v){
   try{const u=new URL(v);return u.protocol==="http:"||u.protocol==="https:"}catch{return false}
 }
@@ -928,6 +1240,57 @@ async function loadGames(){
 function render(){
   const q=$("searchInput").value.trim().toLowerCase();
   const playsMap=publicAnalytics?.gamePlays||{};
+  const grid=$("grid");
+
+  $("countTop").textContent=games.length;
+  $("publicVisits").textContent=Number(publicAnalytics?.totalVisits||0).toLocaleString();
+  $("publicPlays").textContent=Number(publicAnalytics?.totalPlays||0).toLocaleString();
+
+  if(activeSubject==="creators"){
+    const creators=creatorSummary().filter(c=>
+      `${c.name} ${c.games.map(g=>`${g.title||""} ${g.description||""}`).join(" ")}`.toLowerCase().includes(q)
+    );
+
+    $("libraryLabel").textContent="CREATOR RANKING / TOTAL PLAYS";
+    $("libraryTitle").textContent="TOP CREATORS";
+    document.querySelector(".library-note").innerHTML="PLAY数の多い順に、作者をランキング表示。気になる投稿者の作品をまとめて遊べる。";
+    grid.classList.add("creator-grid");
+
+    grid.innerHTML=creators.map((c,i)=>{
+      const popular=[...c.games].sort((a,b)=>Number(playsMap[b.id]||0)-Number(playsMap[a.id]||0))[0];
+      const topPlays=popular?Number(playsMap[popular.id]||0):0;
+      const rank=i+1;
+      const rankIcon=rank===1?"👑":rank===2?"🥈":rank===3?"🥉":"🏅";
+      const rankClass=rank===1?"rank-1":rank===2?"rank-2":rank===3?"rank-3":"rank-other";
+      return `<article class="creator-card">
+        <div class="creator-rank-badge ${rankClass}">
+          <span class="rank-icon">${rankIcon}</span>
+          <span class="rank-text"><small>CREATOR RANK</small><b>#${String(rank).padStart(2,"0")}</b></span>
+        </div>
+        <div class="creator-top">
+          <div class="creator-avatar">${c.name==="CREATOR未設定"?"？":"👤"}</div>
+          <div class="creator-name">
+            <small>TOP CREATOR</small>
+            <h3>${esc(c.name)}</h3>
+          </div>
+        </div>
+        <div class="creator-rank-line">
+          <span>${rank<=3?"HALL OF FAME":"RISING CREATOR"}</span>
+          <span class="rank-points">${c.plays.toLocaleString()} PLAYS</span>
+        </div>
+        <div class="creator-stats">
+          <div class="creator-stat"><b>${c.games.length.toLocaleString()}</b><span>GAMES</span></div>
+          <div class="creator-stat"><b>${c.plays.toLocaleString()}</b><span>TOTAL PLAYS</span></div>
+        </div>
+        <div class="creator-popular">MOST PLAYED WORK<br><strong>${popular?`${esc(popular.icon||"🎮")} ${esc(popular.title)}`:"—"}</strong>${popular?` / ${topPlays.toLocaleString()} PLAY`:""}</div>
+        <button class="creator-open" type="button" data-open-creator="${esc(c.name)}">VIEW ${c.games.length} GAMES →</button>
+      </article>`;
+    }).join("");
+
+    $("empty").classList.toggle("hidden",creators.length!==0);
+    renderHot();
+    return;
+  }
 
   let base=[...games];
 
@@ -940,32 +1303,38 @@ function render(){
       if(bp!==ap)return bp-ap;
       return Number(b.approvedAt||b.submittedAt||0)-Number(a.approvedAt||a.submittedAt||0);
     });
+  }else if(activeSubject==="creator"){
+    base=base.filter(g=>creatorKey(creatorName(g))===creatorKey(selectedCreator));
+    base.sort((a,b)=>Number(playsMap[b.id]||0)-Number(playsMap[a.id]||0));
   }else{
     base=base.filter(g=>(g.subject||"science")===activeSubject);
   }
 
-  const list=base.filter(g=>`${g.title||""} ${g.description||""} ${SUBJECTS[g.subject||"science"]?.name||""}`.toLowerCase().includes(q));
-
-  $("countTop").textContent=games.length;
-  $("publicVisits").textContent=Number(publicAnalytics?.totalVisits||0).toLocaleString();
-  $("publicPlays").textContent=Number(publicAnalytics?.totalPlays||0).toLocaleString();
+  const list=base.filter(g=>`${g.title||""} ${g.description||""} ${creatorName(g)} ${SUBJECTS[g.subject||"science"]?.name||""}`.toLowerCase().includes(q));
 
   let subjectMeta;
   if(activeSubject==="latest"){
     subjectMeta={label:"LATEST / NEW GAMES",title:"NEW ARRIVALS"};
+    document.querySelector(".library-note").textContent="最新ゲームから、9教科それぞれの学習ゲームへ。";
   }else if(activeSubject==="trending"){
     subjectMeta={label:"TRENDING / PLAY RANKING",title:"POPULAR GAMES"};
+    document.querySelector(".library-note").textContent="みんなによく遊ばれているゲームから探す。";
+  }else if(activeSubject==="creator"){
+    subjectMeta={label:"CREATOR / GAME ARCHIVE",title:selectedCreator||"CREATOR"};
+    document.querySelector(".library-note").innerHTML=`<div class="creator-filter-bar"><span class="creator-filter-name">BY ${esc(selectedCreator||"")}</span><button class="creator-back" type="button" id="creatorBack">← ALL CREATORS</button></div>`;
   }else{
     subjectMeta={label:`SUBJECT / ${SUBJECTS[activeSubject]?.code||"GAME"}`,title:SUBJECTS[activeSubject]?.name||"GAME SELECT"};
+    document.querySelector(".library-note").textContent="教科からゲームを選んで遊ぼう。";
   }
   $("libraryLabel").textContent=subjectMeta.label;
   $("libraryTitle").textContent=subjectMeta.title;
+  grid.classList.remove("creator-grid");
 
   const rankOrder=[...games]
     .sort((a,b)=>Number(playsMap[b.id]||0)-Number(playsMap[a.id]||0))
     .map(g=>g.id);
 
-  $("grid").innerHTML=list.map((g)=>{
+  grid.innerHTML=list.map((g)=>{
     const i=games.findIndex(x=>x.id===g.id);
     const subject=g.subject||"science";
     const meta=SUBJECTS[subject]||SUBJECTS.science;
@@ -973,6 +1342,7 @@ function render(){
     const has=!!g.url;
     const plays=Number(playsMap[g.id]||0);
     const trendRank=rankOrder.indexOf(g.id)+1;
+    const creator=creatorName(g);
     const medal=plays>0 && trendRank<=3
       ? `<span class="trend-medal">#${trendRank} TRENDING</span>`
       : "";
@@ -995,6 +1365,7 @@ function render(){
         <div class="game-visual"><div class="icon">${esc(g.icon||"🎮")}</div>
           <div class="title-wrap"><small>${esc(meta.code)}</small><h3>${esc(g.title)}</h3></div>
         </div>
+        <div class="creator-by"><span class="by-label">BY</span><button class="creator-link" type="button" data-creator="${esc(creator)}">${esc(creator)}</button></div>
         <p>${esc(g.description||"説明はまだありません。")}</p>
         <div class="public-card-stats">
           <span class="public-stat">▶ <strong>${plays.toLocaleString()}</strong> PLAY</span>
@@ -1009,11 +1380,22 @@ function render(){
 
   $("empty").classList.toggle("hidden",list.length!==0);
   renderHot();
+
+  const back=$("creatorBack");
+  if(back)back.onclick=()=>{
+    selectedCreator="";
+    activeSubject="creators";
+    const tab=document.querySelector('.subject-tab[data-subject="creators"]');
+    document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
+    tab?.classList.add("active");
+    render();
+  };
 }
 function fillForm(game=null,mode="public"){
   $("gameForm").dataset.mode=game?"admin-edit":mode;
   $("editId").value=game?.id||"";
   $("titleInput").value=game?.title||"";
+  $("creatorInput").value=game?.creator||"";
   $("iconInput").value=game?.icon||"🎮";
   $("descInput").value=game?.description||"";
   $("urlInput").value=game?.url||"";
@@ -1021,7 +1403,7 @@ function fillForm(game=null,mode="public"){
   $("gameError").classList.add("hidden");
   $("gameCode").textContent=game?"ADMIN / EDIT GAME":"COMMUNITY / ADD GAME";
   $("gameTitleHeading").textContent=game?"ゲームを編集":"ゲームを追加";
-  $("gameLead").textContent=game?"登録内容を変更できます。":"教科を選んで投稿。いったん承認待ちになり、打越Tの承認後に公開されます。";
+  $("gameLead").textContent=game?"登録内容を変更できます。":"投稿者名と教科を入れて投稿。いったん承認待ちになり、打越Tの承認後に公開されます。";
   $("gameForm").querySelector('button[type="submit"]').textContent=game?"SAVE CHANGES":"ADD TO BASE";
 }
 async function publicAdd(item){
@@ -1110,7 +1492,7 @@ function renderPending(){
       <div class="pending-main">
         <strong>${esc(g.title)}</strong>
         <p>${esc(g.description||"説明なし")}</p>
-        <span class="pending-subject">${esc(SUBJECTS[g.subject||"science"]?.name||"理科")}</span><span class="pending-domain">${esc(domainOf(g.url))}</span>
+        <span class="pending-creator">BY ${esc(creatorName(g))}</span><span class="pending-subject">${esc(SUBJECTS[g.subject||"science"]?.name||"理科")}</span><span class="pending-domain">${esc(domainOf(g.url))}</span>
       </div>
       <div class="pending-actions">
         <a class="action" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">OPEN</a>
@@ -1335,7 +1717,7 @@ function renderHot(){
       <div class="hot-rank">#${i+1}</div>
       <div class="hot-main">
         <strong>${esc(x.g.icon||"🎮")} ${esc(x.g.title)}</strong>
-        <span>${esc(meta.name)}</span>
+        <span>${esc(meta.name)} · BY ${esc(creatorName(x.g))}</span>
       </div>
       <div class="hot-plays">${x.count.toLocaleString()} ▶</div>
     </div>`;
@@ -1350,6 +1732,7 @@ document.querySelectorAll(".subject-tab").forEach(btn=>{
     document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
     activeSubject=btn.dataset.subject;
+    selectedCreator="";
     render();
   });
 });
@@ -1385,24 +1768,41 @@ $("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("pinSubmit").c
 
 $("gameForm").onsubmit=async(e)=>{
   e.preventDefault();const err=$("gameError");err.classList.add("hidden");
-  const title=$("titleInput").value.trim(),icon=$("iconInput").value.trim()||"🎮",subject=$("subjectInput").value,description=$("descInput").value.trim(),url=$("urlInput").value.trim();
+  const title=$("titleInput").value.trim(),creator=$("creatorInput").value.trim(),icon=$("iconInput").value.trim()||"🎮",subject=$("subjectInput").value,description=$("descInput").value.trim(),url=$("urlInput").value.trim();
   if(!title){err.textContent="タイトルを入力してください。";err.classList.remove("hidden");return}
+  if(!creator){err.textContent="投稿者名を入力してください。";err.classList.remove("hidden");return}
   if(!url||!validUrl(url)){err.textContent="http:// または https:// から始まる公開URLを入力してください。";err.classList.remove("hidden");return}
   try{
     const mode=$("gameForm").dataset.mode,id=$("editId").value;
     if(mode==="public"){
-      await publicAdd({title,icon,subject,description,url});
+      await publicAdd({title,creator,icon,subject,description,url});
       closeM("gameModal");
       toast("SUBMITTED — WAITING FOR APPROVAL");
     }else{
       const idx=games.findIndex(g=>g.id===id);
-      const item={id:id||`admin-${Date.now()}`,title,icon,subject,description,url,isNew:idx>=0?games[idx].isNew:true,approvedAt:idx>=0?games[idx].approvedAt:Date.now()};
+      const item={id:id||`admin-${Date.now()}`,title,creator,icon,subject,description,url,isNew:idx>=0?games[idx].isNew:true,approvedAt:idx>=0?games[idx].approvedAt:Date.now()};
       if(idx>=0)games[idx]=item;else games.push(item);
       await adminSave();closeM("gameModal");toast("SAVED");
     }
   }catch(ex){err.textContent=ex.message;err.classList.remove("hidden")}
 };
 
+
+
+$("grid").addEventListener("click",e=>{
+  const creatorBtn=e.target.closest("[data-creator]");
+  if(creatorBtn){
+    e.preventDefault();
+    e.stopPropagation();
+    openCreator(creatorBtn.dataset.creator);
+    return;
+  }
+  const openBtn=e.target.closest("[data-open-creator]");
+  if(openBtn){
+    e.preventDefault();
+    openCreator(openBtn.dataset.openCreator);
+  }
+});
 
 $("grid").addEventListener("click",e=>{
   const play=e.target.closest(".play[data-game-id]");
