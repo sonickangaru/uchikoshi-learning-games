@@ -56,6 +56,17 @@ async function readPending(store){
   if(!Array.isArray(data)) return [];
   return data.map(g=>({...g,creator:clean(g?.creator,50)||"CREATOR未設定",subject:SUBJECTS.has(g?.subject)?g.subject:"science"}));
 }
+async function backupApproved(store,games,reason="mutation"){
+  try{
+    await store.setJSON("games-backup.json",{
+      savedAt:Date.now(),
+      reason,
+      games:Array.isArray(games)?games:[]
+    });
+  }catch(err){
+    console.warn("backup failed",err);
+  }
+}
 async function readAnalytics(store){
   const data=await store.get("analytics.json",{type:"json",consistency:"strong"});
   return data && typeof data==="object" ? data : {
@@ -173,6 +184,7 @@ export default async function onRequest({request,env}){
         return out({error:"同じURLがすでに公開されています。",games:approved,pending},409);
       }
 
+      await backupApproved(store,approved,"approve");
       approved.push(game);
       pending.splice(idx,1);
       await store.setJSON("games.json",approved);
@@ -191,19 +203,86 @@ export default async function onRequest({request,env}){
       return out({ok:true,games:approved,pending});
     }
 
+    if(body.action==="upsert_game"){
+      const approved=await readApproved(store);
+      const raw=body.game||{};
+      const incoming=sanitize(raw,{allowEmptyUrl:true});
+      const idx=approved.findIndex(g=>g.id===incoming.id);
+      await backupApproved(store,approved,"upsert_game");
+      if(idx>=0){
+        const old=approved[idx];
+        approved[idx]={
+          ...incoming,
+          id:old.id,
+          isNew:raw.isNew!==undefined?!!raw.isNew:!!old.isNew,
+          submittedAt:Number(raw.submittedAt)||Number(old.submittedAt)||Date.now(),
+          approvedAt:Number(raw.approvedAt)||Number(old.approvedAt)||Date.now()
+        };
+      }else{
+        approved.push({...incoming,approvedAt:Number(incoming.approvedAt)||Date.now()});
+      }
+      await store.setJSON("games.json",approved);
+      return out({ok:true,games:approved});
+    }
+
+    if(body.action==="delete_game"){
+      const approved=await readApproved(store);
+      const id=clean(body.id,120);
+      if(!id)return out({error:"id is required"},400);
+      const next=approved.filter(g=>g.id!==id);
+      if(next.length===approved.length)return out({error:"ゲームが見つかりません。"},404);
+      await backupApproved(store,approved,"delete_game");
+      await store.setJSON("games.json",next);
+      return out({ok:true,games:next});
+    }
+
+    if(body.action==="reorder_games"){
+      const approved=await readApproved(store);
+      if(!Array.isArray(body.ids))return out({error:"順序データが不正です。"},400);
+      const ids=body.ids.map(x=>clean(x,120)).filter(Boolean);
+      const byId=new Map(approved.map(g=>[g.id,g]));
+      const used=new Set();
+      const next=[];
+      for(const id of ids){
+        if(byId.has(id)&&!used.has(id)){
+          next.push(byId.get(id));used.add(id);
+        }
+      }
+      // Important: preserve anything added by another/newer tab.
+      for(const g of approved){if(!used.has(g.id))next.push(g)}
+      await backupApproved(store,approved,"reorder_games");
+      await store.setJSON("games.json",next);
+      return out({ok:true,games:next});
+    }
+
+    if(body.action==="restore_backup"){
+      const data=await store.get("games-backup.json",{type:"json",consistency:"strong"});
+      if(!data||!Array.isArray(data.games))return out({error:"復元できるバックアップがありません。"},404);
+      const current=await readApproved(store);
+      await backupApproved(store,current,"before_restore");
+      await store.setJSON("games.json",data.games);
+      return out({ok:true,games:data.games,restoredFrom:data.savedAt||null});
+    }
+
     if(body.action==="replace"){
+      // Legacy clients used to replace the entire list. Keep this action compatible,
+      // but never let a stale tab delete games it did not know about.
       if(!Array.isArray(body.games)||body.games.length>300){
         return out({error:"ゲーム一覧が不正です。"},400);
       }
+      const current=await readApproved(store);
       const ids=new Set();
-      const games=body.games.map(raw=>{
+      const incoming=body.games.map(raw=>{
         const g=sanitize(raw,{allowEmptyUrl:true});
         if(ids.has(g.id))throw new Error("ゲームIDが重複しています。");
         ids.add(g.id);
         return g;
       });
-      await store.setJSON("games.json",games);
-      return out({ok:true,games});
+      const merged=[...incoming];
+      for(const g of current){if(!ids.has(g.id))merged.push(g)}
+      await backupApproved(store,current,"legacy_replace_safe_merge");
+      await store.setJSON("games.json",merged);
+      return out({ok:true,games:merged});
     }
 
     return out({error:"Unknown action"},400);
