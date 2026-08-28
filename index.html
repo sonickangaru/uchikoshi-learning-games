@@ -1426,19 +1426,37 @@ async function publicAdd(item){
   if(!r.ok)throw new Error(d.error||"投稿できませんでした。");
   return d;
 }
-async function adminSave(){
+async function adminRequest(action,payload={}){
   if(!backend){
-    if(LOCAL_PREVIEW){localSave();render();return;}
+    if(LOCAL_PREVIEW)return {ok:true,games};
     throw new Error("共有サーバーがOFFLINEのため保存できません。");
   }
   const r=await fetch("/api/games",{
     method:"POST",
     headers:{"content-type":"application/json","x-admin-pin":adminPin},
-    body:JSON.stringify({action:"replace",games})
+    body:JSON.stringify({action,...payload})
   });
   const d=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(d.error||"保存できませんでした。");
-  games=d.games;render();
+  if(Array.isArray(d.games))games=d.games;
+  render();
+  return d;
+}
+async function adminUpsert(item){
+  if(LOCAL_PREVIEW&&!backend){
+    const idx=games.findIndex(g=>g.id===item.id);
+    if(idx>=0)games[idx]=item;else games.push(item);
+    localSave();render();return;
+  }
+  return adminRequest("upsert_game",{game:item});
+}
+async function adminDelete(id){
+  if(LOCAL_PREVIEW&&!backend){games=games.filter(g=>g.id!==id);localSave();render();return;}
+  return adminRequest("delete_game",{id});
+}
+async function adminReorder(){
+  if(LOCAL_PREVIEW&&!backend){localSave();render();return;}
+  return adminRequest("reorder_games",{ids:games.map(g=>g.id)});
 }
 async function verifyPin(pin){
   if(!backend){
@@ -1780,9 +1798,15 @@ $("gameForm").onsubmit=async(e)=>{
       toast("SUBMITTED — WAITING FOR APPROVAL");
     }else{
       const idx=games.findIndex(g=>g.id===id);
-      const item={id:id||`admin-${Date.now()}`,title,creator,icon,subject,description,url,isNew:idx>=0?games[idx].isNew:true,approvedAt:idx>=0?games[idx].approvedAt:Date.now()};
-      if(idx>=0)games[idx]=item;else games.push(item);
-      await adminSave();closeM("gameModal");toast("SAVED");
+      const old=idx>=0?games[idx]:null;
+      const item={
+        id:id||`admin-${Date.now()}`,
+        title,creator,icon,subject,description,url,
+        isNew:old?old.isNew:true,
+        submittedAt:old?old.submittedAt:Date.now(),
+        approvedAt:old?old.approvedAt:Date.now()
+      };
+      await adminUpsert(item);closeM("gameModal");toast("SAVED");
     }
   }catch(ex){err.textContent=ex.message;err.classList.remove("hidden")}
 };
@@ -1817,12 +1841,13 @@ $("grid").addEventListener("click",async(e)=>{
   if(act==="delete"){pendingDelete=games[idx].id;$("deleteText").textContent=`「${games[idx].title}」を本拠地から削除します。リンク先のゲーム本体は削除されません。`;openM("deleteModal");return}
   if(act==="up"&&idx>0)[games[idx-1],games[idx]]=[games[idx],games[idx-1]];
   if(act==="down"&&idx<games.length-1)[games[idx+1],games[idx]]=[games[idx],games[idx+1]];
-  try{await adminSave();toast("ORDER SAVED")}catch(ex){toast("SAVE ERROR");await loadGames()}
+  try{await adminReorder();toast("ORDER SAVED")}catch(ex){toast("SAVE ERROR");await loadGames()}
 });
 $("deleteCancel").onclick=()=>{pendingDelete=null;closeM("deleteModal")};
 $("deleteConfirm").onclick=async()=>{
-  if(!pendingDelete)return;const backup=[...games];games=games.filter(g=>g.id!==pendingDelete);
-  try{await adminSave();pendingDelete=null;closeM("deleteModal");toast("DELETED")}catch(ex){games=backup;render();toast("DELETE ERROR")}
+  if(!pendingDelete)return;
+  const id=pendingDelete;
+  try{await adminDelete(id);pendingDelete=null;closeM("deleteModal");toast("DELETED")}catch(ex){toast("DELETE ERROR");await loadGames()}
 };
 
 
