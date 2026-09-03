@@ -888,6 +888,196 @@ button,a{-webkit-tap-highlight-color:transparent}
   margin-top:14px;
 }
 
+
+/* ===== COMMUNITY FEEDBACK UPDATE ===== */
+.more-games-wrap{
+  display:flex;justify-content:center;align-items:center;
+  margin:34px 0 10px;
+}
+.more-games-btn{
+  min-width:min(360px,88vw);
+  border:1px solid rgba(110,231,255,.28);
+  background:linear-gradient(135deg,rgba(110,231,255,.08),rgba(179,154,255,.08));
+  color:#d8e8f7;border-radius:16px;padding:14px 20px;
+  font-weight:900;letter-spacing:.08em;cursor:pointer;
+}
+.more-games-btn:hover{border-color:rgba(110,231,255,.55);transform:translateY(-1px)}
+.more-games-btn small{display:block;color:#708097;font-size:9px;margin-top:4px;letter-spacing:.05em}
+
+.feedback-strip{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  min-height:27px;margin:10px 0 4px;
+}
+.feedback-chip{
+  display:inline-flex;align-items:center;gap:4px;padding:5px 7px;
+  border-radius:999px;border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.025);color:#8293a8;font-size:9px;font-weight:850;
+}
+.feedback-chip b{color:#c8d9e8;font-size:10px}
+.feedback-open{
+  margin-left:auto;border:0;background:transparent;color:var(--accent);
+  padding:5px 1px;font-size:9px;font-weight:950;letter-spacing:.07em;cursor:pointer;
+}
+.feedback-open:hover{text-decoration:underline}
+
+.feedback-card{width:min(780px,100%);max-height:min(90vh,880px);overflow:auto}
+.feedback-hero{
+  padding:15px 16px;border:1px solid rgba(110,231,255,.14);
+  background:linear-gradient(135deg,rgba(110,231,255,.07),rgba(179,154,255,.05));
+  border-radius:17px;margin:13px 0 16px;
+}
+.feedback-hero small{display:block;color:#6d7f94;font-size:9px;font-weight:850;letter-spacing:.1em}
+.feedback-hero h3{margin:5px 0 0;font-size:20px;color:#f2f6fb}
+.feedback-summary{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px;
+}
+.feedback-summary div{
+  padding:9px 7px;text-align:center;border-radius:12px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06)
+}
+.feedback-summary b{display:block;font-size:15px;color:#eaf4ff}
+.feedback-summary span{display:block;margin-top:3px;color:#7d90a5;font-size:8px;font-weight:850}
+
+.feedback-compose{
+  padding:15px;border-radius:17px;background:#0b1019;
+  border:1px solid rgba(255,255,255,.07);
+}
+.feedback-compose-title{font-size:10px;font-weight:950;color:#b7c8d8;letter-spacing:.08em}
+.feedback-kind-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+.feedback-kind{
+  border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);
+  color:#8596a9;border-radius:11px;padding:9px 5px;font-size:9px;font-weight:900;cursor:pointer;
+}
+.feedback-kind.active{
+  color:#eafbff;border-color:rgba(110,231,255,.34);
+  background:rgba(110,231,255,.08);box-shadow:0 0 0 2px rgba(110,231,255,.04) inset;
+}
+.feedback-compose textarea,.creator-reply-box textarea{
+  width:100%;resize:vertical;min-height:74px;max-height:150px;
+  border:1px solid rgba(255,255,255,.08);background:#080c13;color:#eef5fb;
+  padding:12px 13px;border-radius:12px;outline:none;line-height:1.55;font-size:12px;
+}
+.feedback-compose textarea:focus,.creator-reply-box textarea:focus{
+  border-color:rgba(110,231,255,.35)
+}
+.feedback-compose-bottom{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px
+}
+.feedback-policy{font-size:8px;color:#596b80;line-height:1.45;max-width:500px}
+.feedback-submit{
+  border:0;background:linear-gradient(135deg,#6ee7ff,#b39aff);color:#071017;
+  border-radius:11px;padding:10px 14px;font-size:9px;font-weight:1000;white-space:nowrap;cursor:pointer
+}
+.feedback-list-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:21px 0 9px
+}
+.feedback-list-head b{font-size:12px;color:#d7e4ef}
+.feedback-list-head span{font-size:8px;color:#687b91}
+.feedback-list{display:grid;gap:8px}
+.feedback-item{
+  padding:13px 14px;border-radius:15px;background:#0a0f17;border:1px solid rgba(255,255,255,.065)
+}
+.feedback-item-top{
+  display:flex;align-items:center;justify-content:space-between;gap:8px
+}
+.feedback-type{
+  display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:950;color:#afc0d0
+}
+.feedback-date{font-size:8px;color:#586b81}
+.feedback-text{margin:9px 0 0;color:#cbd7e2;font-size:11px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+.feedback-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:9px}
+.feedback-action{
+  border:0;background:transparent;color:#687d92;font-size:8px;font-weight:900;cursor:pointer;padding:2px
+}
+.feedback-action.creator{color:#7bdcf0}.feedback-action.report:hover{color:#ff8899}
+.creator-reply{
+  margin-top:10px;padding:10px 11px 10px 13px;border-left:2px solid #6ee7ff;
+  border-radius:0 10px 10px 0;background:rgba(110,231,255,.045)
+}
+.creator-reply strong{display:block;color:#8eeaff;font-size:9px;letter-spacing:.05em}
+.creator-reply p{margin:5px 0 0;color:#bcd0df;font-size:10px;line-height:1.6;white-space:pre-wrap}
+.feedback-empty{padding:24px;text-align:center;color:#64778d;font-size:10px;border:1px dashed rgba(255,255,255,.07);border-radius:14px}
+
+.creator-key-help{
+  display:block;margin-top:6px;color:#63758a;font-size:9px;line-height:1.45
+}
+.creator-reply-card{width:min(560px,100%)}
+.creator-reply-box{display:grid;gap:10px;margin-top:14px}
+.creator-reply-box input{
+  width:100%;border:1px solid rgba(255,255,255,.08);background:#080c13;color:#eef5fb;
+  padding:12px 13px;border-radius:12px;outline:none
+}
+.creator-reply-box input:focus{border-color:rgba(110,231,255,.35)}
+
+.feedback-admin-card{width:min(860px,100%);max-height:min(90vh,880px);overflow:auto}
+.feedback-admin-list{display:grid;gap:8px;margin-top:14px}
+.feedback-admin-item{
+  padding:12px;border-radius:14px;background:#090e16;border:1px solid rgba(255,255,255,.07)
+}
+.feedback-admin-meta{display:flex;gap:7px;flex-wrap:wrap;color:#667a91;font-size:8px}
+.feedback-admin-item p{margin:8px 0;color:#c7d5e1;font-size:10px;line-height:1.55;white-space:pre-wrap}
+.feedback-admin-item.hidden-comment{opacity:.55}
+.feedback-admin-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.feedback-admin-actions button{
+  border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);
+  color:#9db0c1;border-radius:9px;padding:6px 8px;font-size:8px;font-weight:900;cursor:pointer
+}
+.feedback-admin-actions button.danger{color:#ff8fa1;border-color:rgba(255,100,120,.2)}
+
+@media(max-width:650px){
+  .feedback-summary{grid-template-columns:repeat(2,1fr)}
+  .feedback-kind-row{grid-template-columns:repeat(2,1fr)}
+  .feedback-compose-bottom{align-items:stretch;flex-direction:column}
+  .feedback-submit{width:100%}
+  .feedback-open{margin-left:0}
+}
+
+
+/* ===== CARD COMMENT PREVIEW v2 ===== */
+.feedback-teaser{
+  display:block;width:100%;
+  margin:7px 0 12px;padding:10px 11px;
+  text-align:left;
+  border:1px solid rgba(255,255,255,.065);
+  background:linear-gradient(135deg,rgba(255,255,255,.026),rgba(110,231,255,.018));
+  border-radius:12px;cursor:pointer;
+  transition:.16s border-color,.16s background,.16s transform;
+}
+.feedback-teaser:hover{
+  border-color:rgba(110,231,255,.24);
+  background:rgba(110,231,255,.04);
+  transform:translateY(-1px);
+}
+.feedback-teaser-head{
+  margin-bottom:5px;
+  color:#748ba1;
+  font-size:8px;font-weight:950;letter-spacing:.06em;
+}
+.feedback-teaser-text{
+  color:#c5d3df;
+  font-size:10px;line-height:1.48;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  line-clamp:2;
+  overflow:hidden;
+  min-height:2.96em;
+  max-height:2.96em;
+  overflow-wrap:anywhere;
+}
+.feedback-teaser-reply{
+  margin-top:6px;padding-top:6px;
+  border-top:1px solid rgba(110,231,255,.10);
+  color:#78dcec;
+  font-size:8.5px;font-weight:850;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media(max-width:650px){
+  .feedback-teaser-text{font-size:10.5px}
+}
+
 </style>
 </head>
 <body>
@@ -923,6 +1113,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     <div class="admin-left"><div class="admin-dot"></div><div><strong>ADMIN MODE</strong><span>編集・削除・並べ替えができます。</span></div></div>
     <div class="admin-actions">
       <button id="analyticsOpen" class="action analytics" type="button">ANALYTICS</button>
+      <button id="feedbackAdminOpen" class="action" type="button">FEEDBACK</button>
       <button id="pendingOpen" class="action review" type="button">PENDING <span id="pendingCount">0</span></button>
       <button id="adminAdd" class="action primary" type="button">＋ ADD</button>
       <button id="adminExit" class="action" type="button">EXIT</button>
@@ -965,6 +1156,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   </section>
 
   <section id="grid" class="grid"></section>
+  <div id="moreGamesWrap" class="more-games-wrap hidden"><button id="moreGamesBtn" class="more-games-btn" type="button">MORE GAMES +12<small id="moreGamesMeta"></small></button></div>
   <div id="empty" class="empty hidden"><b>NO GAME FOUND</b>条件に合うゲームがありません。</div>
 
   <footer class="footer">
@@ -987,6 +1179,12 @@ button,a{-webkit-tap-highlight-color:transparent}
       <label class="field">
         <span>CREATOR / 投稿者名 *</span>
         <input id="creatorInput" maxlength="50" required placeholder="例：打越T">
+      </label>
+
+      <label class="field" id="creatorKeyField">
+        <span>CREATOR REPLY KEY *</span>
+        <input id="creatorKeyInput" type="password" maxlength="32" autocomplete="new-password" placeholder="6文字以上・公開されません">
+        <small class="creator-key-help" id="creatorKeyHelp">感想に作者として返信するときだけ使う秘密キーです。公開画面には表示されません。</small>
       </label>
 
       <label class="field">
@@ -1120,6 +1318,77 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </div>
 
+
+<!-- PUBLIC FEEDBACK -->
+<div id="feedbackModal" class="modal hidden">
+  <div class="modal-card feedback-card">
+    <button class="modal-x" data-close="feedbackModal">×</button>
+    <div class="modal-code">PUBLIC / FEEDBACK</div>
+    <h2>遊んだ人の声</h2>
+    <p class="modal-lead">感想・要望・バグ報告は公開され、作者も返信できます。</p>
+
+    <div class="feedback-hero">
+      <small>NOW REVIEWING</small>
+      <h3 id="feedbackGameTitle">GAME</h3>
+      <div class="feedback-summary">
+        <div><b id="fbFun">0</b><span>👍 おもしろい</span></div>
+        <div><b id="fbLearn">0</b><span>📚 勉強になる</span></div>
+        <div><b id="fbRequest">0</b><span>💡 要望</span></div>
+        <div><b id="fbBug">0</b><span>🐛 バグ</span></div>
+      </div>
+    </div>
+
+    <div class="feedback-compose">
+      <div class="feedback-compose-title">YOUR FEEDBACK</div>
+      <div class="feedback-kind-row" id="feedbackKindRow">
+        <button class="feedback-kind active" type="button" data-fb-kind="fun">👍 おもしろい</button>
+        <button class="feedback-kind" type="button" data-fb-kind="learn">📚 勉強になる</button>
+        <button class="feedback-kind" type="button" data-fb-kind="request">💡 要望</button>
+        <button class="feedback-kind" type="button" data-fb-kind="bug">🐛 バグ</button>
+      </div>
+      <textarea id="feedbackText" maxlength="120" placeholder="作者に伝えたいこと（任意・120文字まで）"></textarea>
+      <div class="feedback-compose-bottom">
+        <div class="feedback-policy">公開コメントです。個人情報・URL・攻撃的な表現は禁止。通報3件で一旦自動非表示になり、ADMINが確認できます。</div>
+        <button id="feedbackSubmit" class="feedback-submit" type="button">PUBLIC POST →</button>
+      </div>
+      <div id="feedbackError" class="error hidden" style="margin-top:9px"></div>
+    </div>
+
+    <div class="feedback-list-head"><b>PUBLIC COMMENTS</b><span id="feedbackCommentCount">0 COMMENTS</span></div>
+    <div id="feedbackList" class="feedback-list"></div>
+  </div>
+</div>
+
+<!-- CREATOR REPLY -->
+<div id="creatorReplyModal" class="modal hidden">
+  <div class="modal-card creator-reply-card">
+    <button class="modal-x" data-close="creatorReplyModal">×</button>
+    <div class="modal-code">CREATOR / REPLY</div>
+    <h2>作者として返信</h2>
+    <p class="modal-lead">ゲーム投稿時に設定したCREATOR KEYで本人確認します。キー自体は公開されません。</p>
+    <div class="creator-reply-box">
+      <input id="replyCreatorKey" type="password" maxlength="32" autocomplete="off" placeholder="CREATOR KEY">
+      <textarea id="replyText" maxlength="180" placeholder="返信内容（180文字まで）"></textarea>
+      <div id="replyError" class="error hidden"></div>
+      <button id="replySubmit" class="action primary" type="button" style="width:100%">✓ CREATOR REPLY</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN FEEDBACK -->
+<div id="feedbackAdminModal" class="modal hidden">
+  <div class="modal-card feedback-admin-card">
+    <button class="modal-x" data-close="feedbackAdminModal">×</button>
+    <div class="modal-code">ADMIN / FEEDBACK MODERATION</div>
+    <div class="analytics-title-row">
+      <div><h2>公開コメント管理</h2><p class="modal-lead">通報・非表示コメントもここから確認できます。</p></div>
+      <button id="feedbackAdminRefresh" class="action" type="button">↻ REFRESH</button>
+    </div>
+    <div id="feedbackAdminList" class="feedback-admin-list"></div>
+    <div id="feedbackAdminEmpty" class="review-empty hidden">まだコメントはありません。</div>
+  </div>
+</div>
+
 <div id="toast" class="toast hidden"></div>
 
 <script>
@@ -1141,7 +1410,7 @@ const SUBJECTS={
   tech_home:{name:"技術・家庭",code:"TECH & HOME",accent:"#ffd36e"},
   english:{name:"英語",code:"ENGLISH",accent:"#9aa7ff"}
 };
-let games=[], pendingGames=[], activeSubject="latest", selectedCreator="", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}};
+let games=[], pendingGames=[], activeSubject="latest", selectedCreator="", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}}, feedbackSummary={}, feedbackTeasers={}, visibleGameLimit=12, feedbackGameId="", feedbackKind="fun", replyTarget=null;
 const LOCAL_PREVIEW = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
 const $=id=>document.getElementById(id);
 
@@ -1175,9 +1444,171 @@ function creatorSummary(){
 function openCreator(name){
   selectedCreator=name;
   activeSubject="creator";
+  visibleGameLimit=12;
   document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
   render();
   document.querySelector(".library-head")?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+const FEEDBACK_META={
+  fun:{icon:"👍",label:"おもしろい"},
+  learn:{icon:"📚",label:"勉強になる"},
+  request:{icon:"💡",label:"要望"},
+  bug:{icon:"🐛",label:"バグ"}
+};
+function feedbackClientToken(){
+  let v=localStorage.getItem("uchikoshi_feedback_client_v1");
+  if(!v){
+    v=(crypto?.randomUUID?.()||`${Date.now()}-${Math.random()}-${Math.random()}`);
+    localStorage.setItem("uchikoshi_feedback_client_v1",v);
+  }
+  return v;
+}
+function feedbackBase(){
+  return {fun:0,learn:0,request:0,bug:0,comments:0};
+}
+function feedbackFor(id){
+  return {...feedbackBase(),...(feedbackSummary?.[id]||{})};
+}
+function localFeedbackLoad(){
+  try{return JSON.parse(localStorage.getItem("uchikoshi_public_feedback_v1"))||[]}catch{return []}
+}
+function localFeedbackSave(v){
+  localStorage.setItem("uchikoshi_public_feedback_v1",JSON.stringify(v));
+}
+function localFeedbackSummary(){
+  const map={};
+  for(const f of localFeedbackLoad()){
+    if(f.status!=="visible")continue;
+    if(!map[f.gameId])map[f.gameId]=feedbackBase();
+    map[f.gameId][f.kind]=(map[f.gameId][f.kind]||0)+1;
+    if(f.text)map[f.gameId].comments++;
+  }
+  return map;
+}
+function localFeedbackTeasers(){
+  const groups={};
+  for(const f of localFeedbackLoad()){
+    if(f.status!=="visible" || !f.text)continue;
+    (groups[f.gameId] ||= []).push(f);
+  }
+  const result={};
+  const priority=x=>(x.kind==="request"||x.kind==="bug")?3:(x.reply?.text?2:1);
+  for(const [gameId,items] of Object.entries(groups)){
+    const picked=items.slice().sort((a,b)=>
+      (priority(b)-priority(a)) || (Number(b.createdAt||0)-Number(a.createdAt||0))
+    )[0];
+    result[gameId]=picked;
+  }
+  return result;
+}
+async function feedbackRequest(action,payload={}){
+  if(backend){
+    const r=await fetch("/api/games",{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify({action,...payload,clientToken:feedbackClientToken()})
+    });
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(d.error||"FEEDBACK ERROR");
+    return d;
+  }
+  if(!LOCAL_PREVIEW)throw new Error("共有サーバーがOFFLINEです。");
+
+  const all=localFeedbackLoad();
+  if(action==="feedback_list"){
+    return {ok:true,feedback:all.filter(f=>f.gameId===payload.gameId&&f.status==="visible"&&f.text).sort((a,b)=>b.createdAt-a.createdAt),summary:localFeedbackSummary()[payload.gameId]||feedbackBase()};
+  }
+  if(action==="feedback_submit"){
+    const item={id:`local-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,gameId:payload.gameId,kind:payload.kind,text:String(payload.text||"").trim().slice(0,120),createdAt:Date.now(),status:"visible",reporters:[],reply:null};
+    all.push(item);localFeedbackSave(all);
+    return {ok:true,summary:localFeedbackSummary()[payload.gameId]||feedbackBase()};
+  }
+  if(action==="feedback_report"){
+    const x=all.find(f=>f.id===payload.id);if(x){x.status="hidden";localFeedbackSave(all)}
+    return {ok:true,hidden:true};
+  }
+  if(action==="feedback_reply"){
+    const x=all.find(f=>f.id===payload.id&&f.gameId===payload.gameId);
+    const g=games.find(g=>g.id===payload.gameId);
+    if(!x)throw new Error("コメントが見つかりません。");
+    // Preview-only creator key: DEMO123
+    if(payload.creatorKey!=="DEMO123")throw new Error("ローカルプレビューのCREATOR KEYは DEMO123 です。");
+    x.reply={text:String(payload.text||"").trim().slice(0,180),createdAt:Date.now(),creator:creatorName(g)};
+    localFeedbackSave(all);return {ok:true,reply:x.reply};
+  }
+  throw new Error("LOCAL PREVIEWではこの操作は使えません。");
+}
+function formatFeedbackDate(ms){
+  if(!ms)return "";
+  try{
+    const d=new Date(ms);
+    return new Intl.DateTimeFormat("ja-JP",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"}).format(d);
+  }catch{return ""}
+}
+function feedbackSummaryHTML(gameId){
+  const s=feedbackFor(gameId);
+  const teaser=feedbackTeasers?.[gameId];
+  const meta=teaser?(FEEDBACK_META[teaser.kind]||FEEDBACK_META.fun):null;
+
+  const teaserHtml=teaser?`
+    <button class="feedback-teaser" type="button" data-feedback-game="${esc(gameId)}" aria-label="コメント全文を見る">
+      <div class="feedback-teaser-head">${meta.icon} PLAYER / ${esc(meta.label)}</div>
+      <div class="feedback-teaser-text">${esc(teaser.text||"")}</div>
+      ${teaser.reply?`<div class="feedback-teaser-reply">↳ ✓ CREATOR ${esc(teaser.reply.creator||"")}：${esc(teaser.reply.text||"")}</div>`:""}
+    </button>`:"";
+
+  return `<div class="feedback-strip">
+    <span class="feedback-chip">👍 <b>${Number(s.fun||0)}</b></span>
+    <span class="feedback-chip">📚 <b>${Number(s.learn||0)}</b></span>
+    <span class="feedback-chip">💬 <b>${Number(s.comments||0)}</b></span>
+    <button class="feedback-open" type="button" data-feedback-game="${esc(gameId)}">COMMENTS ${Number(s.comments||0)} →</button>
+  </div>${teaserHtml}`;
+}
+async function openFeedback(gameId){
+  const g=games.find(x=>x.id===gameId);if(!g)return;
+  feedbackGameId=gameId;feedbackKind="fun";
+  $("feedbackGameTitle").textContent=`${g.icon||"🎮"} ${g.title}`;
+  $("feedbackText").value="";
+  $("feedbackError").classList.add("hidden");
+  document.querySelectorAll(".feedback-kind").forEach(b=>b.classList.toggle("active",b.dataset.fbKind==="fun"));
+  openM("feedbackModal");
+  await refreshFeedbackModal();
+}
+async function refreshFeedbackModal(){
+  if(!feedbackGameId)return;
+  const d=await feedbackRequest("feedback_list",{gameId:feedbackGameId});
+  feedbackSummary[feedbackGameId]=d.summary||feedbackBase();
+  const teaserItems=(Array.isArray(d.feedback)?d.feedback:[]).slice();
+  const teaserPriority=x=>(x.kind==="request"||x.kind==="bug")?3:(x.reply?.text?2:1);
+  teaserItems.sort((a,b)=>
+    (teaserPriority(b)-teaserPriority(a)) ||
+    (Number(b.createdAt||0)-Number(a.createdAt||0))
+  );
+  if(teaserItems[0])feedbackTeasers[feedbackGameId]=teaserItems[0];
+  else delete feedbackTeasers[feedbackGameId];
+  const s=feedbackFor(feedbackGameId);
+  $("fbFun").textContent=Number(s.fun||0);
+  $("fbLearn").textContent=Number(s.learn||0);
+  $("fbRequest").textContent=Number(s.request||0);
+  $("fbBug").textContent=Number(s.bug||0);
+  const list=Array.isArray(d.feedback)?d.feedback:[];
+  $("feedbackCommentCount").textContent=`${list.length} COMMENTS`;
+  $("feedbackList").innerHTML=list.length?list.map(f=>{
+    const meta=FEEDBACK_META[f.kind]||FEEDBACK_META.fun;
+    return `<article class="feedback-item">
+      <div class="feedback-item-top">
+        <span class="feedback-type">${meta.icon} PLAYER / ${esc(meta.label)}</span>
+        <span class="feedback-date">${esc(formatFeedbackDate(f.createdAt))}</span>
+      </div>
+      <div class="feedback-text">${esc(f.text)}</div>
+      ${f.reply?`<div class="creator-reply"><strong>✓ CREATOR ${esc(f.reply.creator||"CREATOR")}</strong><p>${esc(f.reply.text||"")}</p></div>`:""}
+      <div class="feedback-actions">
+        <button class="feedback-action creator" type="button" data-feedback-reply="${esc(f.id)}">✓ CREATOR REPLY</button>
+        <button class="feedback-action report" type="button" data-feedback-report="${esc(f.id)}">⚑ REPORT</button>
+      </div>
+    </article>`;
+  }).join(""):`<div class="feedback-empty">まだ公開コメントはありません。<br>最初の感想を送ってみよう。</div>`;
 }
 
 function validUrl(v){
@@ -1210,12 +1641,16 @@ async function loadGames(){
     const d=await r.json();
     games=Array.isArray(d.games)?d.games:SEED_GAMES;
     publicAnalytics=d.publicAnalytics||{totalVisits:0,totalPlays:0,gamePlays:{}};
+    feedbackSummary=d.feedbackSummary||{};
+    feedbackTeasers=d.feedbackTeasers||{};
     setBackendStatus(true);
   }catch(err){
     console.warn("Shared API unavailable:",err);
     games=LOCAL_PREVIEW?localLoad():SEED_GAMES;
     const localA=typeof localAnalyticsLoad==="function"?localAnalyticsLoad():{totalVisits:0,totalPlays:0,gamePlays:{}};
     publicAnalytics=localA||{totalVisits:0,totalPlays:0,gamePlays:{}};
+    feedbackSummary=LOCAL_PREVIEW?localFeedbackSummary():{};
+    feedbackTeasers=LOCAL_PREVIEW?localFeedbackTeasers():{};
     setBackendStatus(false);
 
     if(!LOCAL_PREVIEW){
@@ -1288,6 +1723,7 @@ function render(){
     }).join("");
 
     $("empty").classList.toggle("hidden",creators.length!==0);
+    $("moreGamesWrap").classList.add("hidden");
     renderHot();
     return;
   }
@@ -1334,7 +1770,13 @@ function render(){
     .sort((a,b)=>Number(playsMap[b.id]||0)-Number(playsMap[a.id]||0))
     .map(g=>g.id);
 
-  grid.innerHTML=list.map((g)=>{
+  const visibleList=list.slice(0,visibleGameLimit);
+  const remaining=Math.max(0,list.length-visibleList.length);
+  $("moreGamesWrap").classList.toggle("hidden",remaining===0);
+  $("moreGamesBtn").firstChild.textContent=remaining>0?`MORE GAMES +${Math.min(12,remaining)}`:"MORE GAMES";
+  $("moreGamesMeta").textContent=remaining>0?`${visibleList.length} / ${list.length} GAMES DISPLAYED`:"";
+
+  grid.innerHTML=visibleList.map((g)=>{
     const i=games.findIndex(x=>x.id===g.id);
     const subject=g.subject||"science";
     const meta=SUBJECTS[subject]||SUBJECTS.science;
@@ -1371,6 +1813,7 @@ function render(){
           <span class="public-stat">▶ <strong>${plays.toLocaleString()}</strong> PLAY</span>
           ${medal}
         </div>
+        ${feedbackSummaryHTML(g.id)}
         <div class="card-bottom">
           ${has?`<a class="play" data-game-id="${esc(g.id)}" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">PLAY GAME <span>→</span></a>`:`<span class="play" style="opacity:.35">URL NOT SET <span>—</span></span>`}
           ${manage}
@@ -1385,6 +1828,7 @@ function render(){
   if(back)back.onclick=()=>{
     selectedCreator="";
     activeSubject="creators";
+    visibleGameLimit=12;
     const tab=document.querySelector('.subject-tab[data-subject="creators"]');
     document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
     tab?.classList.add("active");
@@ -1396,6 +1840,11 @@ function fillForm(game=null,mode="public"){
   $("editId").value=game?.id||"";
   $("titleInput").value=game?.title||"";
   $("creatorInput").value=game?.creator||"";
+  $("creatorKeyInput").value="";
+  $("creatorKeyInput").required=!game && mode==="public";
+  $("creatorKeyHelp").textContent=game
+    ?"作者返信キーを変更するときだけ入力。空欄なら現在のキーを維持します。既存ゲームで未設定ならここから新しく設定できます。"
+    :"感想に作者として返信するときだけ使う秘密キーです。公開画面には表示されません。";
   $("iconInput").value=game?.icon||"🎮";
   $("descInput").value=game?.description||"";
   $("urlInput").value=game?.url||"";
@@ -1751,10 +2200,12 @@ document.querySelectorAll(".subject-tab").forEach(btn=>{
     btn.classList.add("active");
     activeSubject=btn.dataset.subject;
     selectedCreator="";
+    visibleGameLimit=12;
     render();
   });
 });
-$("searchInput").oninput=render;
+$("searchInput").oninput=()=>{visibleGameLimit=12;render()};
+$("moreGamesBtn").onclick=()=>{visibleGameLimit+=12;render();setTimeout(()=>$("moreGamesBtn")?.scrollIntoView({behavior:"smooth",block:"nearest"}),20)};
 $("addOpen").onclick=()=>{
   if(!backend && !LOCAL_PREVIEW){toast("SHARED SAVE OFFLINE");return;}
   fillForm(null,"public");openM("gameModal");
@@ -1786,14 +2237,17 @@ $("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("pinSubmit").c
 
 $("gameForm").onsubmit=async(e)=>{
   e.preventDefault();const err=$("gameError");err.classList.add("hidden");
-  const title=$("titleInput").value.trim(),creator=$("creatorInput").value.trim(),icon=$("iconInput").value.trim()||"🎮",subject=$("subjectInput").value,description=$("descInput").value.trim(),url=$("urlInput").value.trim();
+  const title=$("titleInput").value.trim(),creator=$("creatorInput").value.trim(),creatorKey=$("creatorKeyInput").value.trim(),icon=$("iconInput").value.trim()||"🎮",subject=$("subjectInput").value,description=$("descInput").value.trim(),url=$("urlInput").value.trim();
   if(!title){err.textContent="タイトルを入力してください。";err.classList.remove("hidden");return}
   if(!creator){err.textContent="投稿者名を入力してください。";err.classList.remove("hidden");return}
+  const formMode=$("gameForm").dataset.mode;
+  if(formMode==="public" && creatorKey.length<6){err.textContent="CREATOR KEYは6文字以上で設定してください。";err.classList.remove("hidden");return}
+  if(creatorKey && creatorKey.length<6){err.textContent="CREATOR KEYは6文字以上にしてください。";err.classList.remove("hidden");return}
   if(!url||!validUrl(url)){err.textContent="http:// または https:// から始まる公開URLを入力してください。";err.classList.remove("hidden");return}
   try{
     const mode=$("gameForm").dataset.mode,id=$("editId").value;
     if(mode==="public"){
-      await publicAdd({title,creator,icon,subject,description,url});
+      await publicAdd({title,creator,creatorKey,icon,subject,description,url});
       closeM("gameModal");
       toast("SUBMITTED — WAITING FOR APPROVAL");
     }else{
@@ -1801,7 +2255,7 @@ $("gameForm").onsubmit=async(e)=>{
       const old=idx>=0?games[idx]:null;
       const item={
         id:id||`admin-${Date.now()}`,
-        title,creator,icon,subject,description,url,
+        title,creator,creatorKey,icon,subject,description,url,
         isNew:old?old.isNew:true,
         submittedAt:old?old.submittedAt:Date.now(),
         approvedAt:old?old.approvedAt:Date.now()
@@ -1814,6 +2268,12 @@ $("gameForm").onsubmit=async(e)=>{
 
 
 $("grid").addEventListener("click",e=>{
+  const feedbackBtn=e.target.closest("[data-feedback-game]");
+  if(feedbackBtn){
+    e.preventDefault();e.stopPropagation();
+    openFeedback(feedbackBtn.dataset.feedbackGame).catch(ex=>toast(ex.message||"FEEDBACK ERROR"));
+    return;
+  }
   const creatorBtn=e.target.closest("[data-creator]");
   if(creatorBtn){
     e.preventDefault();
@@ -1885,6 +2345,104 @@ $("pendingList").addEventListener("click",async(e)=>{
   }finally{
     b.disabled=false;
   }
+});
+
+
+$("feedbackKindRow").addEventListener("click",e=>{
+  const b=e.target.closest("[data-fb-kind]");if(!b)return;
+  feedbackKind=b.dataset.fbKind;
+  document.querySelectorAll(".feedback-kind").forEach(x=>x.classList.toggle("active",x===b));
+});
+
+$("feedbackSubmit").onclick=async()=>{
+  const err=$("feedbackError");err.classList.add("hidden");
+  try{
+    if(!feedbackGameId)throw new Error("ゲームが選択されていません。");
+    const text=$("feedbackText").value.trim();
+    const d=await feedbackRequest("feedback_submit",{gameId:feedbackGameId,kind:feedbackKind,text});
+    feedbackSummary[feedbackGameId]=d.summary||feedbackBase();
+    $("feedbackText").value="";
+    await refreshFeedbackModal();
+    render();
+    toast(text?"COMMENT PUBLISHED":"REACTION SENT");
+  }catch(ex){err.textContent=ex.message;err.classList.remove("hidden")}
+};
+
+$("feedbackList").addEventListener("click",async e=>{
+  const report=e.target.closest("[data-feedback-report]");
+  if(report){
+    try{
+      if(!confirm("このコメントを通報しますか？"))return;
+      const d=await feedbackRequest("feedback_report",{id:report.dataset.feedbackReport});
+      toast(d.hidden?"3件以上の通報で一旦非表示になりました":"REPORT SENT");
+      await refreshFeedbackModal();
+    }catch(ex){toast(ex.message||"REPORT ERROR")}
+    return;
+  }
+  const reply=e.target.closest("[data-feedback-reply]");
+  if(reply){
+    replyTarget={id:reply.dataset.feedbackReply,gameId:feedbackGameId};
+    $("replyCreatorKey").value="";$("replyText").value="";$("replyError").classList.add("hidden");
+    openM("creatorReplyModal");
+  }
+});
+
+$("replySubmit").onclick=async()=>{
+  const err=$("replyError");err.classList.add("hidden");
+  try{
+    if(!replyTarget)throw new Error("返信先が見つかりません。");
+    const creatorKey=$("replyCreatorKey").value.trim();
+    const text=$("replyText").value.trim();
+    if(creatorKey.length<6)throw new Error("CREATOR KEYを入力してください。");
+    if(!text)throw new Error("返信内容を入力してください。");
+    await feedbackRequest("feedback_reply",{...replyTarget,creatorKey,text});
+    closeM("creatorReplyModal");replyTarget=null;
+    await refreshFeedbackModal();
+    toast("CREATOR REPLY PUBLISHED");
+  }catch(ex){err.textContent=ex.message;err.classList.remove("hidden")}
+};
+
+async function loadAdminFeedback(){
+  const d=await adminRequest("feedback_admin_list");
+  const list=Array.isArray(d.feedback)?d.feedback:[];
+  $("feedbackAdminEmpty").classList.toggle("hidden",list.length!==0);
+  $("feedbackAdminList").innerHTML=list.map(f=>{
+    const g=games.find(x=>x.id===f.gameId);
+    const meta=FEEDBACK_META[f.kind]||FEEDBACK_META.fun;
+    return `<article class="feedback-admin-item ${f.status==="hidden"?"hidden-comment":""}">
+      <div class="feedback-admin-meta">
+        <span>${esc(g?.title||f.gameId)}</span><span>${meta.icon} ${esc(meta.label)}</span>
+        <span>${esc(formatFeedbackDate(f.createdAt))}</span><span>REPORT ${Number(f.reports||0)}</span><span>${esc(f.status||"visible").toUpperCase()}</span>
+      </div>
+      <p>${esc(f.text||"(リアクションのみ)")}</p>
+      ${f.reply?`<div class="creator-reply"><strong>✓ CREATOR ${esc(f.reply.creator||"")}</strong><p>${esc(f.reply.text||"")}</p></div>`:""}
+      <div class="feedback-admin-actions">
+        ${f.status==="hidden"?`<button data-fb-admin="visible" data-id="${esc(f.id)}">RESTORE</button>`:`<button data-fb-admin="hidden" data-id="${esc(f.id)}">HIDE</button>`}
+        <button class="danger" data-fb-admin="delete" data-id="${esc(f.id)}">DELETE</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+$("feedbackAdminOpen").onclick=async()=>{
+  try{await loadAdminFeedback();openM("feedbackAdminModal")}catch(ex){toast(ex.message||"FEEDBACK ADMIN ERROR")}
+};
+$("feedbackAdminRefresh").onclick=async()=>{try{await loadAdminFeedback();toast("UPDATED")}catch(ex){toast(ex.message||"ERROR")}};
+
+$("feedbackAdminList").addEventListener("click",async e=>{
+  const b=e.target.closest("[data-fb-admin]");if(!b)return;
+  try{
+    const act=b.dataset.fbAdmin,id=b.dataset.id;
+    if(act==="delete"){
+      if(!confirm("このコメントを完全に削除しますか？"))return;
+      await adminRequest("feedback_admin_delete",{id});
+    }else{
+      await adminRequest("feedback_admin_status",{id,status:act});
+    }
+    await loadAdminFeedback();
+    await loadGames();
+    toast("FEEDBACK UPDATED");
+  }catch(ex){toast(ex.message||"UPDATE ERROR")}
 });
 
 window.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal:not(.hidden)").forEach(m=>m.classList.add("hidden"))});
