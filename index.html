@@ -1733,6 +1733,28 @@ button,a{-webkit-tap-highlight-color:transparent}
   font-size:9px!important;
 }
 
+
+/* ===== TOPBAR CLICK / DECORATION HITBOX FIX v9 ===== */
+.hero-grid,
+.hero-glow,
+.atom,
+.atom *,
+.ring,
+.atom-core{
+  pointer-events:none!important;
+}
+.topbar{
+  position:relative!important;
+  z-index:50!important;
+}
+.top-actions,
+.add-btn,
+.admin-btn{
+  position:relative!important;
+  z-index:51!important;
+  pointer-events:auto!important;
+}
+
 </style>
 </head>
 <body>
