@@ -192,75 +192,21 @@ async function sha256(value){
   }
 }
 
-const ADMIN_SESSION_TTL=8*60*60*1000;
-const ADMIN_SESSION_FILE="admin-sessions.json";
-
 function configuredAdminPin(env){
-  // IMPORTANT: production secret exists ONLY in EdgeOne environment variables.
-  // There is intentionally no source-code fallback password.
+  // Secret exists only in EdgeOne environment variables.
+  // There is intentionally NO source-code fallback PIN.
   return clean(env?.ADMIN_PIN || process.env.ADMIN_PIN || "",128);
 }
-async function secureSame(a,b){
-  const [ha,hb]=await Promise.all([sha256(`cmp:${a}`),sha256(`cmp:${b}`)]);
-  if(ha.length!==hb.length)return false;
-  let diff=0;
-  for(let i=0;i<ha.length;i++)diff|=ha.charCodeAt(i)^hb.charCodeAt(i);
-  return diff===0;
-}
-function randomAdminToken(){
-  if(globalThis.crypto?.randomUUID){
-    return `${crypto.randomUUID()}-${crypto.randomUUID()}`;
+async function checkAdmin(request,env){
+  const expected=configuredAdminPin(env);
+  if(!expected){
+    return {ok:false,response:out({error:"ADMIN_PINがサーバーに設定されていません。"},503)};
   }
-  const buf=new Uint8Array(32);
-  globalThis.crypto?.getRandomValues?.(buf);
-  return [...buf].map(x=>x.toString(16).padStart(2,"0")).join("") || `${Date.now()}-${Math.random()}-${Math.random()}`;
-}
-async function adminTokenHash(token){
-  return sha256(`uchikoshi-admin-session-v1:${token}`);
-}
-async function readAdminSessions(store){
-  const data=await store.get(ADMIN_SESSION_FILE,{type:"json",consistency:"strong"});
-  return data&&typeof data==="object"&&!Array.isArray(data)?data:{};
-}
-async function writeAdminSessions(store,sessions){
-  await store.setJSON(ADMIN_SESSION_FILE,sessions);
-}
-function pruneAdminSessions(sessions){
-  const now=Date.now();
-  const entries=Object.entries(sessions||{})
-    .filter(([,v])=>Number(v?.expiresAt||0)>now)
-    .sort((a,b)=>Number(b[1]?.createdAt||0)-Number(a[1]?.createdAt||0))
-    .slice(0,20);
-  return Object.fromEntries(entries);
-}
-async function createAdminSession(store){
-  let sessions=pruneAdminSessions(await readAdminSessions(store));
-  const token=randomAdminToken();
-  const hash=await adminTokenHash(token);
-  const now=Date.now();
-  sessions[hash]={createdAt:now,expiresAt:now+ADMIN_SESSION_TTL};
-  await writeAdminSessions(store,sessions);
-  return {token,expiresAt:now+ADMIN_SESSION_TTL};
-}
-async function requireAdminSession(request,store){
-  const token=clean(request.headers.get("x-admin-session")||"",180);
-  if(!token)return {ok:false,response:out({error:"ADMINセッションがありません。もう一度ログインしてください。"},401)};
-  const hash=await adminTokenHash(token);
-  let sessions=pruneAdminSessions(await readAdminSessions(store));
-  const session=sessions[hash];
-  if(!session){
-    await writeAdminSessions(store,sessions).catch(()=>{});
-    return {ok:false,response:out({error:"ADMINセッションの期限が切れました。もう一度ログインしてください。"},401)};
+  const got=clean(request.headers.get("x-admin-pin")||"",128);
+  if(!got || got!==expected){
+    return {ok:false,response:out({error:"PINが違います。"},401)};
   }
-  return {ok:true,hash,sessions};
-}
-async function revokeAdminSession(request,store){
-  const token=clean(request.headers.get("x-admin-session")||"",180);
-  if(!token)return;
-  const hash=await adminTokenHash(token);
-  const sessions=pruneAdminSessions(await readAdminSessions(store));
-  delete sessions[hash];
-  await writeAdminSessions(store,sessions);
+  return {ok:true};
 }
 function creatorKeyValue(v){
   const key=clean(v,32);
@@ -474,30 +420,12 @@ export default async function onRequest({request,env}){
       return out({ok:true});
     }
 
-    // ---------- ADMIN LOGIN ----------
-    if(body.action==="verify"){
-      const expected=configuredAdminPin(env);
-      if(!expected){
-        return out({error:"ADMIN_PINがサーバーに設定されていません。管理者に連絡してください。"},503);
-      }
-      const got=clean(body.pin,128);
-      if(!got || !(await secureSame(got,expected))){
-        // Small constant delay makes rapid guessing less attractive without storing IP addresses.
-        await new Promise(resolve=>setTimeout(resolve,650));
-        return out({error:"PINが違います。"},401);
-      }
-      const session=await createAdminSession(store);
-      return out({ok:true,sessionToken:session.token,expiresAt:session.expiresAt});
-    }
-
-    // ---------- ADMIN SESSION ----------
-    const auth=await requireAdminSession(request,store);
+    // ---------- ADMIN ----------
+    const auth=await checkAdmin(request,env);
     if(!auth.ok)return auth.response;
 
-    if(body.action==="logout"){
-      await revokeAdminSession(request,store);
-      return out({ok:true});
-    }
+    if(body.action==="verify")return out({ok:true});
+    if(body.action==="logout")return out({ok:true});
     if(body.action==="pending")return out({pending:(await readPending(store)).map(publicPending)});
     if(body.action==="analytics")return out({analytics:await readAnalytics(store)});
 
