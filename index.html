@@ -1078,6 +1078,661 @@ button,a{-webkit-tap-highlight-color:transparent}
   .feedback-teaser-text{font-size:10.5px}
 }
 
+
+/* ===== CREATOR GROWTH / QUALITY GATE v3 ===== */
+.creator-recruit{
+  position:relative;overflow:hidden;
+  margin:18px 0 6px;padding:22px 24px;
+  border:1px solid rgba(110,231,255,.18);border-radius:23px;
+  background:
+    radial-gradient(circle at 88% 10%,rgba(179,154,255,.13),transparent 32%),
+    linear-gradient(135deg,rgba(110,231,255,.065),rgba(255,255,255,.018) 48%,rgba(179,154,255,.045));
+  display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;
+  box-shadow:0 20px 55px rgba(0,0,0,.14)
+}
+.creator-recruit:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:26px 26px
+}
+.creator-recruit-copy,.creator-recruit-actions{position:relative;z-index:1}
+.creator-recruit-badges{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.creator-recruit-badge{
+  display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;
+  border:1px solid rgba(110,231,255,.18);background:rgba(110,231,255,.05);
+  color:#8feaff;font-size:8px;font-weight:950;letter-spacing:.09em
+}
+.creator-recruit-badge.review{
+  border-color:rgba(255,191,123,.22);background:rgba(255,191,123,.055);color:#ffd09e
+}
+.creator-recruit h2{margin:0;font-size:23px;letter-spacing:-.03em;color:#eff9ff}
+.creator-recruit p{margin:7px 0 0;color:#8192a7;font-size:11px;line-height:1.65;max-width:690px}
+.creator-recruit strong{color:#cceefa}
+.creator-recruit-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.creator-cta{
+  min-height:44px;padding:0 15px;border-radius:13px;border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.035);color:#b8c8d7;font-size:9px;font-weight:950;letter-spacing:.05em;
+  cursor:pointer;white-space:nowrap
+}
+.creator-cta.primary{
+  border:0;color:#071017;
+  background:linear-gradient(135deg,#6ee7ff,#b39aff);
+  box-shadow:0 8px 25px rgba(110,231,255,.12)
+}
+.creator-cta:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+.top-actions .add-btn{
+  min-height:42px!important;padding:0 15px!important;
+  border-color:rgba(110,231,255,.36)!important;
+  background:linear-gradient(135deg,rgba(110,231,255,.12),rgba(179,154,255,.10))!important;
+  box-shadow:0 0 24px rgba(110,231,255,.08)!important
+}
+.top-actions .add-btn span:last-child{font-weight:1000!important;color:#bdf4ff!important}
+
+.quality-intro{
+  margin:0 0 15px;padding:12px 13px;border-radius:13px;
+  border:1px solid rgba(255,191,123,.17);background:rgba(255,191,123,.045);
+  color:#9a8b7d;font-size:9.5px;line-height:1.65
+}
+.quality-intro strong{color:#ffd1a4}
+.form-section-title{
+  display:flex;align-items:center;gap:8px;margin:17px 0 8px;
+  color:#9eb3c5;font-size:9px;font-weight:1000;letter-spacing:.11em
+}
+.form-section-title:after{content:"";height:1px;flex:1;background:rgba(255,255,255,.065)}
+.form-grid-two{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.quality-checks{
+  margin:11px 0 2px;padding:12px;border-radius:14px;
+  border:1px solid rgba(110,231,255,.10);background:rgba(110,231,255,.025);
+  display:grid;gap:8px
+}
+.quality-check{
+  display:flex;align-items:flex-start;gap:9px;color:#8294a8;font-size:9.5px;line-height:1.5;cursor:pointer
+}
+.quality-check input{margin-top:2px;accent-color:#6ee7ff}
+.quality-check b{color:#c8d8e5}
+.review-note{font-size:8px;color:#607388;line-height:1.55;margin-top:7px}
+
+.ai-guide-card{width:min(820px,100%);max-height:min(92vh,900px);overflow:auto}
+.ai-guide-hero{
+  margin:13px 0 17px;padding:16px;border:1px solid rgba(110,231,255,.13);border-radius:16px;
+  background:linear-gradient(135deg,rgba(110,231,255,.06),rgba(179,154,255,.045))
+}
+.ai-guide-hero strong{display:block;color:#dff8ff;font-size:15px}
+.ai-guide-hero p{margin:6px 0 0!important;color:#7990a5!important;font-size:10px!important;line-height:1.65!important}
+.ai-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:13px 0 17px}
+.ai-step{
+  padding:12px 11px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:#0a0f17
+}
+.ai-step b{display:block;color:#7ee7fa;font-size:9px;letter-spacing:.08em}
+.ai-step strong{display:block;margin:5px 0;color:#dce8f2;font-size:11px}
+.ai-step span{display:block;color:#697c92;font-size:8.5px;line-height:1.55}
+.prompt-box{
+  padding:14px;border:1px solid rgba(255,255,255,.075);border-radius:15px;background:#070b12
+}
+.prompt-box-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.prompt-box-head strong{color:#c9d9e5;font-size:10px}
+.prompt-code{
+  white-space:pre-wrap;overflow-wrap:anywhere;padding:12px;border-radius:11px;
+  background:#03070c;color:#a9bfce;border:1px solid rgba(255,255,255,.05);
+  font-size:10px;line-height:1.65
+}
+.guide-quality{margin-top:15px;padding:13px;border-radius:14px;background:rgba(255,191,123,.035);border:1px solid rgba(255,191,123,.12)}
+.guide-quality b{display:block;color:#ffd2a9;font-size:9px;letter-spacing:.08em}
+.guide-quality p{margin:6px 0 0!important;color:#8b7d70!important;font-size:9px!important;line-height:1.65!important}
+
+.share-btn{
+  border:1px solid rgba(255,255,255,.075);background:rgba(255,255,255,.025);
+  color:#7f91a5;border-radius:11px;padding:10px 11px;font-size:8.5px;font-weight:950;
+  letter-spacing:.06em;cursor:pointer
+}
+.share-btn:hover{color:#b9eff9;border-color:rgba(110,231,255,.24)}
+.card-bottom{gap:7px!important;align-items:center}
+.share-card{width:min(520px,100%)}
+.share-game-box{
+  margin:12px 0;padding:13px;border:1px solid rgba(110,231,255,.12);border-radius:14px;
+  background:rgba(110,231,255,.035)
+}
+.share-game-box strong{display:block;color:#d9edf6;font-size:13px}
+.share-game-box span{display:block;margin-top:4px;color:#6f8398;font-size:9px}
+.share-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.share-option{
+  min-height:48px;border:1px solid rgba(255,255,255,.08);border-radius:13px;
+  background:#0a0f17;color:#b5c6d5;font-size:9px;font-weight:950;cursor:pointer
+}
+.share-option:hover{border-color:rgba(110,231,255,.24);color:#e1f9ff}
+.share-note{margin-top:9px;color:#61758a;font-size:8px;line-height:1.55}
+
+.pending-quality{
+  margin-top:8px;padding:9px 10px;border-radius:11px;border:1px solid rgba(255,255,255,.055);
+  background:rgba(255,255,255,.018);display:grid;gap:4px
+}
+.pending-quality div{color:#718398;font-size:8.5px;line-height:1.45}
+.pending-quality b{color:#aebfcd}
+.pending-item{align-items:start!important}
+.pending-main .pending-grade{
+  display:inline-flex;margin-right:5px;padding:5px 7px;border-radius:999px;border:1px solid rgba(179,154,255,.14);
+  color:#b9a9ff;font-size:8px;font-weight:900
+}
+
+.mobile-post-bar{display:none}
+.shared-target{
+  animation:sharedPulse 1.5s ease 2;
+  border-color:rgba(110,231,255,.55)!important;
+  box-shadow:0 0 0 2px rgba(110,231,255,.10),0 22px 55px rgba(0,0,0,.22)!important
+}
+@keyframes sharedPulse{50%{box-shadow:0 0 0 5px rgba(110,231,255,.12),0 25px 60px rgba(0,0,0,.25)}}
+
+@media(max-width:760px){
+  .creator-recruit{grid-template-columns:1fr;padding:18px 17px}
+  .creator-recruit-actions{justify-content:stretch}
+  .creator-cta{flex:1}
+  .form-grid-two{grid-template-columns:1fr}
+  .ai-steps{grid-template-columns:1fr 1fr}
+  .share-options{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  body{padding-bottom:74px}
+  .top-actions .add-btn span:last-child{font-size:0}
+  .top-actions .add-btn span:last-child:after{content:"POST";font-size:9px}
+  .mobile-post-bar{
+    display:flex;position:fixed;z-index:88;left:10px;right:10px;
+    bottom:calc(9px + env(safe-area-inset-bottom));
+    padding:7px;border-radius:16px;border:1px solid rgba(110,231,255,.19);
+    background:rgba(6,10,17,.91);backdrop-filter:blur(16px);box-shadow:0 12px 40px rgba(0,0,0,.38)
+  }
+  .mobile-post-bar button{
+    width:100%;height:43px;border:0;border-radius:12px;
+    background:linear-gradient(135deg,#6ee7ff,#b39aff);color:#071017;
+    font-size:10px;font-weight:1000;letter-spacing:.06em
+  }
+}
+
+
+/* ===== TODAY'S PICK / DISCOVERY SPOTLIGHT v4 ===== */
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
+  gap:34px;align-items:center;
+}
+.hero-copy{max-width:720px}
+.atom{opacity:.07!important;right:-90px!important}
+.todays-pick{
+  position:relative;z-index:3;
+  width:100%;max-width:420px;justify-self:end;
+  padding:17px;border-radius:20px;
+  border:1px solid rgba(110,231,255,.15);
+  background:
+    radial-gradient(circle at 85% 12%,rgba(179,154,255,.12),transparent 35%),
+    rgba(5,10,18,.72);
+  backdrop-filter:blur(11px);
+  box-shadow:0 22px 55px rgba(0,0,0,.2);
+}
+.pick-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pick-label{
+  display:flex;align-items:center;gap:7px;
+  color:#8eeafb;font-size:8px;font-weight:1000;letter-spacing:.15em
+}
+.pick-label:before{
+  content:"";width:7px;height:7px;border-radius:50%;
+  background:#6ee7ff;box-shadow:0 0 14px rgba(110,231,255,.75)
+}
+.pick-date{font-size:8px;color:#52667d;font-weight:850;letter-spacing:.06em}
+.pick-main{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center;margin-top:13px}
+.pick-icon{
+  width:58px;height:58px;display:grid;place-items:center;border-radius:16px;
+  background:linear-gradient(145deg,rgba(110,231,255,.09),rgba(179,154,255,.08));
+  border:1px solid rgba(255,255,255,.075);font-size:29px
+}
+.pick-subject{color:#71869b;font-size:8px;font-weight:900;letter-spacing:.09em}
+.pick-title{margin-top:3px;color:#eef8ff;font-size:17px;font-weight:950;line-height:1.2}
+.pick-creator{margin-top:5px;color:#72859a;font-size:8.5px;font-weight:850}
+.pick-desc{
+  margin-top:12px;color:#8496a9;font-size:9.5px;line-height:1.6;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+.pick-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-top:13px;padding-top:11px;border-top:1px solid rgba(255,255,255,.055)
+}
+.pick-reason{font-size:8px;color:#60768d;line-height:1.45}
+.pick-reason b{color:#91a9bb}
+.pick-play{
+  border:0;border-radius:11px;padding:10px 13px;white-space:nowrap;
+  background:linear-gradient(135deg,#6ee7ff,#b39aff);color:#071017;
+  font-size:8.5px;font-weight:1000;letter-spacing:.04em;text-decoration:none;cursor:pointer
+}
+.pick-empty{color:#64788c;font-size:10px;line-height:1.6;padding:16px 2px 3px}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:25px}
+  .todays-pick{justify-self:start;max-width:520px}
+  .atom{display:block;opacity:.04!important}
+}
+@media(max-width:560px){
+  .todays-pick{padding:14px;border-radius:17px}
+  .pick-main{grid-template-columns:50px 1fr}
+  .pick-icon{width:50px;height:50px;font-size:25px}
+  .pick-title{font-size:15px}
+}
+
+
+/* ===== COMPACT HOME v5 ===== */
+.hero{
+  min-height:0!important;
+  padding:34px 42px 30px!important;
+  grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr)!important;
+  gap:28px!important;
+  align-items:center!important;
+}
+.hero-copy{max-width:760px!important}
+.hero .eyebrow{margin-bottom:10px!important}
+.hero h1{
+  margin:0!important;
+  font-size:clamp(44px,6vw,82px)!important;
+  line-height:.92!important;
+  letter-spacing:-.055em!important;
+}
+.hero h1 .small{
+  font-size:.54em!important;
+  margin-bottom:3px!important;
+}
+.hero-desc{
+  margin-top:22px!important;
+  font-size:12px!important;
+  line-height:1.6!important;
+}
+.hero-stats{
+  margin-top:22px!important;
+  gap:28px!important;
+}
+.hero-stats .stat strong{font-size:20px!important}
+.hero-stats .stat span{font-size:7px!important}
+.backend-status{margin-top:12px!important}
+.atom{
+  width:300px!important;height:300px!important;
+  right:-95px!important;top:-58px!important;
+  opacity:.04!important;
+}
+
+/* Today's Pick: flatter and denser */
+.todays-pick{
+  max-width:390px!important;
+  padding:13px 14px!important;
+  border-radius:16px!important;
+}
+.pick-main{
+  grid-template-columns:46px 1fr!important;
+  gap:10px!important;
+  margin-top:10px!important;
+}
+.pick-icon{
+  width:46px!important;height:46px!important;
+  border-radius:13px!important;
+  font-size:23px!important;
+}
+.pick-title{font-size:14px!important}
+.pick-desc{
+  margin-top:8px!important;
+  font-size:8.5px!important;
+  line-height:1.5!important;
+  -webkit-line-clamp:1!important;
+}
+.pick-foot{
+  margin-top:9px!important;
+  padding-top:8px!important;
+}
+.pick-play{
+  padding:8px 10px!important;
+  border-radius:9px!important;
+}
+.pick-reason{font-size:7.5px!important}
+
+/* Creator recruitment should not become a second hero */
+.creator-recruit{
+  margin:12px 0 0!important;
+  padding:14px 18px!important;
+  border-radius:17px!important;
+  grid-template-columns:1fr auto!important;
+  gap:14px!important;
+}
+.creator-recruit-badges{margin-bottom:6px!important}
+.creator-recruit-badge{
+  padding:4px 7px!important;
+  font-size:7px!important;
+}
+.creator-recruit h2{
+  font-size:17px!important;
+  line-height:1.25!important;
+}
+.creator-recruit p{
+  margin-top:4px!important;
+  font-size:9px!important;
+  line-height:1.5!important;
+}
+.creator-cta{
+  min-height:38px!important;
+  padding:0 12px!important;
+  border-radius:11px!important;
+  font-size:8px!important;
+}
+
+/* Pull the library upward */
+.library-head{margin-top:22px!important}
+.subjects{margin-top:14px!important}
+.grid{margin-top:14px!important}
+
+/* Desktop: aim to reveal the library within the first viewport */
+@media(min-width:901px){
+  .hero{max-height:430px!important}
+}
+
+/* Tablet/mobile: stacked, but still compact */
+@media(max-width:900px){
+  .hero{
+    padding:28px 24px 24px!important;
+    grid-template-columns:1fr!important;
+    gap:18px!important;
+  }
+  .todays-pick{
+    max-width:none!important;
+    width:100%!important;
+  }
+  .hero-desc{margin-top:16px!important}
+  .hero-stats{margin-top:16px!important}
+  .creator-recruit{
+    grid-template-columns:1fr!important;
+  }
+  .creator-recruit-actions{
+    justify-content:flex-start!important;
+  }
+}
+@media(max-width:560px){
+  .hero{
+    padding:22px 17px 20px!important;
+    border-radius:20px!important;
+  }
+  .hero h1{
+    font-size:clamp(40px,13vw,58px)!important;
+  }
+  .hero-desc{
+    margin-top:14px!important;
+    font-size:10px!important;
+  }
+  .hero-stats{
+    margin-top:14px!important;
+    gap:20px!important;
+  }
+  .todays-pick{
+    padding:12px!important;
+  }
+  .pick-desc{display:none!important}
+  .creator-recruit{
+    margin-top:10px!important;
+    padding:13px 14px!important;
+  }
+  .creator-recruit p br{display:none}
+}
+
+
+/* ===== MOBILE TITLE FIT FIX v6 ===== */
+@media(max-width:700px){
+  .hero{
+    max-height:none!important;
+    height:auto!important;
+    overflow:hidden!important;
+  }
+  .hero-copy{
+    min-width:0!important;
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .hero h1{
+    width:100%!important;
+    max-width:100%!important;
+    overflow:visible!important;
+  }
+  .hero h1 .jp{
+    display:block!important;
+    font-size:clamp(30px,9vw,38px)!important;
+    line-height:.96!important;
+    letter-spacing:-.045em!important;
+    max-width:100%!important;
+  }
+  .hero h1 .main{
+    display:block!important;
+    /* 320px級の画面でも「中学学習ゲー」が1行で収まる */
+    font-size:clamp(42px,14vw,60px)!important;
+    line-height:.92!important;
+    letter-spacing:-.075em!important;
+    white-space:nowrap!important;
+    max-width:100%!important;
+  }
+  .hero p{
+    margin-top:18px!important;
+    font-size:11px!important;
+    line-height:1.7!important;
+  }
+  .hero-stats{
+    margin-top:16px!important;
+  }
+  .backend-status{
+    margin-top:10px!important;
+  }
+}
+@media(max-width:380px){
+  .hero h1 .jp{
+    font-size:29px!important;
+  }
+  .hero h1 .main{
+    font-size:43px!important;
+    letter-spacing:-.085em!important;
+  }
+}
+
+
+/* ===== HERO TEXT + DENSE GAME CARDS v7 ===== */
+
+/* Fix hero copy clipping at every viewport width */
+.hero{
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+}
+.hero-copy{
+  overflow:visible!important;
+}
+.hero-desc,
+.hero p{
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+  display:block!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset!important;
+}
+@media(max-width:700px){
+  .hero{
+    padding-bottom:24px!important;
+  }
+  .hero-desc,
+  .hero p{
+    margin-bottom:0!important;
+    padding-bottom:2px!important;
+  }
+}
+
+/* Denser library */
+.grid{
+  gap:12px!important;
+}
+@media(min-width:1280px){
+  .grid{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+}
+@media(min-width:900px) and (max-width:1279px){
+  .grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(min-width:620px) and (max-width:899px){
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+/* Card body */
+.card{
+  padding:14px!important;
+  border-radius:16px!important;
+  min-height:0!important;
+}
+.card-top{
+  gap:9px!important;
+  margin-bottom:8px!important;
+}
+.card-icon{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  border-radius:12px!important;
+  font-size:22px!important;
+}
+.card h3{
+  margin:0!important;
+  font-size:14px!important;
+  line-height:1.22!important;
+}
+.card .subject{
+  font-size:7px!important;
+  margin-top:3px!important;
+}
+.card .creator,
+.creator-link{
+  font-size:7.5px!important;
+}
+
+/* Description = two compact lines */
+.card .desc,
+.card-description{
+  margin-top:7px!important;
+  font-size:9px!important;
+  line-height:1.45!important;
+  min-height:2.9em!important;
+  max-height:2.9em!important;
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;
+  line-clamp:2!important;
+  overflow:hidden!important;
+}
+
+/* Stats / feedback compressed */
+.public-card-stats{
+  margin-top:8px!important;
+  padding-top:7px!important;
+}
+.public-stat{
+  font-size:7.5px!important;
+}
+.feedback-strip{
+  margin:7px 0 3px!important;
+  gap:4px!important;
+  min-height:23px!important;
+}
+.feedback-chip{
+  padding:4px 6px!important;
+  font-size:8px!important;
+}
+.feedback-chip b{
+  font-size:9px!important;
+}
+.feedback-open{
+  font-size:7.5px!important;
+}
+.feedback-teaser{
+  margin:5px 0 8px!important;
+  padding:8px 9px!important;
+  border-radius:10px!important;
+}
+.feedback-teaser-head{
+  margin-bottom:4px!important;
+  font-size:7px!important;
+}
+.feedback-teaser-text{
+  font-size:9px!important;
+  line-height:1.4!important;
+  min-height:2.8em!important;
+  max-height:2.8em!important;
+  -webkit-line-clamp:2!important;
+}
+.feedback-teaser-reply{
+  margin-top:5px!important;
+  padding-top:5px!important;
+  font-size:7.5px!important;
+}
+
+/* Bottom controls */
+.card-bottom{
+  margin-top:8px!important;
+  padding-top:8px!important;
+  gap:5px!important;
+}
+.play{
+  padding:8px 9px!important;
+  border-radius:9px!important;
+  font-size:8px!important;
+}
+.share-btn{
+  padding:8px 9px!important;
+  border-radius:9px!important;
+  font-size:7.5px!important;
+}
+.manage-btn,
+.card .manage{
+  padding:7px 8px!important;
+  font-size:7px!important;
+}
+
+/* NEW / badges smaller */
+.new-badge,
+.badge-new{
+  padding:4px 6px!important;
+  font-size:6.5px!important;
+}
+
+/* Mobile remains readable but still denser */
+@media(max-width:619px){
+  .grid{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  .card{
+    padding:12px!important;
+  }
+  .card-icon{
+    width:40px!important;
+    height:40px!important;
+    min-width:40px!important;
+  }
+  .card .desc,
+  .card-description{
+    min-height:0!important;
+  }
+}
+
+/* MORE button less bulky */
+.more-games-wrap{
+  margin:20px 0 6px!important;
+}
+.more-games-btn{
+  min-width:min(300px,82vw)!important;
+  padding:11px 16px!important;
+  border-radius:13px!important;
+  font-size:9px!important;
+}
+
 </style>
 </head>
 <body>
@@ -1088,7 +1743,7 @@ button,a{-webkit-tap-highlight-color:transparent}
       <span class="brand-copy"><strong>UCHIKOSHI LEARNING</strong><small>JUNIOR HIGH GAME ARCHIVE</small></span>
     </a>
     <div class="top-actions">
-      <button id="addOpen" class="add-btn" type="button"><span class="plus">＋</span><span>ADD GAME</span></button>
+      <button id="addOpen" class="add-btn" type="button"><span class="plus">＋</span><span>GAMEを投稿</span></button>
       <button id="adminOpen" class="admin-btn" type="button">ADMIN ⚙</button>
     </div>
   </header>
@@ -1106,7 +1761,32 @@ button,a{-webkit-tap-highlight-color:transparent}
       </div>
       <div id="backendStatus" class="status-pill"><i></i><span>接続確認中…</span></div>
     </div>
+
+    <aside id="todaysPick" class="todays-pick" aria-label="Today's Pick">
+      <div class="pick-top">
+        <div class="pick-label">TODAY'S PICK</div>
+        <div id="pickDate" class="pick-date"></div>
+      </div>
+      <div id="pickContent"><div class="pick-empty">おすすめゲームを選んでいます…</div></div>
+    </aside>
+
     <div class="atom" aria-hidden="true"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="atom-core">⚛</div></div>
+  </section>
+
+  <section class="creator-recruit" id="creatorRecruit">
+    <div class="creator-recruit-copy">
+      <div class="creator-recruit-badges">
+        <span class="creator-recruit-badge">GAME CREATOR 募集</span>
+        <span class="creator-recruit-badge review">✓ 掲載審査あり</span>
+      </div>
+      <h2>あなたの「学べるゲーム」も、この本拠地へ。</h2>
+      <p>先生でも、生徒でも、はじめてでもOK。<strong>AIを使えばゲーム制作は始められます。</strong><br>
+      ただし、掲載されるのは「ちゃんと遊べて、ちゃんと学べる」作品。投稿後、内容を確認してから公開します。</p>
+    </div>
+    <div class="creator-recruit-actions">
+      <button id="creatorPostOpen" class="creator-cta primary" type="button">＋ GAMEを投稿する</button>
+      <button id="aiGuideOpen" class="creator-cta" type="button">🤖 AIで作る方法</button>
+    </div>
   </section>
 
   <section id="adminPanel" class="admin-panel hidden">
@@ -1156,14 +1836,15 @@ button,a{-webkit-tap-highlight-color:transparent}
   </section>
 
   <section id="grid" class="grid"></section>
-  <div id="moreGamesWrap" class="more-games-wrap hidden"><button id="moreGamesBtn" class="more-games-btn" type="button">MORE GAMES +12<small id="moreGamesMeta"></small></button></div>
+  <div id="moreGamesWrap" class="more-games-wrap hidden"><button id="moreGamesBtn" class="more-games-btn" type="button">MORE GAMES +18<small id="moreGamesMeta"></small></button></div>
   <div id="empty" class="empty hidden"><b>NO GAME FOUND</b>条件に合うゲームがありません。</div>
 
   <footer class="footer">
     <div><strong>UCHIKOSHI T'S JUNIOR HIGH GAMES</strong><small>© SCIENCE JUNIOR HIGH GAME ARCHIVE</small></div>
-    <div id="footerMsg" class="footer-msg">＋ ADD GAME から9教科のゲームを投稿できます。承認後に公開されます。</div>
+    <div id="footerMsg" class="footer-msg">GAME CREATOR募集中。投稿は無料・掲載審査あり。AIでの制作も歓迎です。</div>
   </footer>
 </main>
+<div class="mobile-post-bar"><button id="mobilePostOpen" type="button">＋ 自分の学習ゲームを投稿する</button></div>
 
 <!-- ADD / EDIT -->
 <div id="gameModal" class="modal hidden">
@@ -1171,9 +1852,11 @@ button,a{-webkit-tap-highlight-color:transparent}
     <button class="modal-x" data-close="gameModal">×</button>
     <div id="gameCode" class="modal-code">COMMUNITY / ADD GAME</div>
     <h2 id="gameTitleHeading">ゲームを追加</h2>
-    <p id="gameLead" class="modal-lead">投稿者名と教科を入れて投稿。いったん承認待ちになり、打越Tの承認後に公開されます。</p>
+    <p id="gameLead" class="modal-lead">作品を掲載申請します。投稿後に内容・操作・学習性を確認し、承認されたゲームだけ公開されます。</p>
     <form id="gameForm">
       <input id="editId" type="hidden">
+      <div class="quality-intro" id="qualityIntro"><strong>QUALITY GATE / 掲載審査あり</strong><br>
+      「AIで作ったからOK」ではなく、作者自身が遊んで改善した作品を募集しています。審査で掲載を見送る場合もあります。</div>
       <label class="field"><span>GAME TITLE *</span><input id="titleInput" maxlength="80" required placeholder="例：英単語ダンジョン"></label>
 
       <label class="field">
@@ -1202,6 +1885,23 @@ button,a{-webkit-tap-highlight-color:transparent}
         </select>
       </label>
 
+      <div class="form-grid-two">
+        <label class="field">
+          <span>TARGET / 対象学年 *</span>
+          <select id="gradeInput" required>
+            <option value="all">中学全学年</option>
+            <option value="1">中学1年</option>
+            <option value="2">中学2年</option>
+            <option value="3">中学3年</option>
+            <option value="other">その他・複数学年</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>UNIT / 単元・テーマ *</span>
+          <input id="unitInput" maxlength="80" required placeholder="例：力のつり合い / 古文の主語">
+        </label>
+      </div>
+
       <div class="form-row">
         <label class="field"><span>ICON</span><input id="iconInput" maxlength="12" placeholder="⚡"></label>
         <div class="emoji-row">
@@ -1211,11 +1911,102 @@ button,a{-webkit-tap-highlight-color:transparent}
         </div>
       </div>
       <label class="field"><span>DESCRIPTION</span><textarea id="descInput" maxlength="180" placeholder="どんなゲームか、ひとことで。"></textarea></label>
+      <div class="form-section-title">LEARNING DESIGN / 掲載審査で見るところ</div>
+      <label class="field">
+        <span>WHAT CAN STUDENTS LEARN? / 何を学べる？ *</span>
+        <textarea id="learningGoalInput" maxlength="240" required placeholder="例：物体にはたらく力を、作用点・向き・大きさの3要素で表せるようになる。"></textarea>
+      </label>
+      <label class="field">
+        <span>YOUR IDEA / このゲームならではの工夫 *</span>
+        <textarea id="craftPointInput" maxlength="240" required placeholder="例：矢印を自分でドラッグして答える。間違えたときは正しい矢印と比較できる。"></textarea>
+      </label>
+      <label class="field">
+        <span>CREATOR NOTE / 作者からひとこと</span>
+        <textarea id="creatorMessageInput" maxlength="180" placeholder="遊ぶ人や審査する人に伝えたいこと（任意）"></textarea>
+      </label>
+      <div class="quality-checks" id="qualityChecks">
+        <label class="quality-check"><input id="checkPlayed" type="checkbox"><span><b>最後まで自分でプレイした</b><br>開始からクリア・結果画面まで実際に確認しました。</span></label>
+        <label class="quality-check"><input id="checkMobile" type="checkbox"><span><b>スマホでも確認した</b><br>文字切れ・押せないボタン・画面崩れがないか確認しました。</span></label>
+        <label class="quality-check"><input id="checkLearning" type="checkbox"><span><b>「何を学ぶか」がある</b><br>ただ問題を並べただけではなく、学習上の意図や工夫があります。</span></label>
+        <label class="quality-check"><input id="checkFinished" type="checkbox"><span><b>未完成の仮置きではない</b><br>他の人に遊んでもらえる状態まで仕上げました。</span></label>
+      </div>
+      <div class="review-note">※ 4項目は公開投稿時のみ必須。ADMINによる既存ゲーム編集では空欄でも保存できます。</div>
       <label class="field"><span>GAME URL *</span><input id="urlInput" maxlength="700" required placeholder="https://..."></label>
       <div class="url-hint">Netlify / EdgeOne / Vercel / GitHub Pages / itch.io など。公開URLなら登録できます。投稿後、管理者の承認を受けてから公開されます。</div>
       <div id="gameError" class="error hidden"></div>
-      <div class="actions"><button type="button" class="action" data-close="gameModal">CANCEL</button><button type="submit" class="action primary">ADD TO BASE</button></div>
+      <div class="actions"><button type="button" class="action" data-close="gameModal">CANCEL</button><button type="submit" class="action primary">APPLY FOR REVIEW</button></div>
     </form>
+  </div>
+</div>
+
+
+<!-- AI GAME CREATION GUIDE -->
+<div id="aiGuideModal" class="modal hidden">
+  <div class="modal-card ai-guide-card">
+    <button class="modal-x" data-close="aiGuideModal">×</button>
+    <div class="modal-code">CREATOR STARTER / AI GAME MAKING</div>
+    <h2>AIで学習ゲームを作ってみよう</h2>
+    <p class="modal-lead">コードが書けなくても始められます。ただし「AIに作らせて終わり」ではなく、自分で遊んで直してから投稿するのがこの本拠地のルール。</p>
+
+    <div class="ai-guide-hero">
+      <strong>IDEA → AI → PLAY → IMPROVE → SHARE</strong>
+      <p>まず小さく作る。自分で遊ぶ。違和感をAIに伝えて直す。完成したら公開URLを作って、本拠地に掲載申請。</p>
+    </div>
+
+    <div class="ai-steps">
+      <div class="ai-step"><b>STEP 01</b><strong>テーマを決める</strong><span>「何を覚える？」より「遊んだあと何ができる？」を決めよう。</span></div>
+      <div class="ai-step"><b>STEP 02</b><strong>AIに作ってもらう</strong><span>HTML1ファイル・スマホ対応から始めると扱いやすい。</span></div>
+      <div class="ai-step"><b>STEP 03</b><strong>自分で遊んで直す</strong><span>簡単すぎる、押しにくい、説明不足などをAIに具体的に伝える。</span></div>
+      <div class="ai-step"><b>STEP 04</b><strong>公開して申請</strong><span>Webに公開してURLを取得。本拠地の「GAMEを投稿する」から申請。</span></div>
+    </div>
+
+    <div class="prompt-box">
+      <div class="prompt-box-head"><strong>まずはこれをAIにコピペ</strong><button id="copyPromptBtn" class="action" type="button">COPY PROMPT</button></div>
+      <div id="starterPrompt" class="prompt-code">中学生が5〜10分で遊べる学習ゲームを、HTML1ファイルで作ってください。
+
+教科：【ここに教科】
+単元：【ここに単元】
+遊んだあとにできるようになってほしいこと：【ここに学習目標】
+
+条件：
+・スマホとPCの両方で遊べる
+・中学生が説明を読まなくても操作を理解しやすい
+・正解／不正解が分かりやすい
+・間違えたときに学びにつながるフィードバックがある
+・最後に結果画面がある
+・ただの四択問題の羅列ではなく、操作や判断に1つ以上の工夫を入れる
+・外部ライブラリなしでも動くHTML1ファイルにする
+
+まず完成版を作り、そのあと「教材として正しいか」「操作しやすいか」「ゲームとして楽しいか」を自分で点検して、改善案も出してください。</div>
+    </div>
+
+    <div class="guide-quality">
+      <b>掲載されるための4チェック</b>
+      <p>①最後まで自分で遊んだ　②スマホで確認した　③何を学ぶゲームか説明できる　④未完成のままではない。<br>
+      AIを使ったこと自体は問題なし。大事なのは、作者がちゃんと仕上げたかどうか。</p>
+    </div>
+
+    <div class="actions" style="margin-top:15px">
+      <button type="button" class="action" data-close="aiGuideModal">CLOSE</button>
+      <button id="guideToPost" type="button" class="action primary">＋ GAMEを投稿する</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE -->
+<div id="shareModal" class="modal hidden">
+  <div class="modal-card share-card">
+    <button class="modal-x" data-close="shareModal">×</button>
+    <div class="modal-code">SHARE / BRING PLAYERS HERE</div>
+    <h2>このゲームをシェア</h2>
+    <p class="modal-lead">シェアされた人は、まずこの本拠地のゲームカードに来ます。そこからゲームを遊べます。</p>
+    <div class="share-game-box"><strong id="shareGameTitle">GAME</strong><span id="shareGameCreator">BY CREATOR</span></div>
+    <div class="share-options">
+      <button id="shareX" class="share-option" type="button">𝕏 Xで共有</button>
+      <button id="shareLine" class="share-option" type="button">LINEで共有</button>
+      <button id="shareCopy" class="share-option" type="button">🔗 URLコピー</button>
+    </div>
+    <div class="share-note">※ SNSには「打越Tの中学学習ゲー」のリンクを共有します。ゲームの作者・タイトルも共有文に入ります。</div>
   </div>
 </div>
 
@@ -1410,7 +2201,7 @@ const SUBJECTS={
   tech_home:{name:"技術・家庭",code:"TECH & HOME",accent:"#ffd36e"},
   english:{name:"英語",code:"ENGLISH",accent:"#9aa7ff"}
 };
-let games=[], pendingGames=[], activeSubject="latest", selectedCreator="", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}}, feedbackSummary={}, feedbackTeasers={}, visibleGameLimit=12, feedbackGameId="", feedbackKind="fun", replyTarget=null;
+let games=[], pendingGames=[], activeSubject="latest", selectedCreator="", admin=false, adminSession="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}}, feedbackSummary={}, feedbackTeasers={}, visibleGameLimit=18, feedbackGameId="", feedbackKind="fun", replyTarget=null, shareGameId="";
 const LOCAL_PREVIEW = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
 const $=id=>document.getElementById(id);
 
@@ -1444,7 +2235,7 @@ function creatorSummary(){
 function openCreator(name){
   selectedCreator=name;
   activeSubject="creator";
-  visibleGameLimit=12;
+  visibleGameLimit=18;
   document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
   render();
   document.querySelector(".library-head")?.scrollIntoView({behavior:"smooth",block:"start"});
@@ -1660,19 +2451,92 @@ async function loadGames(){
           $("backendStatus").querySelector("span").textContent="STORAGE OFFLINE";
           $("footerMsg").textContent="Functionsは動作していますが、共有ストレージに接続できません。";
         }else{
-          $("backendStatus").querySelector("span").textContent="FUNCTIONS OFFLINE";
+          $("backendStatus").querySelector("span").textContent="COMMUNITY OFFLINE";
           $("footerMsg").textContent="EdgeOne Functionsが起動していません。Gitビルド設定を確認してください。";
         }
       }catch{
-        $("backendStatus").querySelector("span").textContent="FUNCTIONS OFFLINE";
+        $("backendStatus").querySelector("span").textContent="COMMUNITY OFFLINE";
         $("footerMsg").textContent="EdgeOne Functionsが起動していません。Gitビルド設定を確認してください。";
       }
     }
   }
   render();
+  focusSharedGame();
   if(typeof trackVisit==="function") trackVisit();
 }
+
+function jstDateParts(){
+  const d=new Date(Date.now()+9*60*60*1000);
+  const iso=d.toISOString().slice(0,10);
+  return {iso,label:`${Number(iso.slice(5,7))}/${Number(iso.slice(8,10))}`};
+}
+function stableHash(text){
+  let h=2166136261>>>0;
+  for(let i=0;i<text.length;i++){
+    h^=text.charCodeAt(i);
+    h=Math.imul(h,16777619)>>>0;
+  }
+  return h>>>0;
+}
+function todaysPickGame(){
+  const eligible=games.filter(g=>g?.url&&validUrl(g.url));
+  if(!eligible.length)return null;
+
+  const rows=eligible
+    .map(g=>({g,plays:Number(publicAnalytics?.gamePlays?.[g.id]||0)}))
+    .sort((a,b)=>a.plays-b.plays || Number(b.g.approvedAt||0)-Number(a.g.approvedAt||0));
+
+  // Prefer the lower-play 60% of approved games, but keep at least 3 candidates.
+  const poolSize=Math.min(rows.length,Math.max(3,Math.ceil(rows.length*.60)));
+  const pool=rows.slice(0,poolSize);
+  const {iso}=jstDateParts();
+
+  // Within the discovery pool, fewer plays = more lottery weight.
+  // Date hash makes the same pick visible to everybody for that JST day.
+  const weighted=[];
+  for(const row of pool){
+    const weight=Math.max(1,Math.round(12/Math.sqrt(row.plays+1)));
+    const jitter=(stableHash(`${iso}:${row.g.id}`)%1000)/1000;
+    weighted.push({...row,score:weight+jitter});
+  }
+  weighted.sort((a,b)=>b.score-a.score || stableHash(`${iso}:${a.g.id}`)-stableHash(`${iso}:${b.g.id}`));
+
+  // Rotate the top few rather than permanently selecting the absolute lowest-play game.
+  const top=weighted.slice(0,Math.min(5,weighted.length));
+  const index=stableHash(`pick:${iso}`)%top.length;
+  return top[index];
+}
+function renderTodaysPick(){
+  const host=$("pickContent");
+  if(!host)return;
+  const {label}=jstDateParts();
+  $("pickDate").textContent=label;
+  const row=todaysPickGame();
+  if(!row){
+    host.innerHTML=`<div class="pick-empty">今日は紹介できるゲームがまだありません。</div>`;
+    return;
+  }
+  const g=row.g;
+  const meta=SUBJECTS[g.subject||"science"]||SUBJECTS.science;
+  const plays=Number(row.plays||0);
+  host.innerHTML=`
+    <div class="pick-main">
+      <div class="pick-icon">${esc(g.icon||"🎮")}</div>
+      <div>
+        <div class="pick-subject">${esc(meta.name||"GAME")} / DISCOVERY</div>
+        <div class="pick-title">${esc(g.title)}</div>
+        <div class="pick-creator">BY ${esc(creatorName(g))}</div>
+      </div>
+    </div>
+    <div class="pick-desc">${esc(g.description||g.learningGoal||"まだ知られていないゲームを日替わりで紹介しています。")}</div>
+    <div class="pick-foot">
+      <div class="pick-reason"><b>${plays.toLocaleString()} PLAY</b><br>埋もれている作品を優先</div>
+      <a class="pick-play" data-game-id="${esc(g.id)}" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">PLAY →</a>
+    </div>`;
+}
+
 function render(){
+  renderTodaysPick();
   const q=$("searchInput").value.trim().toLowerCase();
   const playsMap=publicAnalytics?.gamePlays||{};
   const grid=$("grid");
@@ -1773,7 +2637,7 @@ function render(){
   const visibleList=list.slice(0,visibleGameLimit);
   const remaining=Math.max(0,list.length-visibleList.length);
   $("moreGamesWrap").classList.toggle("hidden",remaining===0);
-  $("moreGamesBtn").firstChild.textContent=remaining>0?`MORE GAMES +${Math.min(12,remaining)}`:"MORE GAMES";
+  $("moreGamesBtn").firstChild.textContent=remaining>0?`MORE GAMES +${Math.min(18,remaining)}`:"MORE GAMES";
   $("moreGamesMeta").textContent=remaining>0?`${visibleList.length} / ${list.length} GAMES DISPLAYED`:"";
 
   grid.innerHTML=visibleList.map((g)=>{
@@ -1816,6 +2680,7 @@ function render(){
         ${feedbackSummaryHTML(g.id)}
         <div class="card-bottom">
           ${has?`<a class="play" data-game-id="${esc(g.id)}" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">PLAY GAME <span>→</span></a>`:`<span class="play" style="opacity:.35">URL NOT SET <span>—</span></span>`}
+          <button class="share-btn" type="button" data-share-game="${esc(g.id)}">↗ SHARE</button>
           ${manage}
         </div>
       </div></article>`;
@@ -1828,13 +2693,56 @@ function render(){
   if(back)back.onclick=()=>{
     selectedCreator="";
     activeSubject="creators";
-    visibleGameLimit=12;
+    visibleGameLimit=18;
     const tab=document.querySelector('.subject-tab[data-subject="creators"]');
     document.querySelectorAll(".subject-tab").forEach(b=>b.classList.remove("active"));
     tab?.classList.add("active");
     render();
   };
 }
+
+function portalBaseUrl(){
+  if(location.protocol==="http:"||location.protocol==="https:"){
+    return `${location.origin}${location.pathname}`;
+  }
+  return "https://uchikoshi-learning-games.edgeone.dev/";
+}
+function shareLinkFor(gameId){
+  const u=new URL(portalBaseUrl());
+  u.searchParams.set("game",gameId);
+  return u.toString();
+}
+function shareTextFor(g){
+  return `「${g.title}」で遊んでみよう！\nBY ${creatorName(g)}｜打越Tの中学学習ゲー`;
+}
+function openShare(gameId){
+  const g=games.find(x=>x.id===gameId);if(!g)return;
+  shareGameId=gameId;
+  $("shareGameTitle").textContent=`${g.icon||"🎮"} ${g.title}`;
+  $("shareGameCreator").textContent=`BY ${creatorName(g)}`;
+  openM("shareModal");
+}
+async function copyText(value){
+  try{
+    await navigator.clipboard.writeText(value);
+  }catch{
+    const ta=document.createElement("textarea");
+    ta.value=value;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
+  }
+}
+function focusSharedGame(){
+  const id=new URLSearchParams(location.search).get("game");
+  if(!id)return;
+  setTimeout(()=>{
+    const card=document.querySelector(`.card[data-id="${CSS.escape(id)}"]`);
+    if(card){
+      card.classList.add("shared-target");
+      card.scrollIntoView({behavior:"smooth",block:"center"});
+      setTimeout(()=>card.classList.remove("shared-target"),4500);
+    }
+  },180);
+}
+
 function fillForm(game=null,mode="public"){
   $("gameForm").dataset.mode=game?"admin-edit":mode;
   $("editId").value=game?.id||"";
@@ -1849,11 +2757,22 @@ function fillForm(game=null,mode="public"){
   $("descInput").value=game?.description||"";
   $("urlInput").value=game?.url||"";
   $("subjectInput").value=game?.subject||"science";
+  $("gradeInput").value=game?.grade||"all";
+  $("unitInput").value=game?.unit||"";
+  $("learningGoalInput").value=game?.learningGoal||"";
+  $("craftPointInput").value=game?.craftPoint||"";
+  $("creatorMessageInput").value=game?.creatorMessage||"";
+  $("checkPlayed").checked=Boolean(game?.qualityChecks?.played);
+  $("checkMobile").checked=Boolean(game?.qualityChecks?.mobile);
+  $("checkLearning").checked=Boolean(game?.qualityChecks?.learning);
+  $("checkFinished").checked=Boolean(game?.qualityChecks?.finished);
+  $("qualityIntro").classList.toggle("hidden",Boolean(game));
+  $("qualityChecks").classList.toggle("hidden",Boolean(game));
   $("gameError").classList.add("hidden");
   $("gameCode").textContent=game?"ADMIN / EDIT GAME":"COMMUNITY / ADD GAME";
   $("gameTitleHeading").textContent=game?"ゲームを編集":"ゲームを追加";
-  $("gameLead").textContent=game?"登録内容を変更できます。":"投稿者名と教科を入れて投稿。いったん承認待ちになり、打越Tの承認後に公開されます。";
-  $("gameForm").querySelector('button[type="submit"]').textContent=game?"SAVE CHANGES":"ADD TO BASE";
+  $("gameLead").textContent=game?"登録内容を変更できます。":"作品を掲載申請します。内容・操作・学習性を確認し、承認されたゲームだけ公開されます。";
+  $("gameForm").querySelector('button[type="submit"]').textContent=game?"SAVE CHANGES":"APPLY FOR REVIEW";
 }
 async function publicAdd(item){
   if(!backend){
@@ -1882,11 +2801,14 @@ async function adminRequest(action,payload={}){
   }
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    headers:{"content-type":"application/json","x-admin-session":adminSession},
     body:JSON.stringify({action,...payload})
   });
   const d=await r.json().catch(()=>({}));
-  if(!r.ok)throw new Error(d.error||"保存できませんでした。");
+  if(!r.ok){
+    if(r.status===401){admin=false;adminSession="";$("adminPanel").classList.add("hidden");}
+    throw new Error(d.error||"保存できませんでした。");
+  }
   if(Array.isArray(d.games))games=d.games;
   render();
   return d;
@@ -1910,19 +2832,39 @@ async function adminReorder(){
 async function verifyPin(pin){
   if(!backend){
     if(LOCAL_PREVIEW){
-      if(pin!=="9312") throw new Error("PINが違います。");
-      adminPin=pin;return;
+      // Preview contains no real admin secret. Any non-empty value only unlocks local demo editing.
+      adminSession="LOCAL_PREVIEW_SESSION";
+      return;
     }
     throw new Error("共有サーバーがOFFLINEです。ADMINには入れません。");
   }
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-pin":pin},
-    body:JSON.stringify({action:"verify"})
+    headers:{"content-type":"application/json"},
+    body:JSON.stringify({action:"verify",pin})
   });
   const d=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(d.error||"PINが違います。");
-  adminPin=pin;
+  if(!d.sessionToken)throw new Error("ADMINセッションを開始できませんでした。");
+  adminSession=d.sessionToken;
+}
+
+async function logoutAdmin(){
+  const token=adminSession;
+  admin=false;
+  adminSession="";
+  $("adminPanel").classList.add("hidden");
+  render();
+  if(backend&&token){
+    try{
+      await fetch("/api/games",{
+        method:"POST",
+        headers:{"content-type":"application/json","x-admin-session":token},
+        body:JSON.stringify({action:"logout"}),
+        keepalive:true
+      });
+    }catch{}
+  }
 }
 
 async function loadPending(){
@@ -1937,7 +2879,7 @@ async function loadPending(){
 
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    headers:{"content-type":"application/json","x-admin-session":adminSession},
     body:JSON.stringify({action:"pending"})
   });
   const d=await r.json().catch(()=>({}));
@@ -1959,7 +2901,13 @@ function renderPending(){
       <div class="pending-main">
         <strong>${esc(g.title)}</strong>
         <p>${esc(g.description||"説明なし")}</p>
-        <span class="pending-creator">BY ${esc(creatorName(g))}</span><span class="pending-subject">${esc(SUBJECTS[g.subject||"science"]?.name||"理科")}</span><span class="pending-domain">${esc(domainOf(g.url))}</span>
+        <span class="pending-creator">BY ${esc(creatorName(g))}</span><span class="pending-subject">${esc(SUBJECTS[g.subject||"science"]?.name||"理科")}</span><span class="pending-grade">${esc(g.grade==="1"?"中1":g.grade==="2"?"中2":g.grade==="3"?"中3":g.grade==="all"?"全学年":"その他")}</span><span class="pending-domain">${esc(domainOf(g.url))}</span>
+        <div class="pending-quality">
+          <div><b>UNIT</b> ${esc(g.unit||"未入力")}</div>
+          <div><b>LEARNING</b> ${esc(g.learningGoal||"未入力")}</div>
+          <div><b>IDEA</b> ${esc(g.craftPoint||"未入力")}</div>
+          ${g.creatorMessage?`<div><b>CREATOR NOTE</b> ${esc(g.creatorMessage)}</div>`:""}
+        </div>
       </div>
       <div class="pending-actions">
         <a class="action" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">OPEN</a>
@@ -1990,7 +2938,7 @@ async function moderate(id,decision){
 
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    headers:{"content-type":"application/json","x-admin-session":adminSession},
     body:JSON.stringify({action:decision,id})
   });
   const d=await r.json().catch(()=>({}));
@@ -2106,7 +3054,7 @@ async function loadAnalytics(){
 
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-pin":adminPin},
+    headers:{"content-type":"application/json","x-admin-session":adminSession},
     body:JSON.stringify({action:"analytics"})
   });
   const d=await r.json().catch(()=>({}));
@@ -2200,28 +3148,56 @@ document.querySelectorAll(".subject-tab").forEach(btn=>{
     btn.classList.add("active");
     activeSubject=btn.dataset.subject;
     selectedCreator="";
-    visibleGameLimit=12;
+    visibleGameLimit=18;
     render();
   });
 });
-$("searchInput").oninput=()=>{visibleGameLimit=12;render()};
-$("moreGamesBtn").onclick=()=>{visibleGameLimit+=12;render();setTimeout(()=>$("moreGamesBtn")?.scrollIntoView({behavior:"smooth",block:"nearest"}),20)};
+$("searchInput").oninput=()=>{visibleGameLimit=18;render()};
+$("moreGamesBtn").onclick=()=>{visibleGameLimit+=18;render();setTimeout(()=>$("moreGamesBtn")?.scrollIntoView({behavior:"smooth",block:"nearest"}),20)};
 $("addOpen").onclick=()=>{
   if(!backend && !LOCAL_PREVIEW){toast("SHARED SAVE OFFLINE");return;}
   fillForm(null,"public");openM("gameModal");
 };
+$("creatorPostOpen").onclick=()=>$("addOpen").click();
+$("mobilePostOpen").onclick=()=>$("addOpen").click();
+$("aiGuideOpen").onclick=()=>openM("aiGuideModal");
+$("guideToPost").onclick=()=>{closeM("aiGuideModal");$("addOpen").click()};
+
+$("copyPromptBtn").onclick=async()=>{
+  await copyText($("starterPrompt").textContent.trim());
+  toast("PROMPT COPIED");
+};
+
+$("shareX").onclick=()=>{
+  const g=games.find(x=>x.id===shareGameId);if(!g)return;
+  const u=`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTextFor(g))}&url=${encodeURIComponent(shareLinkFor(g.id))}&hashtags=${encodeURIComponent("学習ゲーム,教育AI")}`;
+  window.open(u,"_blank","noopener,noreferrer");
+};
+$("shareLine").onclick=()=>{
+  const g=games.find(x=>x.id===shareGameId);if(!g)return;
+  const text=`${shareTextFor(g)}\n${shareLinkFor(g.id)}`;
+  const u=`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareLinkFor(g.id))}&text=${encodeURIComponent(text)}`;
+  window.open(u,"_blank","noopener,noreferrer");
+};
+$("shareCopy").onclick=async()=>{
+  const g=games.find(x=>x.id===shareGameId);if(!g)return;
+  await copyText(`${shareTextFor(g)}\n${shareLinkFor(g.id)}`);
+  toast("SHARE LINK COPIED");
+};
+
 $("adminAdd").onclick=()=>{fillForm(null,"admin-add");openM("gameModal")};
 $("adminOpen").onclick=()=>{
   if(!backend && !LOCAL_PREVIEW){toast("ADMIN LOCKED — SERVER OFFLINE");return;}
   $("pinInput").value="";$("pinError").classList.add("hidden");openM("adminModal");
 };
-$("adminExit").onclick=()=>{admin=false;adminPin="";$("adminPanel").classList.add("hidden");render()};
+$("adminExit").onclick=()=>{logoutAdmin()};
 $("pinSubmit").onclick=async()=>{
   const e=$("pinError");e.classList.add("hidden");
   try{
     const pin=$("pinInput").value.trim();
     if(!pin)throw new Error("PINを入力してください。");
     await verifyPin(pin);
+    $("pinInput").value="";
     admin=true;
     closeM("adminModal");
     $("adminPanel").classList.remove("hidden");
@@ -2238,16 +3214,24 @@ $("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("pinSubmit").c
 $("gameForm").onsubmit=async(e)=>{
   e.preventDefault();const err=$("gameError");err.classList.add("hidden");
   const title=$("titleInput").value.trim(),creator=$("creatorInput").value.trim(),creatorKey=$("creatorKeyInput").value.trim(),icon=$("iconInput").value.trim()||"🎮",subject=$("subjectInput").value,description=$("descInput").value.trim(),url=$("urlInput").value.trim();
+  const grade=$("gradeInput").value,unit=$("unitInput").value.trim(),learningGoal=$("learningGoalInput").value.trim(),craftPoint=$("craftPointInput").value.trim(),creatorMessage=$("creatorMessageInput").value.trim();
+  const qualityChecks={played:$("checkPlayed").checked,mobile:$("checkMobile").checked,learning:$("checkLearning").checked,finished:$("checkFinished").checked};
   if(!title){err.textContent="タイトルを入力してください。";err.classList.remove("hidden");return}
   if(!creator){err.textContent="投稿者名を入力してください。";err.classList.remove("hidden");return}
   const formMode=$("gameForm").dataset.mode;
   if(formMode==="public" && creatorKey.length<6){err.textContent="CREATOR KEYは6文字以上で設定してください。";err.classList.remove("hidden");return}
   if(creatorKey && creatorKey.length<6){err.textContent="CREATOR KEYは6文字以上にしてください。";err.classList.remove("hidden");return}
+  if(formMode==="public"){
+    if(!unit){err.textContent="単元・テーマを入力してください。";err.classList.remove("hidden");return}
+    if(!learningGoal){err.textContent="「何を学べるか」を入力してください。";err.classList.remove("hidden");return}
+    if(!craftPoint){err.textContent="このゲームならではの工夫を入力してください。";err.classList.remove("hidden");return}
+    if(!Object.values(qualityChecks).every(Boolean)){err.textContent="掲載申請前の4つのセルフチェックをすべて確認してください。";err.classList.remove("hidden");return}
+  }
   if(!url||!validUrl(url)){err.textContent="http:// または https:// から始まる公開URLを入力してください。";err.classList.remove("hidden");return}
   try{
     const mode=$("gameForm").dataset.mode,id=$("editId").value;
     if(mode==="public"){
-      await publicAdd({title,creator,creatorKey,icon,subject,description,url});
+      await publicAdd({title,creator,creatorKey,icon,subject,grade,unit,description,learningGoal,craftPoint,creatorMessage,qualityChecks,url});
       closeM("gameModal");
       toast("SUBMITTED — WAITING FOR APPROVAL");
     }else{
@@ -2255,7 +3239,7 @@ $("gameForm").onsubmit=async(e)=>{
       const old=idx>=0?games[idx]:null;
       const item={
         id:id||`admin-${Date.now()}`,
-        title,creator,creatorKey,icon,subject,description,url,
+        title,creator,creatorKey,icon,subject,grade,unit,description,learningGoal,craftPoint,creatorMessage,qualityChecks,url,
         isNew:old?old.isNew:true,
         submittedAt:old?old.submittedAt:Date.now(),
         approvedAt:old?old.approvedAt:Date.now()
@@ -2268,6 +3252,12 @@ $("gameForm").onsubmit=async(e)=>{
 
 
 $("grid").addEventListener("click",e=>{
+  const shareBtn=e.target.closest("[data-share-game]");
+  if(shareBtn){
+    e.preventDefault();e.stopPropagation();
+    openShare(shareBtn.dataset.shareGame);
+    return;
+  }
   const feedbackBtn=e.target.closest("[data-feedback-game]");
   if(feedbackBtn){
     e.preventDefault();e.stopPropagation();
