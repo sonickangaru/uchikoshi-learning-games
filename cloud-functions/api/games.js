@@ -33,6 +33,19 @@ function goodUrl(v){
     return u.protocol==="http:"||u.protocol==="https:";
   }catch{return false}
 }
+function cleanGrade(v){
+  const x=clean(v,12);
+  return new Set(["1","2","3","all","other"]).has(x)?x:"all";
+}
+function cleanChecks(v){
+  const x=v&&typeof v==="object"?v:{};
+  return {
+    played:Boolean(x.played),
+    mobile:Boolean(x.mobile),
+    learning:Boolean(x.learning),
+    finished:Boolean(x.finished)
+  };
+}
 function sanitize(raw,{allowEmptyUrl=false}={}){
   const title=clean(raw?.title,80);
   const icon=clean(raw?.icon,12)||"🎮";
@@ -46,6 +59,12 @@ function sanitize(raw,{allowEmptyUrl=false}={}){
   return {
     id:clean(raw?.id,120)||`game-${Date.now()}-${Math.random().toString(36).slice(2,9)}`,
     title,creator:creator||"CREATOR未設定",icon,subject,description,url,
+    grade:cleanGrade(raw?.grade),
+    unit:clean(raw?.unit,80),
+    learningGoal:clean(raw?.learningGoal,240),
+    craftPoint:clean(raw?.craftPoint,240),
+    creatorMessage:clean(raw?.creatorMessage,180),
+    qualityChecks:cleanChecks(raw?.qualityChecks),
     isNew:Boolean(raw?.isNew),
     submittedAt:Number(raw?.submittedAt)||Date.now(),
     approvedAt:Number(raw?.approvedAt)||0
@@ -158,14 +177,6 @@ function dateKeyJST(){
   const now=new Date(Date.now()+9*60*60*1000);
   return now.toISOString().slice(0,10);
 }
-function checkAdmin(request,env){
-  const expected=env?.ADMIN_PIN || process.env.ADMIN_PIN || "9312";
-  const got=request.headers.get("x-admin-pin")||"";
-  if(got!==expected){
-    return {ok:false,response:out({error:"PINが違います。"},401)};
-  }
-  return {ok:true};
-}
 async function sha256(value){
   try{
     const bytes=new TextEncoder().encode(String(value));
@@ -179,6 +190,77 @@ async function sha256(value){
     }
     return `fallback-${(h>>>0).toString(16)}`;
   }
+}
+
+const ADMIN_SESSION_TTL=8*60*60*1000;
+const ADMIN_SESSION_FILE="admin-sessions.json";
+
+function configuredAdminPin(env){
+  // IMPORTANT: production secret exists ONLY in EdgeOne environment variables.
+  // There is intentionally no source-code fallback password.
+  return clean(env?.ADMIN_PIN || process.env.ADMIN_PIN || "",128);
+}
+async function secureSame(a,b){
+  const [ha,hb]=await Promise.all([sha256(`cmp:${a}`),sha256(`cmp:${b}`)]);
+  if(ha.length!==hb.length)return false;
+  let diff=0;
+  for(let i=0;i<ha.length;i++)diff|=ha.charCodeAt(i)^hb.charCodeAt(i);
+  return diff===0;
+}
+function randomAdminToken(){
+  if(globalThis.crypto?.randomUUID){
+    return `${crypto.randomUUID()}-${crypto.randomUUID()}`;
+  }
+  const buf=new Uint8Array(32);
+  globalThis.crypto?.getRandomValues?.(buf);
+  return [...buf].map(x=>x.toString(16).padStart(2,"0")).join("") || `${Date.now()}-${Math.random()}-${Math.random()}`;
+}
+async function adminTokenHash(token){
+  return sha256(`uchikoshi-admin-session-v1:${token}`);
+}
+async function readAdminSessions(store){
+  const data=await store.get(ADMIN_SESSION_FILE,{type:"json",consistency:"strong"});
+  return data&&typeof data==="object"&&!Array.isArray(data)?data:{};
+}
+async function writeAdminSessions(store,sessions){
+  await store.setJSON(ADMIN_SESSION_FILE,sessions);
+}
+function pruneAdminSessions(sessions){
+  const now=Date.now();
+  const entries=Object.entries(sessions||{})
+    .filter(([,v])=>Number(v?.expiresAt||0)>now)
+    .sort((a,b)=>Number(b[1]?.createdAt||0)-Number(a[1]?.createdAt||0))
+    .slice(0,20);
+  return Object.fromEntries(entries);
+}
+async function createAdminSession(store){
+  let sessions=pruneAdminSessions(await readAdminSessions(store));
+  const token=randomAdminToken();
+  const hash=await adminTokenHash(token);
+  const now=Date.now();
+  sessions[hash]={createdAt:now,expiresAt:now+ADMIN_SESSION_TTL};
+  await writeAdminSessions(store,sessions);
+  return {token,expiresAt:now+ADMIN_SESSION_TTL};
+}
+async function requireAdminSession(request,store){
+  const token=clean(request.headers.get("x-admin-session")||"",180);
+  if(!token)return {ok:false,response:out({error:"ADMINセッションがありません。もう一度ログインしてください。"},401)};
+  const hash=await adminTokenHash(token);
+  let sessions=pruneAdminSessions(await readAdminSessions(store));
+  const session=sessions[hash];
+  if(!session){
+    await writeAdminSessions(store,sessions).catch(()=>{});
+    return {ok:false,response:out({error:"ADMINセッションの期限が切れました。もう一度ログインしてください。"},401)};
+  }
+  return {ok:true,hash,sessions};
+}
+async function revokeAdminSession(request,store){
+  const token=clean(request.headers.get("x-admin-session")||"",180);
+  if(!token)return;
+  const hash=await adminTokenHash(token);
+  const sessions=pruneAdminSessions(await readAdminSessions(store));
+  delete sessions[hash];
+  await writeAdminSessions(store,sessions);
 }
 function creatorKeyValue(v){
   const key=clean(v,32);
@@ -255,6 +337,13 @@ export default async function onRequest({request,env}){
       if(!key)return out({error:"作者返信用のCREATOR KEYを設定してください。"},400);
 
       const game=sanitize({...body.game,isNew:true,submittedAt:Date.now()});
+      if(!game.unit)return out({error:"単元・テーマを入力してください。"},400);
+      if(!game.learningGoal)return out({error:"このゲームで何を学べるか入力してください。"},400);
+      if(!game.craftPoint)return out({error:"このゲームならではの工夫を入力してください。"},400);
+      const qc=game.qualityChecks||{};
+      if(!(qc.played&&qc.mobile&&qc.learning&&qc.finished)){
+        return out({error:"掲載申請前の4つのセルフチェックをすべて確認してください。"},400);
+      }
       game._creatorKeyHash=await creatorKeyHash(game.id,key);
 
       if(approved.some(g=>g.url&&g.url===game.url)){
@@ -385,11 +474,30 @@ export default async function onRequest({request,env}){
       return out({ok:true});
     }
 
-    // ---------- ADMIN ----------
-    const auth=checkAdmin(request,env);
+    // ---------- ADMIN LOGIN ----------
+    if(body.action==="verify"){
+      const expected=configuredAdminPin(env);
+      if(!expected){
+        return out({error:"ADMIN_PINがサーバーに設定されていません。管理者に連絡してください。"},503);
+      }
+      const got=clean(body.pin,128);
+      if(!got || !(await secureSame(got,expected))){
+        // Small constant delay makes rapid guessing less attractive without storing IP addresses.
+        await new Promise(resolve=>setTimeout(resolve,650));
+        return out({error:"PINが違います。"},401);
+      }
+      const session=await createAdminSession(store);
+      return out({ok:true,sessionToken:session.token,expiresAt:session.expiresAt});
+    }
+
+    // ---------- ADMIN SESSION ----------
+    const auth=await requireAdminSession(request,store);
     if(!auth.ok)return auth.response;
 
-    if(body.action==="verify")return out({ok:true});
+    if(body.action==="logout"){
+      await revokeAdminSession(request,store);
+      return out({ok:true});
+    }
     if(body.action==="pending")return out({pending:(await readPending(store)).map(publicPending)});
     if(body.action==="analytics")return out({analytics:await readAnalytics(store)});
 
