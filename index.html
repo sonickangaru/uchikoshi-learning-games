@@ -2201,7 +2201,7 @@ const SUBJECTS={
   tech_home:{name:"技術・家庭",code:"TECH & HOME",accent:"#ffd36e"},
   english:{name:"英語",code:"ENGLISH",accent:"#9aa7ff"}
 };
-let games=[], pendingGames=[], activeSubject="latest", selectedCreator="", admin=false, adminSession="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}}, feedbackSummary={}, feedbackTeasers={}, visibleGameLimit=18, feedbackGameId="", feedbackKind="fun", replyTarget=null, shareGameId="";
+let games=[], pendingGames=[], activeSubject="latest", selectedCreator="", admin=false, adminPin="", backend=false, pendingDelete=null, analyticsData=null, publicAnalytics={totalVisits:0,totalPlays:0,gamePlays:{}}, feedbackSummary={}, feedbackTeasers={}, visibleGameLimit=18, feedbackGameId="", feedbackKind="fun", replyTarget=null, shareGameId="";
 const LOCAL_PREVIEW = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
 const $=id=>document.getElementById(id);
 
@@ -2451,11 +2451,11 @@ async function loadGames(){
           $("backendStatus").querySelector("span").textContent="STORAGE OFFLINE";
           $("footerMsg").textContent="Functionsは動作していますが、共有ストレージに接続できません。";
         }else{
-          $("backendStatus").querySelector("span").textContent="COMMUNITY OFFLINE";
+          $("backendStatus").querySelector("span").textContent="COMMUNITY RETRY";
           $("footerMsg").textContent="EdgeOne Functionsが起動していません。Gitビルド設定を確認してください。";
         }
       }catch{
-        $("backendStatus").querySelector("span").textContent="COMMUNITY OFFLINE";
+        $("backendStatus").querySelector("span").textContent="COMMUNITY RETRY";
         $("footerMsg").textContent="EdgeOne Functionsが起動していません。Gitビルド設定を確認してください。";
       }
     }
@@ -2801,12 +2801,12 @@ async function adminRequest(action,payload={}){
   }
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-session":adminSession},
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
     body:JSON.stringify({action,...payload})
   });
   const d=await r.json().catch(()=>({}));
   if(!r.ok){
-    if(r.status===401){admin=false;adminSession="";$("adminPanel").classList.add("hidden");}
+    if(r.status===401){admin=false;adminPin="";$("adminPanel").classList.add("hidden");}
     throw new Error(d.error||"保存できませんでした。");
   }
   if(Array.isArray(d.games))games=d.games;
@@ -2830,41 +2830,29 @@ async function adminReorder(){
   return adminRequest("reorder_games",{ids:games.map(g=>g.id)});
 }
 async function verifyPin(pin){
-  if(!backend){
-    if(LOCAL_PREVIEW){
-      // Preview contains no real admin secret. Any non-empty value only unlocks local demo editing.
-      adminSession="LOCAL_PREVIEW_SESSION";
-      return;
-    }
-    throw new Error("共有サーバーがOFFLINEです。ADMINには入れません。");
+  if(LOCAL_PREVIEW){
+    adminPin=pin;
+    return;
   }
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json"},
-    body:JSON.stringify({action:"verify",pin})
+    headers:{"content-type":"application/json","x-admin-pin":pin},
+    body:JSON.stringify({action:"verify"})
   });
   const d=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(d.error||"PINが違います。");
-  if(!d.sessionToken)throw new Error("ADMINセッションを開始できませんでした。");
-  adminSession=d.sessionToken;
+  adminPin=pin;
+  if(!backend){
+    backend=true;
+    setBackendStatus(true);
+  }
 }
 
 async function logoutAdmin(){
-  const token=adminSession;
   admin=false;
-  adminSession="";
+  adminPin="";
   $("adminPanel").classList.add("hidden");
   render();
-  if(backend&&token){
-    try{
-      await fetch("/api/games",{
-        method:"POST",
-        headers:{"content-type":"application/json","x-admin-session":token},
-        body:JSON.stringify({action:"logout"}),
-        keepalive:true
-      });
-    }catch{}
-  }
 }
 
 async function loadPending(){
@@ -2879,7 +2867,7 @@ async function loadPending(){
 
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-session":adminSession},
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
     body:JSON.stringify({action:"pending"})
   });
   const d=await r.json().catch(()=>({}));
@@ -2938,7 +2926,7 @@ async function moderate(id,decision){
 
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-session":adminSession},
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
     body:JSON.stringify({action:decision,id})
   });
   const d=await r.json().catch(()=>({}));
@@ -3054,7 +3042,7 @@ async function loadAnalytics(){
 
   const r=await fetch("/api/games",{
     method:"POST",
-    headers:{"content-type":"application/json","x-admin-session":adminSession},
+    headers:{"content-type":"application/json","x-admin-pin":adminPin},
     body:JSON.stringify({action:"analytics"})
   });
   const d=await r.json().catch(()=>({}));
@@ -3187,8 +3175,9 @@ $("shareCopy").onclick=async()=>{
 
 $("adminAdd").onclick=()=>{fillForm(null,"admin-add");openM("gameModal")};
 $("adminOpen").onclick=()=>{
-  if(!backend && !LOCAL_PREVIEW){toast("ADMIN LOCKED — SERVER OFFLINE");return;}
-  $("pinInput").value="";$("pinError").classList.add("hidden");openM("adminModal");
+  $("pinInput").value="";
+  $("pinError").classList.add("hidden");
+  openM("adminModal");
 };
 $("adminExit").onclick=()=>{logoutAdmin()};
 $("pinSubmit").onclick=async()=>{
