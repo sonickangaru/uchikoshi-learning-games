@@ -2460,6 +2460,14 @@ async function loadGames(){
   }catch(err){
     console.warn("Shared API unavailable:",err);
     games=LOCAL_PREVIEW?localLoad():SEED_GAMES;
+    if (location.protocol !== "file:" && (!LOCAL_PREVIEW || !localStorage.getItem("uchikoshi_universal_games"))) {
+      try {
+        const {addNovemberGames} = await import("./catalog/november-2026.js");
+        games = addNovemberGames(games);
+      } catch (catalogError) {
+        console.warn("Public catalog unavailable:", catalogError);
+      }
+    }
     const localA=typeof localAnalyticsLoad==="function"?localAnalyticsLoad():{totalVisits:0,totalPlays:0,gamePlays:{}};
     publicAnalytics=localA||{totalVisits:0,totalPlays:0,gamePlays:{}};
     feedbackSummary=LOCAL_PREVIEW?localFeedbackSummary():{};
