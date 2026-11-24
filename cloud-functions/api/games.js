@@ -1,4 +1,7 @@
 import { getStore } from "@edgeone/pages-blob";
+import { addNovemberGames } from "../../catalog/november-2026.js";
+
+const APPROVED_KEY = "games-2026-11.json";
 
 const SUBJECTS = new Set([
   "japanese","social","math","science","music","art","pe","tech_home","english"
@@ -79,8 +82,13 @@ function publicPending(g){
   return rest;
 }
 async function readApproved(store){
-  const data=await store.get("games.json",{type:"json",consistency:"strong"});
-  if(!Array.isArray(data)) return SEED;
+  const options = {type:"json", consistency:"strong"};
+  let data = await store.get(APPROVED_KEY, options);
+  if (data === null) {
+    // Until the next admin save, merge against the live legacy list without writing on a public GET.
+    const previous = await store.get("games.json", options);
+    data = addNovemberGames(Array.isArray(previous) ? previous : SEED);
+  }
   return data.map(g=>({...g,creator:clean(g?.creator,50)||"CREATOR未設定",subject:SUBJECTS.has(g?.subject)?g.subject:"science"}));
 }
 async function readPending(store){
@@ -474,7 +482,7 @@ export default async function onRequest({request,env}){
       await backupApproved(store,approved,"approve");
       approved.push(game);
       pending.splice(idx,1);
-      await store.setJSON("games.json",approved);
+      await store.setJSON(APPROVED_KEY,approved);
       await store.setJSON("pending.json",pending);
       return out({ok:true,games:approved.map(publicGame),pending:pending.map(publicPending)});
     }
@@ -514,7 +522,7 @@ export default async function onRequest({request,env}){
           _creatorKeyHash:suppliedKey?await creatorKeyHash(incoming.id,suppliedKey):undefined
         });
       }
-      await store.setJSON("games.json",approved);
+      await store.setJSON(APPROVED_KEY,approved);
       return out({ok:true,games:approved.map(publicGame)});
     }
 
@@ -525,7 +533,7 @@ export default async function onRequest({request,env}){
       const next=approved.filter(g=>g.id!==id);
       if(next.length===approved.length)return out({error:"ゲームが見つかりません。"},404);
       await backupApproved(store,approved,"delete_game");
-      await store.setJSON("games.json",next);
+      await store.setJSON(APPROVED_KEY,next);
       return out({ok:true,games:next.map(publicGame)});
     }
 
@@ -543,7 +551,7 @@ export default async function onRequest({request,env}){
       }
       for(const g of approved){if(!used.has(g.id))next.push(g)}
       await backupApproved(store,approved,"reorder_games");
-      await store.setJSON("games.json",next);
+      await store.setJSON(APPROVED_KEY,next);
       return out({ok:true,games:next.map(publicGame)});
     }
 
@@ -552,7 +560,7 @@ export default async function onRequest({request,env}){
       if(!data||!Array.isArray(data.games))return out({error:"復元できるバックアップがありません。"},404);
       const current=await readApproved(store);
       await backupApproved(store,current,"before_restore");
-      await store.setJSON("games.json",data.games);
+      await store.setJSON(APPROVED_KEY,data.games);
       return out({ok:true,games:data.games.map(publicGame),restoredFrom:data.savedAt||null});
     }
 
@@ -572,7 +580,7 @@ export default async function onRequest({request,env}){
       const merged=[...incoming];
       for(const g of current){if(!ids.has(g.id))merged.push(g)}
       await backupApproved(store,current,"legacy_replace_safe_merge");
-      await store.setJSON("games.json",merged);
+      await store.setJSON(APPROVED_KEY,merged);
       return out({ok:true,games:merged.map(publicGame)});
     }
 
